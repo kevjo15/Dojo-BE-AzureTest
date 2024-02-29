@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API-Layer", "API-Layer\API-Layer.csproj", "{0EC4C48B-46BD-4183-9953-DA29D2F1BD46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API-Layer", "API-Layer\API-Layer.csproj", "{0EC4C48B-46BD-4183-9953-DA29D2F1BD46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application-Layer", "Application-Layer\Application-Layer.csproj", "{C2510920-F969-4935-B954-371D084A32BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application-Layer", "Application-Layer\Application-Layer.csproj", "{C2510920-F969-4935-B954-371D084A32BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain-Layer", "Domain-Layer\Domain-Layer.csproj", "{249CA95C-BD83-41DC-8E76-F136A517F5EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain-Layer", "Domain-Layer\Domain-Layer.csproj", "{249CA95C-BD83-41DC-8E76-F136A517F5EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure-Layer", "Infrastructure-Layer\Infrastructure-Layer.csproj", "{84EE79A9-DB67-4269-8505-68E2E53330CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure-Layer", "Infrastructure-Layer\Infrastructure-Layer.csproj", "{84EE79A9-DB67-4269-8505-68E2E53330CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-Layer", "Test-Layer\Test-Layer.csproj", "{DC196A30-F8E1-410D-826A-21CD608D4581}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{84EE79A9-DB67-4269-8505-68E2E53330CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84EE79A9-DB67-4269-8505-68E2E53330CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84EE79A9-DB67-4269-8505-68E2E53330CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC196A30-F8E1-410D-826A-21CD608D4581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC196A30-F8E1-410D-826A-21CD608D4581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC196A30-F8E1-410D-826A-21CD608D4581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC196A30-F8E1-410D-826A-21CD608D4581}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
