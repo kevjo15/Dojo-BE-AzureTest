@@ -11,7 +11,7 @@ env:
  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
 
 jobs:
- publish:
+ deploy-to-prod:
     runs-on: ubuntu-latest
     
     steps:
