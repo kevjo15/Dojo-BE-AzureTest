@@ -5,7 +5,7 @@ on:
     branches: [development, production]
 
 jobs:
- deploy:
+ pull-request-control:
     runs-on: ubuntu-latest
 
     steps:
