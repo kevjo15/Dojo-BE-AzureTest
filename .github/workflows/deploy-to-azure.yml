@@ -9,8 +9,6 @@ env:
  ROOT_DIRECTORY_PATH: 'infinet-code'
  AZURE_APP_NAME: 'infinetcode-project-dojo-api'
  APP_NAME: 'dojo-be-api'
- ENVIRONMENT: 'Production'
-
 jobs:
   build:
     runs-on: windows-latest
@@ -40,7 +38,7 @@ jobs:
     runs-on: windows-latest
     needs: build
     environment:
-      name: ${{env.ENVIRONMENT}}
+      name: 'Production'
       url: ${{ steps.deploy-to-azure.outputs.webapp-url }}
 
     steps:
@@ -54,6 +52,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{env.AZURE_APP_NAME}}
-          slot-name: ${{env.ENVIRONMENT}}
+          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_218D5DC23A5845DA977DD8C4F2B5D69B }}
           package: .
