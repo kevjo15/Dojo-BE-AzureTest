@@ -11,7 +11,7 @@ adheres to the principles of Clean Architecture.
 - [Clean Architecture](#clean-architecture)
 - [Unit Testing](#unit-testing)
 - [Code Formatting](#code-formatting)
-- [Pull Request Template](#pull-request-template)
+- [Pull Request](#pull-request)
 - [Clean Code Principles](#clean-code-principles)
 - [C# Language Guidelines](#c-language-guidelines)
 
@@ -78,36 +78,46 @@ automatically formats the code in the files included in your commit.
 
 2. Change the name of `.git/hooks/pre-commit.sample` to `.git/hooks/pre-commit`.
 
-## Pull Request Template
+## Git Conventions
 
-Use this Pull Request template, to ensure that all contributors provide essential information about the changes made in
+### Commit Messages
+- Write meaningful and concise commit messages.
+- Use the imperative mood in your commit messages (e.g., "Add feature," "Fix bug," "Update documentation").
+
+### Squashing Commits
+- Before merging feature branches into the main branch, squash related commits into a single commit to maintain a clean and readable history.
+
+### Pull Request
+
+- Avoid committing directly to the main branch; prefer submitting changes through pull requests.
+- Before merging a pull request into the main branch, squash related commits into a single commit to maintain a clean and readable history.
+- Use pull request template, to ensure that all contributors provide essential information about the changes made in
 a pull request. This information is crucial for reviewers to understand the background behind the changes.
-
-```markdown
-# Pull Request Title
-
-## Description
-
-<!-- Briefly describe the changes introduced by this pull request. -->
-
-## Changes Made
-
-<!-- List the main changes made in this pull request. -->
-
-## Related Ticket or Issue
-
-- Fixes #ISSUE_NUMBER <!-- Replace ISSUE_NUMBER with the actual number of the GitHub issue or ticket. -->
-- Closes #PROJECT_NAME/ISSUE_NUMBER <!-- Replace PROJECT_NAME with the name of your GitHub project. -->
-
-## Checklist
-
-- [ ] Code adheres to the coding conventions
-- [ ] Unit tests are added for new code
-- [ ] Existing unit tests are updated if needed
-- [ ] Code follows the principles of Clean Architecture
-- [ ] Code formatting complies with the `.editorconfig` file
-- [ ] Pull request template is filled out
-```
+  ```markdown
+  # Pull Request Title
+  
+  ## Description
+  
+  <!-- Briefly describe the changes introduced by this pull request. -->
+  
+  ## Changes Made
+  
+  <!-- List the main changes made in this pull request. -->
+  
+  ## Related Ticket or Issue
+  
+  - Fixes #ISSUE_NUMBER <!-- Replace ISSUE_NUMBER with the actual number of the GitHub issue or ticket. -->
+  - Closes #PROJECT_NAME/ISSUE_NUMBER <!-- Replace PROJECT_NAME with the name of your GitHub project. -->
+  
+  ## Checklist
+  
+  - [ ] Code adheres to the coding conventions
+  - [ ] Unit tests are added for new code
+  - [ ] Existing unit tests are updated if needed
+  - [ ] Code follows the principles of Clean Architecture
+  - [ ] Code formatting complies with the `.editorconfig` file
+  - [ ] Pull request template is filled out
+  ```
 
 ## Clean Code Principles
 
