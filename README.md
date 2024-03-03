@@ -9,6 +9,7 @@ This project is a backend solution for a Courses API, built with Clean Code and 
 - [Technologies](#technologies)
 - [Features](#features)
 - [Contributing](#contributing)
+- [Code Conventions](#code-conventions)
 - [License](#license)
 
 ## Getting Started
@@ -54,11 +55,13 @@ This project is structured according to the principles of Clean Architecture, wh
 
 Contributions are welcome. Please read the [contributing guidelines](CONTRIBUTING.md) before getting started.
 
-## Code Style
+## Code Conventions
 
 We have a code style and conventions defined in [.editorconfig](.editorconfig), based on defaults from [Microsoft](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options).
 
 To comply with the code style defined in [.editorconfig](.editorconfig), use `dotnet format` locally before pushing the code.
+
+[Coding conventions](./docs/coding-conventions.md) - best practices and requirements for code in the app.
 
 ## License
 
