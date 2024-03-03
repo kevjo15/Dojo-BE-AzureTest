@@ -20,7 +20,7 @@ adheres to the principles of Clean Architecture.
 This project is built according tot he principles of Clean Architecture, to ensure separation of concerns, making the
 API domain-centric, with a clear distinction between the `Domain`, `Application`, `Infrastructure` and `API` layers.
 
-![Clean Aarchitecture Model](image.png)
+![Clean Architecture Model](https://github.com/InFiNet-Code-AB/Dojo-BE/assets/49125242/3116b03e-b787-482a-b1fc-222a960b4173)
 
 ## Unit Testing
 
