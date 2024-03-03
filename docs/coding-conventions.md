@@ -55,10 +55,10 @@ We encourage using the TDD methodology:
 
 ## Code Formatting
 
-We have code style and conventions defined in the [.editorconfig](.editorconfig) file. The conventions are based on
+We have code style and conventions defined in the [.editorconfig](../.editorconfig) file. The conventions are based on
 [Microsoft's Code-style rule options](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options).
 
-To comply with the code style defined in [.editorconfig](.editorconfig), use `dotnet format` locally before pushing
+To comply with the code style defined in [.editorconfig](../.editorconfig), use `dotnet format` locally before pushing
 code.
 
 To enforce running `dotnet format` on commit, apply the following steps, to hook up `dotnet format` so that it
@@ -81,10 +81,12 @@ automatically formats the code in the files included in your commit.
 ## Git Conventions
 
 ### Commit Messages
+
 - Write meaningful and concise commit messages.
 - Use the imperative mood in your commit messages (e.g., "Add feature," "Fix bug," "Update documentation").
 
 ### Squashing Commits
+
 - Before merging feature branches into the main branch, squash related commits into a single commit to maintain a clean and readable history.
 
 ### Pull Request
@@ -92,25 +94,25 @@ automatically formats the code in the files included in your commit.
 - Avoid committing directly to the main branch; prefer submitting changes through pull requests.
 - Before merging a pull request into the main branch, squash related commits into a single commit to maintain a clean and readable history.
 - Use pull request template, to ensure that all contributors provide essential information about the changes made in
-a pull request. This information is crucial for reviewers to understand the background behind the changes.
+  a pull request. This information is crucial for reviewers to understand the background behind the changes.
   ```markdown
   # Pull Request Title
-  
+
   ## Description
-  
+
   <!-- Briefly describe the changes introduced by this pull request. -->
-  
+
   ## Changes Made
-  
+
   <!-- List the main changes made in this pull request. -->
-  
+
   ## Related Ticket or Issue
-  
+
   - Fixes #ISSUE_NUMBER <!-- Replace ISSUE_NUMBER with the actual number of the GitHub issue or ticket. -->
   - Closes #PROJECT_NAME/ISSUE_NUMBER <!-- Replace PROJECT_NAME with the name of your GitHub project. -->
-  
+
   ## Checklist
-  
+
   - [ ] Code adheres to the coding conventions
   - [ ] Unit tests are added for new code
   - [ ] Existing unit tests are updated if needed
