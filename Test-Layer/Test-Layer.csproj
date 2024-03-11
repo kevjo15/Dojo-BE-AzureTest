@@ -11,21 +11,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture.AutoMoq" Version="4.18.1" />
+    <PackageReference Include="AutoFixture.NUnit3" Version="4.18.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\API-Layer\API-Layer.csproj" />
     <ProjectReference Include="..\Application-Layer\Application-Layer.csproj" />
     <ProjectReference Include="..\Infrastructure-Layer\Infrastructure-Layer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TestHelper\" />
   </ItemGroup>
 
 </Project>
