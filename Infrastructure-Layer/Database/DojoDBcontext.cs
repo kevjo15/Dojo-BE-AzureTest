@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Domain_Layer.Models.UserModel;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure_Layer.Database
@@ -15,6 +16,9 @@ namespace Infrastructure_Layer.Database
         {
 
         }
+
+        public DbSet<UserModel> User { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
