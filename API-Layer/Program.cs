@@ -1,5 +1,7 @@
 ﻿using Application_Layer;
+using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer;
+using Infrastructure_Layer.Database;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,9 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<UserModel>().AddEntityFrameworkStores<DojoDBContext>();
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -24,6 +29,8 @@ app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dojo BE API V1");
 });
+
+app.MapIdentityApi<UserModel>();
 
 app.UseHttpsRedirection();
 
