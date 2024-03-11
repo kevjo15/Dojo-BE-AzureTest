@@ -17,4 +17,14 @@
     <ProjectReference Include="..\Infrastructure-Layer\Infrastructure-Layer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\DeleteUser\" />
+    <Folder Include="Commands\UpdateUser\" />
+    <Folder Include="Commands\Register\" />
+    <Folder Include="DTO´s\" />
+    <Folder Include="Queries\Login\" />
+    <Folder Include="Queries\GetAllUsers\" />
+    <Folder Include="Queries\GetUserByEmail\" />
+  </ItemGroup>
+
 </Project>
