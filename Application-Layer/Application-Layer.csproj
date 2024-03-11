@@ -22,7 +22,6 @@
     <Folder Include="Commands\UpdateUser\" />
     <Folder Include="Commands\Register\" />
     <Folder Include="Queries\Login\" />
-    <Folder Include="Queries\GetAllUsers\" />
     <Folder Include="Queries\GetUserByEmail\" />
   </ItemGroup>
 
