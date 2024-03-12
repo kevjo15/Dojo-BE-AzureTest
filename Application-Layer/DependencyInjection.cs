@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using Application_Layer.AutoMaper;
+using AutoMapper;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application_Layer
@@ -11,6 +13,12 @@ namespace Application_Layer
             services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
 
             services.AddValidatorsFromAssembly(assembly);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<UserProfile>();
+            });
+            services.AddSingleton(config.CreateMapper());
 
             return services;
         }

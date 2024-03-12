@@ -29,8 +29,4 @@
     <ProjectReference Include="..\Domain-Layer\Domain-Layer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\User\" />
-  </ItemGroup>
-
 </Project>
