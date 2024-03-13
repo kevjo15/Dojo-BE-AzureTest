@@ -1,10 +1,14 @@
-name: Build and deploy to Azure Web App 🚀
+name: Build and Deploy to Azure Web App 🚀
 
 on:
   push:
     branches:
       - production
 
+env:
+ ROOT_DIRECTORY_PATH: 'infinet-code'
+ AZURE_APP_NAME: 'infinetcode-project-dojo-api'
+ APP_NAME: 'dojo-be-api'
 jobs:
   build:
     runs-on: windows-latest
@@ -18,36 +22,36 @@ jobs:
           dotnet-version: '8.x'
           include-prerelease: true
 
-      - name: Build with dotnet 🏗️
+      - name: Build the App 🏗️
         run: dotnet build --configuration Release
 
-      - name: dotnet publish 📦
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Compile and Package the App 📦
+        run: dotnet publish -c Release -o ${{env.ROOT_DIRECTORY_PATH}}/${{env.AZURE_APP_NAME}}
 
       - name: Upload artifact for deployment job ✈️
         uses: actions/upload-artifact@v3
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: ${{env.APP_NAME}}
+          path: ${{env.ROOT_DIRECTORY_PATH}}/${{env.AZURE_APP_NAME}}
 
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: ${{ steps.deploy-to-azure.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job 📡
         uses: actions/download-artifact@v3
         with:
-          name: .net-app
+          name: ${{env.APP_NAME}}
 
       - name: Deploy to Azure Web App 💸
-        id: deploy-to-webapp
+        id: deploy-to-azure
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'infinetcode-project-dojo-api'
+          app-name: ${{env.AZURE_APP_NAME}}
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_218D5DC23A5845DA977DD8C4F2B5D69B }}
           package: .
