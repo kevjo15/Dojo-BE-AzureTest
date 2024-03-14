@@ -1,4 +1,6 @@
-﻿using Domain_Layer.Models.UserModel;
+﻿using AutoMapper;
+using Domain_Layer.Models.UserModel;
+using Infrastructure_Layer.Repositories.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,16 +9,17 @@ namespace Application_Layer.Queries.GetAllUsers
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<UserModel>>
     {
-        private readonly UserManager<UserModel> _userManager;
+        private readonly IUserRepository _userRepository;
 
-        public GetAllUsersQueryHandler(UserManager<UserModel> userManager)
+        public GetAllUsersQueryHandler(IUserRepository userRepository)
         {
-            _userManager = userManager;
+            _userRepository = userRepository;
+
         }
 
         public async Task<IEnumerable<UserModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            return await _userManager.Users.ToListAsync(cancellationToken);
+            return await _userRepository.GetAllUsersAsync();
         }
     }
 }
