@@ -21,7 +21,7 @@ namespace Application_Layer.Queries.LoginUser
         }
         public async Task<LoginResult> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByEmailAsync(request.Email!);
             if (user == null)
             {
                 return CreateLoginResult(false, "User not found.");
