@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Domain_Layer.Models.UserModel;
+﻿using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer.Repositories.User;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application_Layer.Queries.GetAllUsers
 {
