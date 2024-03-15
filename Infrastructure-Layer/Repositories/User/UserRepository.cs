@@ -20,7 +20,6 @@ namespace Infrastructure_Layer.Repositories.User
             return newUser;
 
         }
-
         public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
         {
             return await _userManager.Users.ToListAsync();
@@ -37,6 +36,11 @@ namespace Infrastructure_Layer.Repositories.User
             var user = await _userManager.FindByEmailAsync(email);
 
             return user!;
+        }
+
+        Task<UserModel> IUserRepository.GetUserByIdAsync(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
