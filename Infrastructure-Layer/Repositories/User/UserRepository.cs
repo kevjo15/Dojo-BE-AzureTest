@@ -42,5 +42,10 @@ namespace Infrastructure_Layer.Repositories.User
         {
             throw new NotImplementedException();
         }
+
+        public Task<UserModel> UpdateUserAsync(UserModel userToUpdate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

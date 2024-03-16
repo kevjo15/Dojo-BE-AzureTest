@@ -16,7 +16,7 @@ namespace Application_Layer
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<UserProfile>();
+                cfg.AddProfile<MappingProfiles>();
             });
             services.AddSingleton(config.CreateMapper());
 

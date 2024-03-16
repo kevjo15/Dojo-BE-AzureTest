@@ -4,11 +4,12 @@ using Domain_Layer.Models.UserModel;
 
 namespace Application_Layer.AutoMaper
 {
-    public class UserProfile : Profile
+    public class MappingProfiles : Profile
     {
-        public UserProfile()
+        public MappingProfiles()
         {
             CreateMap<RegisterUserDTO, UserModel>();
+            CreateMap<UpdatingUserDTO, UserModel>();
         }
     }
 }
