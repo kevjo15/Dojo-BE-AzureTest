@@ -47,5 +47,10 @@ namespace Infrastructure_Layer.Repositories.User
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> DeleteUserByIdAsync(UserModel user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

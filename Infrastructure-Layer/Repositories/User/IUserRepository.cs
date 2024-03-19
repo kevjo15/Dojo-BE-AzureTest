@@ -10,5 +10,6 @@ namespace Infrastructure_Layer.Repositories.User
         Task<UserModel> GetUserByEmailAsync(string email);
         Task<UserModel> GetUserByIdAsync(string userId);
         Task<UserModel> UpdateUserAsync(UserModel userToUpdate);
+        Task<bool> DeleteUserByIdAsync(UserModel user);
     }
 }
