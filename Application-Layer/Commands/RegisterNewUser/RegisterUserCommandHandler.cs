@@ -25,7 +25,6 @@ namespace Application_Layer.Commands.RegisterNewUser
             try
             {
                 var userToCreate = _mapper.Map<UserModel>(request.NewUser);
-                userToCreate.Role = "Admin";
 
                 var createdUser = await _userRepository.RegisterUserAsync(userToCreate);
 

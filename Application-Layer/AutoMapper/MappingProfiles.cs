@@ -8,8 +8,12 @@ namespace Application_Layer.AutoMaper
     {
         public MappingProfiles()
         {
-            CreateMap<RegisterUserDTO, UserModel>();
-            CreateMap<UpdatingUserDTO, UserModel>();
+            CreateMap<RegisterUserDTO, UserModel>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
+            CreateMap<UpdatingUserDTO, UserModel>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
         }
     }
 }
