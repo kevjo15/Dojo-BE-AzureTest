@@ -4,6 +4,7 @@ using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    partial class DojoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240315215412_SeedUserData")]
+    partial class SeedUserData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,13 +252,13 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "83bde5c0-5753-4c62-a302-f7fd1d6b23b6",
+                            ConcurrencyStamp = "8562e9f1-e27f-4d04-89ed-5500fa3ff17f",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEB47OpMVP/lQuF3HBJKI+jvTmF0O9XCs0EyIqpOyrtAqaQgT16/fD9NhB2HGWQweYA==",
+                            PasswordHash = "Bojan123!",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3020c37d-3f2b-460e-b1a5-f2d9fc8d7855",
+                            SecurityStamp = "2191d964-65ad-4d58-a2d4-9c5f73f7b319",
                             TwoFactorEnabled = false,
                             FirstName = "Bojan",
                             LastName = "Mirkovic",
@@ -265,13 +268,13 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036868",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7a19725b-0c1b-49f3-ab8c-2707dd9bbf45",
+                            ConcurrencyStamp = "86fecaea-1702-4d73-9782-a7c260d2a4de",
                             Email = "elliot@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEGV9VaM0aMjpy8F5I0mlYO7e78wnuXFZlO0sxD9E5a/5NHV14wpeHO/RTE8OzQcpkQ==",
+                            PasswordHash = "Elliot123!",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "94675d88-b8bb-49f2-89e6-9c1857e14a97",
+                            SecurityStamp = "0e6fce02-48a5-4bad-b75a-80e848c51055",
                             TwoFactorEnabled = false,
                             FirstName = "Elliot",
                             LastName = "Dahlin",
@@ -281,13 +284,13 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036869",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d1e9ecd-0cc9-4c5c-870f-a944c6771946",
+                            ConcurrencyStamp = "cb7b1c96-0344-4d68-adb2-9f686fb7f27a",
                             Email = "kevin@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEMX0fGem1LA/+wuo5Z0xfhEluNQhY82hqAeMXSsQe80U6aQT7SoF+AF5C/iHEH9pmQ==",
+                            PasswordHash = "Kevin123!",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f0d26140-2c0c-493a-ab01-9b85d5b3da4a",
+                            SecurityStamp = "ba3834c8-fb05-4f19-96ee-e40570f60c7f",
                             TwoFactorEnabled = false,
                             FirstName = "Kevin",
                             LastName = "Jorgensen",

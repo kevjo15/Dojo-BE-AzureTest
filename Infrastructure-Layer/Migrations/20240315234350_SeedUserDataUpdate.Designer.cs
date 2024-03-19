@@ -4,6 +4,7 @@ using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    partial class DojoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240315234350_SeedUserDataUpdate")]
+    partial class SeedUserDataUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,13 +252,13 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "83bde5c0-5753-4c62-a302-f7fd1d6b23b6",
+                            ConcurrencyStamp = "37d82e24-b243-46c5-974a-c1d354ee7d02",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEB47OpMVP/lQuF3HBJKI+jvTmF0O9XCs0EyIqpOyrtAqaQgT16/fD9NhB2HGWQweYA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIuV3O0ZDbbBXhKwkYRl4QbGaRyaTL0g3ffFEWcWmcgfihXXxlYBgVwL6YGg8ijsBg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3020c37d-3f2b-460e-b1a5-f2d9fc8d7855",
+                            SecurityStamp = "95abde3b-e553-4bc5-a068-0a560eace5a4",
                             TwoFactorEnabled = false,
                             FirstName = "Bojan",
                             LastName = "Mirkovic",
@@ -265,13 +268,13 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036868",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7a19725b-0c1b-49f3-ab8c-2707dd9bbf45",
+                            ConcurrencyStamp = "49af0b66-2a2a-48db-ad3a-1b5e1509430a",
                             Email = "elliot@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEGV9VaM0aMjpy8F5I0mlYO7e78wnuXFZlO0sxD9E5a/5NHV14wpeHO/RTE8OzQcpkQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIg+Mugq9dUpctQrbiSVGpbUkgHQ0IJiihiLEQiv8yBiKKn0b2AQYcwMlhLF4TC2IA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "94675d88-b8bb-49f2-89e6-9c1857e14a97",
+                            SecurityStamp = "8529d701-4fc5-4f19-8ea7-dc1e45f0c782",
                             TwoFactorEnabled = false,
                             FirstName = "Elliot",
                             LastName = "Dahlin",
@@ -281,13 +284,13 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036869",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d1e9ecd-0cc9-4c5c-870f-a944c6771946",
+                            ConcurrencyStamp = "ce198e2e-a884-4d7f-80b8-142f404edf45",
                             Email = "kevin@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEMX0fGem1LA/+wuo5Z0xfhEluNQhY82hqAeMXSsQe80U6aQT7SoF+AF5C/iHEH9pmQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFh+v39m41h8MDNY1nRAxNTv2wRD1d6dTbkehL8UaubDmDHazKva2zI28fqr2eZWpA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f0d26140-2c0c-493a-ab01-9b85d5b3da4a",
+                            SecurityStamp = "828123a2-c638-4c7f-8bfc-dc2f03faf5e7",
                             TwoFactorEnabled = false,
                             FirstName = "Kevin",
                             LastName = "Jorgensen",
