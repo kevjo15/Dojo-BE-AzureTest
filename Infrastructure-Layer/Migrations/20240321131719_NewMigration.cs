@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Infrastructure_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class NewMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +36,7 @@ namespace Infrastructure_Layer.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -158,6 +161,16 @@ namespace Infrastructure_Layer.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "047425eb-15a5-4310-9d25-e281ab036868", 0, "53a92c1b-da11-4d89-be29-ee6484ef7b22", "UserModel", "elliot@infinet.com", false, "Elliot", false, "Dahlin", false, null, null, null, "AQAAAAIAAYagAAAAEEek5jV2J8jUcYO6+4F6/z6gaQmZbUjJ73REoznCfQccr5RsDuUMxyKHrxxtD5cEqg==", null, false, "User", "a0da0960-c304-4495-b4b7-5111a9c8cb4e", false, null },
+                    { "047425eb-15a5-4310-9d25-e281ab036869", 0, "07b3f918-5930-4009-8569-65fa2fd8065b", "UserModel", "kevin@infinet.com", false, "Kevin", false, "Jorgensen", false, null, null, null, "AQAAAAIAAYagAAAAEIA1M+ZZ2LkA2MfmAdniQ7J9a6ZkcIBd1w1eq9Ka0uZnDAcartXHFCHloHbGRAvO6Q==", null, false, "User", "c1625285-b4dd-47cf-9f2d-95b743b5b6cb", false, null },
+                    { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "2f6d74c2-3749-478a-a94c-803118256517", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, null, null, "AQAAAAIAAYagAAAAEA/ZFOc5ImSp1zVXZt/pdZln4D8M5wBdXgmD/9vImmeZOXEgxNY8emKV0gpNfeGG3w==", null, false, "User", "679ead22-eaa6-4954-aa38-49eba4088347", false, null }
                 });
 
             migrationBuilder.CreateIndex(

@@ -38,9 +38,18 @@ namespace Infrastructure_Layer.Repositories.User
             return user;
         }
 
-        public Task<UserModel> UpdateUserAsync(UserModel userToUpdate)
+        public async Task<UserModel> UpdateUserAsync(UserModel userToUpdate, string currentPassword, string newPassword)
         {
-            throw new NotImplementedException();
+            var isPasswordCorrect = await _userManager.CheckPasswordAsync(userToUpdate, currentPassword);
+
+            var changePasswordResult = await _userManager.ChangePasswordAsync(userToUpdate, currentPassword, newPassword);
+
+            userToUpdate.FirstName = userToUpdate.FirstName;
+            userToUpdate.LastName = userToUpdate.LastName;
+
+            var updateResult = await _userManager.UpdateAsync(userToUpdate);
+
+            return userToUpdate;
         }
 
         public async Task<bool> DeleteUserByIdAsync(string userId)

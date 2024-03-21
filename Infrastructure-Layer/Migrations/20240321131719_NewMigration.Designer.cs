@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    [Migration("20240311144404_Initial")]
-    partial class Initial
+    [Migration("20240321131719_NewMigration")]
+    partial class NewMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,6 +239,9 @@ namespace Infrastructure_Layer.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -246,6 +249,59 @@ namespace Infrastructure_Layer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("UserModel");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "08260479-52a0-4c0e-a588-274101a2c3be",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2f6d74c2-3749-478a-a94c-803118256517",
+                            Email = "bojan@infinet.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEA/ZFOc5ImSp1zVXZt/pdZln4D8M5wBdXgmD/9vImmeZOXEgxNY8emKV0gpNfeGG3w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "679ead22-eaa6-4954-aa38-49eba4088347",
+                            TwoFactorEnabled = false,
+                            FirstName = "Bojan",
+                            IsDeleted = false,
+                            LastName = "Mirkovic",
+                            Role = "User"
+                        },
+                        new
+                        {
+                            Id = "047425eb-15a5-4310-9d25-e281ab036868",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "53a92c1b-da11-4d89-be29-ee6484ef7b22",
+                            Email = "elliot@infinet.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEEek5jV2J8jUcYO6+4F6/z6gaQmZbUjJ73REoznCfQccr5RsDuUMxyKHrxxtD5cEqg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a0da0960-c304-4495-b4b7-5111a9c8cb4e",
+                            TwoFactorEnabled = false,
+                            FirstName = "Elliot",
+                            IsDeleted = false,
+                            LastName = "Dahlin",
+                            Role = "User"
+                        },
+                        new
+                        {
+                            Id = "047425eb-15a5-4310-9d25-e281ab036869",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "07b3f918-5930-4009-8569-65fa2fd8065b",
+                            Email = "kevin@infinet.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEIA1M+ZZ2LkA2MfmAdniQ7J9a6ZkcIBd1w1eq9Ka0uZnDAcartXHFCHloHbGRAvO6Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c1625285-b4dd-47cf-9f2d-95b743b5b6cb",
+                            TwoFactorEnabled = false,
+                            FirstName = "Kevin",
+                            IsDeleted = false,
+                            LastName = "Jorgensen",
+                            Role = "User"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
