@@ -21,13 +21,13 @@ namespace Application_Layer.Queries.LoginUser
         }
         public async Task<LoginResult> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email!);
+            var user = await _userManager.FindByEmailAsync(request.LoginUserDTO.Email);
             if (user == null)
             {
                 return CreateLoginResult(false, "User not found.");
             }
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, request.LoginUserDTO.Password, lockoutOnFailure: false);
             return CreateLoginResult(result.Succeeded, result.Succeeded ? null : "Invalid login attempt.");
         }
 

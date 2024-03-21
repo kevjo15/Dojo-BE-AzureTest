@@ -16,13 +16,7 @@ namespace Application_Layer.Commands.DeleteUser
         {
             try
             {
-                var user = await _userRepository.GetUserByIdAsync(request.UserId);
-                if (user == null)
-                {
-                    throw new InvalidOperationException($"User with ID {request.UserId} was not found.");
-                }
-
-                var success = await _userRepository.DeleteUserByIdAsync(user);
+                var success = await _userRepository.DeleteUserByIdAsync(request.UserId);
                 if (!success)
                 {
                     throw new InvalidOperationException("Failed to delete the user.");
