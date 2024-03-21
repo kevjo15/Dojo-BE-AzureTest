@@ -3,6 +3,7 @@ using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer;
 using Infrastructure_Layer.Database;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,12 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 
 builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<UserModel>().AddEntityFrameworkStores<DojoDBContext>();
+//builder.Services.AddIdentityApiEndpoints<UserModel>().AddEntityFrameworkStores<DojoDBContext>();
+
+builder.Services.AddDefaultIdentity<UserModel>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<DojoDBContext>();
+
 
 var app = builder.Build();
 

@@ -9,17 +9,32 @@ namespace Infrastructure_Layer.Repositories.User
     {
         private readonly UserManager<UserModel> _userManager;
         private readonly DojoDBContext _dojoDBContext;
-        public UserRepository(UserManager<UserModel> userManager, DojoDBContext dojoDBContext)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public UserRepository(UserManager<UserModel> userManager, DojoDBContext dojoDBContext, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _dojoDBContext = dojoDBContext;
+            _roleManager = roleManager;
         }
-        public async Task<UserModel> RegisterUserAsync(UserModel newUser, string password)
+
+        public async Task<UserModel> RegisterUserAsync(UserModel newUser, string password, string role)
         {
             var result = await _userManager.CreateAsync(newUser, password);
-            return newUser;
+            if (result.Succeeded)
+            {
+                if (!await _roleManager.RoleExistsAsync(role))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+                await _userManager.AddToRoleAsync(newUser, role);
 
+                newUser.Role = role;
+                await _userManager.UpdateAsync(newUser); 
+            }
+
+            return newUser;
         }
+
         public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
         {
             return await _userManager.Users.ToListAsync();
