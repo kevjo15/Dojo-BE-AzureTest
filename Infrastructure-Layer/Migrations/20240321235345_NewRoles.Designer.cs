@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    [Migration("20240311144404_Initial")]
-    partial class Initial
+    [Migration("20240321235345_NewRoles")]
+    partial class NewRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,10 +179,12 @@ namespace Infrastructure_Layer.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -219,10 +221,12 @@ namespace Infrastructure_Layer.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -239,6 +243,9 @@ namespace Infrastructure_Layer.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -246,6 +253,59 @@ namespace Infrastructure_Layer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("UserModel");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "08260479-52a0-4c0e-a588-274101a2c3be",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "84a45042-032f-43a4-8e88-80c92ebe58a6",
+                            Email = "bojan@infinet.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEN2g/gDcF8p5Kajn2FHkUuWaxM8f78US0qtorRGT4OF5x9PKtZkIAvXXSZYQt8Of2w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "24dd83e8-bba5-4cfb-9ec1-510b6f3b82d4",
+                            TwoFactorEnabled = false,
+                            FirstName = "Bojan",
+                            IsDeleted = false,
+                            LastName = "Mirkovic",
+                            Role = "User"
+                        },
+                        new
+                        {
+                            Id = "047425eb-15a5-4310-9d25-e281ab036868",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2425f740-9e4b-44ee-ba09-3f9ea3738f18",
+                            Email = "elliot@infinet.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEAA/a7fxZJJLMPKFClmlOlc1FiK6GCtnNV66CDE4zwPDUCePqgO/UVTeFrU5eBA5Ag==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "483f69a4-75b1-4a51-a1e8-72311ed789cb",
+                            TwoFactorEnabled = false,
+                            FirstName = "Elliot",
+                            IsDeleted = false,
+                            LastName = "Dahlin",
+                            Role = "User"
+                        },
+                        new
+                        {
+                            Id = "047425eb-15a5-4310-9d25-e281ab036869",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e5882303-7c89-4faf-b333-5463274cc6a6",
+                            Email = "kevin@infinet.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAECHUHhmmRCgwEsB4j+vFx0BpQ1ajuB6oZ8Vj+E0QJ08wL2i8NLiSRNiSC09lryMpog==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a74d6dca-3091-476b-84bd-f42e02f32ced",
+                            TwoFactorEnabled = false,
+                            FirstName = "Kevin",
+                            IsDeleted = false,
+                            LastName = "Jorgensen",
+                            Role = "User"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

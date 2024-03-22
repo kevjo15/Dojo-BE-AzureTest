@@ -7,18 +7,15 @@ namespace Infrastructure_Layer.DatabaseHelper
     public class DatabaseSeedHelper
     {
         private readonly IPasswordHasher<UserModel> _passwordHasher;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DatabaseSeedHelper(IPasswordHasher<UserModel> passwordHasher, RoleManager<IdentityRole> roleManager)
+        public DatabaseSeedHelper(IPasswordHasher<UserModel> passwordHasher)
         {
             _passwordHasher = passwordHasher;
-            _roleManager = roleManager;
         }
 
         public void SeedData(ModelBuilder modelBuilder)
         {
             SeedUsers(modelBuilder);
-            SeedRoles().Wait();
         }
 
         private void SeedUsers(ModelBuilder modelBuilder)
@@ -30,20 +27,5 @@ namespace Infrastructure_Layer.DatabaseHelper
             );
         }
 
-        private async Task SeedRoles()
-        {
-            if (!await _roleManager.RoleExistsAsync("Student"))
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Student"));
-            }
-            if (!await _roleManager.RoleExistsAsync("Teacher"))
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Teacher"));
-            }
-            if (!await _roleManager.RoleExistsAsync("Admin"))
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Admin"));
-            }
-        }
     }
 }

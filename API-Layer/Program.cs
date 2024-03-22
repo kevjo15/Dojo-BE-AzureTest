@@ -2,6 +2,7 @@
 using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer;
 using Infrastructure_Layer.Database;
+using Infrastructure_Layer.DatabaseHelper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.OpenApi.Models;
@@ -27,6 +28,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddDefaultIdentity<UserModel>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<DojoDBContext>();
+
+builder.Services.AddScoped<DatabaseSeedHelper>();
 
 
 var app = builder.Build();

@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Infrastructure_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class NewRoles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +36,7 @@ namespace Infrastructure_Layer.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -100,8 +103,8 @@ namespace Infrastructure_Layer.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -145,8 +148,8 @@ namespace Infrastructure_Layer.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -158,6 +161,16 @@ namespace Infrastructure_Layer.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "047425eb-15a5-4310-9d25-e281ab036868", 0, "2425f740-9e4b-44ee-ba09-3f9ea3738f18", "UserModel", "elliot@infinet.com", false, "Elliot", false, "Dahlin", false, null, null, null, "AQAAAAIAAYagAAAAEAA/a7fxZJJLMPKFClmlOlc1FiK6GCtnNV66CDE4zwPDUCePqgO/UVTeFrU5eBA5Ag==", null, false, "User", "483f69a4-75b1-4a51-a1e8-72311ed789cb", false, null },
+                    { "047425eb-15a5-4310-9d25-e281ab036869", 0, "e5882303-7c89-4faf-b333-5463274cc6a6", "UserModel", "kevin@infinet.com", false, "Kevin", false, "Jorgensen", false, null, null, null, "AQAAAAIAAYagAAAAECHUHhmmRCgwEsB4j+vFx0BpQ1ajuB6oZ8Vj+E0QJ08wL2i8NLiSRNiSC09lryMpog==", null, false, "User", "a74d6dca-3091-476b-84bd-f42e02f32ced", false, null },
+                    { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "84a45042-032f-43a4-8e88-80c92ebe58a6", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, null, null, "AQAAAAIAAYagAAAAEN2g/gDcF8p5Kajn2FHkUuWaxM8f78US0qtorRGT4OF5x9PKtZkIAvXXSZYQt8Of2w==", null, false, "User", "24dd83e8-bba5-4cfb-9ec1-510b6f3b82d4", false, null }
                 });
 
             migrationBuilder.CreateIndex(
