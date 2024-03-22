@@ -4,8 +4,8 @@ using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer;
 using Infrastructure_Layer.Database;
 using Infrastructure_Layer.DatabaseHelper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
