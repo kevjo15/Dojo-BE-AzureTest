@@ -29,7 +29,7 @@ namespace Infrastructure_Layer.Repositories.User
                 await _userManager.AddToRoleAsync(newUser, role);
 
                 newUser.Role = role;
-                await _userManager.UpdateAsync(newUser); 
+                await _userManager.UpdateAsync(newUser);
             }
 
             return newUser;
