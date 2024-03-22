@@ -120,7 +120,7 @@ namespace Application_Layer.Controllers
                 }
                 else
                 {
-                    return NotFound("User not found.");
+                    return BadRequest("Failed to update user information.");
                 }
             }
             catch (Exception ex)
