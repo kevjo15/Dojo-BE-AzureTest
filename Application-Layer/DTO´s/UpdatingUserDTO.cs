@@ -11,10 +11,22 @@ namespace Application_Layer.DTO_s
 
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; } = string.Empty;
+        public string CurrentPassword { get; set; } = string.Empty;
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; } = string.Empty;
 
         [Required]
         [RegularExpression(@"^(Admin|User|Teacher|Student)$", ErrorMessage = "Invalid role.")]
         public string Role { get; set; } = string.Empty;
+
+        [Required]
+        [DataType(DataType.Text)]
+        public string FirstName { get; set; } = string.Empty;
+
+        [Required]
+        [DataType(DataType.Text)]
+        public string LastName { get; set; } = string.Empty;
     }
 }

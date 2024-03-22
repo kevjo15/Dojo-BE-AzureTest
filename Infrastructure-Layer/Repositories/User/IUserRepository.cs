@@ -8,7 +8,7 @@ namespace Infrastructure_Layer.Repositories.User
         Task<IEnumerable<UserModel>> GetAllUsersAsync();
         Task<UserModel> GetUserByEmailAsync(string email);
         Task<UserModel> GetUserByIdAsync(string userId);
-        Task<UserModel> UpdateUserAsync(UserModel userToUpdate);
+        Task<UserModel> UpdateUserAsync(UserModel userToUpdate, string currentPassword, string newPassword);
         Task<bool> DeleteUserByIdAsync(string userId);
     }
 }

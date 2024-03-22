@@ -25,7 +25,7 @@ namespace Application_Layer.Commands.UpdateUser
             try
             {
                 _mapper.Map(request.UpdatingUserInfo, userToUpdate);
-                var updatedUser = await _userRepository.UpdateUserAsync(userToUpdate);
+                var updatedUser = await _userRepository.UpdateUserAsync(userToUpdate, request.UpdatingUserInfo.CurrentPassword, request.UpdatingUserInfo.NewPassword);
 
                 return updatedUser;
             }
