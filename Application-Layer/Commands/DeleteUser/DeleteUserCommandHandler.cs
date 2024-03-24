@@ -24,7 +24,7 @@ namespace Application_Layer.Commands.DeleteUser
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

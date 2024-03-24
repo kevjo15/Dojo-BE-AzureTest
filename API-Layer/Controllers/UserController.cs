@@ -48,7 +48,7 @@ namespace Application_Layer.Controllers
 
                 if (loginResult.Successful)
                 {
-                    return Ok();
+                    return Ok(new { token = loginResult.Token });
                 }
                 else
                 {
@@ -61,6 +61,7 @@ namespace Application_Layer.Controllers
             }
         }
 
+        [Authorize(Roles = "Teacher")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
@@ -76,6 +77,7 @@ namespace Application_Layer.Controllers
             }
         }
 
+        [Authorize(Roles = "Teacher")]
         [HttpGet("by-email/{email}")]
         public async Task<IActionResult> GetUserByEmail(string email)
         {
@@ -93,6 +95,7 @@ namespace Application_Layer.Controllers
 
         [HttpGet]
         [Route("GetAllUsers")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -106,6 +109,7 @@ namespace Application_Layer.Controllers
         }
         //[Authorize]
         [HttpPut("updateUser")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdatingUserDTO userDto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -128,7 +132,8 @@ namespace Application_Layer.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[Authorize]
+
+        [Authorize(Roles = "Teacher")]
         [HttpDelete("deleteUser/{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
