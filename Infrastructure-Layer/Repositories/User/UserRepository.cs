@@ -1,4 +1,4 @@
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Domain_Layer.Models.UserModel;
@@ -16,7 +16,7 @@ namespace Infrastructure_Layer.Repositories.User
         private readonly DojoDBContext _dojoDBContext;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-        public UserRepository(UserManager<UserModel> userManager, DojoDBContext dojoDBContext, RoleManager<IdentityRole> roleManager,  IConfiguration configuration)
+        public UserRepository(UserManager<UserModel> userManager, DojoDBContext dojoDBContext, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _dojoDBContext = dojoDBContext;
