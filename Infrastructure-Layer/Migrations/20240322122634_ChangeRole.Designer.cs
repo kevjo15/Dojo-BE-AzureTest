@@ -4,6 +4,7 @@ using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    partial class DojoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240322122634_ChangeRole")]
+    partial class ChangeRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,12 +179,10 @@ namespace Infrastructure_Layer.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -218,12 +219,10 @@ namespace Infrastructure_Layer.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -256,15 +255,14 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00418d72-966a-4daf-b323-d23b67df58b2",
+                            ConcurrencyStamp = "8704e296-8b99-41a1-95ae-8a6c7b0a046c",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAENVMc3FZbZ8fAoU9Bu5UTYsLoZ2c2roa0+Bmv9RnMR/EU/wd7xMWiq6IJ+0OmickRA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKUkavLJDddb1CJvDToMj7bg308M4P3qqq6vGAmhi5rboeYxdLCxQPzQLuIILXNGYg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc4fba9f-1688-4c90-8336-dc51b82c82bf",
+                            SecurityStamp = "b5bf7040-c572-4a1d-9075-8e9c994f7f7b",
                             TwoFactorEnabled = false,
-                            UserName = "bojan@infinet.com",
                             FirstName = "Bojan",
                             IsDeleted = false,
                             LastName = "Mirkovic",
@@ -274,15 +272,14 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036868",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2425f740-9e4b-44ee-ba09-3f9ea3738f18",
+                            ConcurrencyStamp = "00de1967-c502-4e0a-b61a-a7899ac8e361",
                             Email = "elliot@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEAA/a7fxZJJLMPKFClmlOlc1FiK6GCtnNV66CDE4zwPDUCePqgO/UVTeFrU5eBA5Ag==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELU+eUteyYSgSUBphixAlIdaAjbOJHoS2jb9TZcgomW6b9a5KzSoNIH2SyVkQgXTxg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "483f69a4-75b1-4a51-a1e8-72311ed789cb",
+                            SecurityStamp = "af5336b8-f5b6-4007-a7e8-a60f17bca9ec",
                             TwoFactorEnabled = false,
-                            UserName = "elliot@infinet.com",
                             FirstName = "Elliot",
                             IsDeleted = false,
                             LastName = "Dahlin",
@@ -292,15 +289,14 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036869",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "91b702fe-fe07-4ab5-8b17-f76923b998db",
+                            ConcurrencyStamp = "69f065c1-8d0f-425a-9831-ca55b44c9e1d",
                             Email = "kevin@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEFlW23xmJMoRbr3sOzGn16hpxFkmJdF8OO1wV82+w9IAJT6uER+iqZx1NrjkcBXKBg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMXbGEahO4D3hBE4k2C/s0W/e+CS3585HnL0I2PsGmpHcsMcUIffCtMSX5Rm/T6oag==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1467828b-f609-4414-9e68-5325d9a5d772",
+                            SecurityStamp = "4282b0d9-87c2-4b30-abcc-95ed0369f885",
                             TwoFactorEnabled = false,
-                            UserName = "kevin@infinet",
                             FirstName = "Kevin",
                             IsDeleted = false,
                             LastName = "Jorgensen",

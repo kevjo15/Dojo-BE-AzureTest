@@ -1,7 +1,12 @@
-﻿using Domain_Layer.Models.UserModel;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure_Layer.Repositories.User
 {
@@ -10,11 +15,13 @@ namespace Infrastructure_Layer.Repositories.User
         private readonly UserManager<UserModel> _userManager;
         private readonly DojoDBContext _dojoDBContext;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public UserRepository(UserManager<UserModel> userManager, DojoDBContext dojoDBContext, RoleManager<IdentityRole> roleManager)
+        private readonly IConfiguration _configuration;
+        public UserRepository(UserManager<UserModel> userManager, DojoDBContext dojoDBContext, RoleManager<IdentityRole> roleManager,  IConfiguration configuration)
         {
             _userManager = userManager;
             _dojoDBContext = dojoDBContext;
             _roleManager = roleManager;
+            _configuration = configuration;
         }
 
         public async Task<UserModel> RegisterUserAsync(UserModel newUser, string password, string role)
@@ -77,6 +84,22 @@ namespace Infrastructure_Layer.Repositories.User
                 return result.Succeeded;
             }
             return false;
+        }
+
+        public async Task<string> GenerateJwtTokenAsync(UserModel user)
+        {
+            var claims = await _userManager.GetClaimsAsync(user);
+            claims.Add(new Claim(ClaimTypes.Role, user.Role ?? ""));
+            claims.Add(new Claim(ClaimTypes.Email, user.Email ?? ""));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

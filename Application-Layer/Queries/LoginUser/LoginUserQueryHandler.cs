@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain_Layer.Models.UserModel;
+using Infrastructure_Layer.Repositories.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,11 +14,13 @@ namespace Application_Layer.Queries.LoginUser
     {
         private readonly SignInManager<UserModel> _signInManager;
         private readonly UserManager<UserModel> _userManager;
+        private readonly IUserRepository _userRepository;
 
-        public LoginUserQueryHandler(SignInManager<UserModel> signInManager, UserManager<UserModel> userManager)
+        public LoginUserQueryHandler(SignInManager<UserModel> signInManager, UserManager<UserModel> userManager, IUserRepository userRepository)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _userRepository = userRepository;
         }
         public async Task<LoginResult> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
@@ -28,12 +31,20 @@ namespace Application_Layer.Queries.LoginUser
             }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.LoginUserDTO.Password, lockoutOnFailure: false);
-            return CreateLoginResult(result.Succeeded, result.Succeeded ? null : "Invalid login attempt.");
+            if (result.Succeeded)
+            {
+                var token = await _userRepository.GenerateJwtTokenAsync(user);
+                return CreateLoginResult(true, null, token);
+            }
+            else
+            {
+                return CreateLoginResult(false, "Invalid login attempt.");
+            }
         }
 
-        private LoginResult CreateLoginResult(bool successful, string? error)
+        private LoginResult CreateLoginResult(bool successful, string? error, string? token = null)
         {
-            return new LoginResult { Successful = successful, Error = error };
+            return new LoginResult { Successful = successful, Error = error, Token = token };
         }
     }
 }

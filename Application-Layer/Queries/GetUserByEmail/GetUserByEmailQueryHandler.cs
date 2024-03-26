@@ -30,7 +30,7 @@ namespace Application_Layer.Queries.GetUserByEmail
 
                 return user;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

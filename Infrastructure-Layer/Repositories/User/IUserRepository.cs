@@ -10,5 +10,6 @@ namespace Infrastructure_Layer.Repositories.User
         Task<UserModel> GetUserByIdAsync(string userId);
         Task<UserModel> UpdateUserAsync(UserModel userToUpdate, string currentPassword, string newPassword);
         Task<bool> DeleteUserByIdAsync(string userId);
+        Task<string> GenerateJwtTokenAsync(UserModel user);
     }
 }
