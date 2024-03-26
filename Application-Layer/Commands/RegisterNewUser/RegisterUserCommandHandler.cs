@@ -6,7 +6,7 @@ using Serilog;
 
 namespace Application_Layer.Commands.RegisterNewUser
 {
-    internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserModel>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserModel>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
