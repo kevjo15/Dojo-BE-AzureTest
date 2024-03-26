@@ -3,6 +3,7 @@ using Application_Layer;
 using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer;
 using Infrastructure_Layer.Database;
+using Infrastructure_Layer.DatabaseHelper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +49,14 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 
 builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<UserModel>().AddEntityFrameworkStores<DojoDBContext>();
+//builder.Services.AddIdentityApiEndpoints<UserModel>().AddEntityFrameworkStores<DojoDBContext>();
+
+builder.Services.AddDefaultIdentity<UserModel>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<DojoDBContext>();
+
+builder.Services.AddScoped<DatabaseSeedHelper>();
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

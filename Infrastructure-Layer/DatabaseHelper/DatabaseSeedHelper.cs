@@ -16,7 +16,6 @@ namespace Infrastructure_Layer.DatabaseHelper
         public void SeedData(ModelBuilder modelBuilder)
         {
             SeedUsers(modelBuilder);
-            // Add more methods for other entities as needed
         }
 
         private void SeedUsers(ModelBuilder modelBuilder)
@@ -27,5 +26,6 @@ namespace Infrastructure_Layer.DatabaseHelper
                 new UserModel { Id = "047425eb-15a5-4310-9d25-e281ab036869", FirstName = "Kevin", LastName = "Jorgensen", UserName = "kevin@infinet", Email = "kevin@infinet.com", PasswordHash = _passwordHasher.HashPassword(new UserModel(), "Kevin123!"), Role = "Teacher" }
             );
         }
+
     }
 }

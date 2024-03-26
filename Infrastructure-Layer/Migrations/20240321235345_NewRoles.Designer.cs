@@ -4,6 +4,7 @@ using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    partial class DojoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240321235345_NewRoles")]
+    partial class NewRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,19 +259,18 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00418d72-966a-4daf-b323-d23b67df58b2",
+                            ConcurrencyStamp = "84a45042-032f-43a4-8e88-80c92ebe58a6",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAENVMc3FZbZ8fAoU9Bu5UTYsLoZ2c2roa0+Bmv9RnMR/EU/wd7xMWiq6IJ+0OmickRA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN2g/gDcF8p5Kajn2FHkUuWaxM8f78US0qtorRGT4OF5x9PKtZkIAvXXSZYQt8Of2w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc4fba9f-1688-4c90-8336-dc51b82c82bf",
+                            SecurityStamp = "24dd83e8-bba5-4cfb-9ec1-510b6f3b82d4",
                             TwoFactorEnabled = false,
-                            UserName = "bojan@infinet.com",
                             FirstName = "Bojan",
                             IsDeleted = false,
                             LastName = "Mirkovic",
-                            Role = "Admin"
+                            Role = "User"
                         },
                         new
                         {
@@ -282,29 +284,27 @@ namespace Infrastructure_Layer.Migrations
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "483f69a4-75b1-4a51-a1e8-72311ed789cb",
                             TwoFactorEnabled = false,
-                            UserName = "elliot@infinet.com",
                             FirstName = "Elliot",
                             IsDeleted = false,
                             LastName = "Dahlin",
-                            Role = "Student"
+                            Role = "User"
                         },
                         new
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036869",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "91b702fe-fe07-4ab5-8b17-f76923b998db",
+                            ConcurrencyStamp = "e5882303-7c89-4faf-b333-5463274cc6a6",
                             Email = "kevin@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEFlW23xmJMoRbr3sOzGn16hpxFkmJdF8OO1wV82+w9IAJT6uER+iqZx1NrjkcBXKBg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECHUHhmmRCgwEsB4j+vFx0BpQ1ajuB6oZ8Vj+E0QJ08wL2i8NLiSRNiSC09lryMpog==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1467828b-f609-4414-9e68-5325d9a5d772",
+                            SecurityStamp = "a74d6dca-3091-476b-84bd-f42e02f32ced",
                             TwoFactorEnabled = false,
-                            UserName = "kevin@infinet",
                             FirstName = "Kevin",
                             IsDeleted = false,
                             LastName = "Jorgensen",
-                            Role = "Teacher"
+                            Role = "User"
                         });
                 });
 
