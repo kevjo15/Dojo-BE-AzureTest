@@ -51,7 +51,7 @@ builder.Services.AddInfrastructureLayer(builder.Configuration);
 builder.Services.AddAuthorization();
 //builder.Services.AddIdentityApiEndpoints<UserModel>().AddEntityFrameworkStores<DojoDBContext>();
 
-builder.Services.AddDefaultIdentity<UserModel>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<UserModel>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<DojoDBContext>();
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class NewMigration : Migration
+    public partial class UserTests : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -103,8 +103,8 @@ namespace Infrastructure_Layer.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -148,8 +148,8 @@ namespace Infrastructure_Layer.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -168,9 +168,9 @@ namespace Infrastructure_Layer.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "047425eb-15a5-4310-9d25-e281ab036868", 0, "53a92c1b-da11-4d89-be29-ee6484ef7b22", "UserModel", "elliot@infinet.com", false, "Elliot", false, "Dahlin", false, null, null, null, "AQAAAAIAAYagAAAAEEek5jV2J8jUcYO6+4F6/z6gaQmZbUjJ73REoznCfQccr5RsDuUMxyKHrxxtD5cEqg==", null, false, "User", "a0da0960-c304-4495-b4b7-5111a9c8cb4e", false, null },
-                    { "047425eb-15a5-4310-9d25-e281ab036869", 0, "07b3f918-5930-4009-8569-65fa2fd8065b", "UserModel", "kevin@infinet.com", false, "Kevin", false, "Jorgensen", false, null, null, null, "AQAAAAIAAYagAAAAEIA1M+ZZ2LkA2MfmAdniQ7J9a6ZkcIBd1w1eq9Ka0uZnDAcartXHFCHloHbGRAvO6Q==", null, false, "User", "c1625285-b4dd-47cf-9f2d-95b743b5b6cb", false, null },
-                    { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "2f6d74c2-3749-478a-a94c-803118256517", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, null, null, "AQAAAAIAAYagAAAAEA/ZFOc5ImSp1zVXZt/pdZln4D8M5wBdXgmD/9vImmeZOXEgxNY8emKV0gpNfeGG3w==", null, false, "User", "679ead22-eaa6-4954-aa38-49eba4088347", false, null }
+                    { "047425eb-15a5-4310-9d25-e281ab036868", 0, "f2b6df21-96a2-4c26-97a0-edd3a096b9a3", "UserModel", "elliot@infinet.com", false, "Elliot", false, "Dahlin", false, null, null, null, "AQAAAAIAAYagAAAAENYSjmJUJHn8WSrMMxzPyD+UVCWwSqJWEJbNtWUQJHojvs7DS6BLNGcBqDa7xCZDRA==", null, false, "Student", "96bbb328-d12b-4126-8e2d-f9b47b21e508", false, "elliot@infinet.com" },
+                    { "047425eb-15a5-4310-9d25-e281ab036869", 0, "afd5c911-9c6b-4446-afd6-b4933bee1b8a", "UserModel", "kevin@infinet.com", false, "Kevin", false, "Jorgensen", false, null, null, null, "AQAAAAIAAYagAAAAEMBrVr77P2BYNbY71mYq0s1Ki3JKOYl4AsyS5xt06qH1Cq5lW0i4Vx4OxOS7X/ANSA==", null, false, "Teacher", "79f96e46-d0f0-4fdb-a730-c195e2348baf", false, "kevin@infinet" },
+                    { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "866722de-3c96-447a-8511-d706b8549140", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, null, null, "AQAAAAIAAYagAAAAEGCRLCqn5PuQnc+oXgpoyc0rmedOl5p6PdW+5VAmQTkpwViBre3vnTz+Nk3tsPe3/w==", null, false, "Admin", "ef398d03-1e40-40c4-9c28-c94392f405c3", false, "bojan@infinet.com" }
                 });
 
             migrationBuilder.CreateIndex(
