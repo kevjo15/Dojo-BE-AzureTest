@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    [Migration("20240321131719_NewMigration")]
-    partial class NewMigration
+    [Migration("20240327104304_UserTests")]
+    partial class UserTests
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,10 +179,12 @@ namespace Infrastructure_Layer.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -219,10 +221,12 @@ namespace Infrastructure_Layer.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -255,52 +259,55 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2f6d74c2-3749-478a-a94c-803118256517",
+                            ConcurrencyStamp = "866722de-3c96-447a-8511-d706b8549140",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEA/ZFOc5ImSp1zVXZt/pdZln4D8M5wBdXgmD/9vImmeZOXEgxNY8emKV0gpNfeGG3w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGCRLCqn5PuQnc+oXgpoyc0rmedOl5p6PdW+5VAmQTkpwViBre3vnTz+Nk3tsPe3/w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "679ead22-eaa6-4954-aa38-49eba4088347",
+                            SecurityStamp = "ef398d03-1e40-40c4-9c28-c94392f405c3",
                             TwoFactorEnabled = false,
+                            UserName = "bojan@infinet.com",
                             FirstName = "Bojan",
                             IsDeleted = false,
                             LastName = "Mirkovic",
-                            Role = "User"
+                            Role = "Admin"
                         },
                         new
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036868",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "53a92c1b-da11-4d89-be29-ee6484ef7b22",
+                            ConcurrencyStamp = "f2b6df21-96a2-4c26-97a0-edd3a096b9a3",
                             Email = "elliot@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEEek5jV2J8jUcYO6+4F6/z6gaQmZbUjJ73REoznCfQccr5RsDuUMxyKHrxxtD5cEqg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENYSjmJUJHn8WSrMMxzPyD+UVCWwSqJWEJbNtWUQJHojvs7DS6BLNGcBqDa7xCZDRA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a0da0960-c304-4495-b4b7-5111a9c8cb4e",
+                            SecurityStamp = "96bbb328-d12b-4126-8e2d-f9b47b21e508",
                             TwoFactorEnabled = false,
+                            UserName = "elliot@infinet.com",
                             FirstName = "Elliot",
                             IsDeleted = false,
                             LastName = "Dahlin",
-                            Role = "User"
+                            Role = "Student"
                         },
                         new
                         {
                             Id = "047425eb-15a5-4310-9d25-e281ab036869",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "07b3f918-5930-4009-8569-65fa2fd8065b",
+                            ConcurrencyStamp = "afd5c911-9c6b-4446-afd6-b4933bee1b8a",
                             Email = "kevin@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEIA1M+ZZ2LkA2MfmAdniQ7J9a6ZkcIBd1w1eq9Ka0uZnDAcartXHFCHloHbGRAvO6Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMBrVr77P2BYNbY71mYq0s1Ki3JKOYl4AsyS5xt06qH1Cq5lW0i4Vx4OxOS7X/ANSA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c1625285-b4dd-47cf-9f2d-95b743b5b6cb",
+                            SecurityStamp = "79f96e46-d0f0-4fdb-a730-c195e2348baf",
                             TwoFactorEnabled = false,
+                            UserName = "kevin@infinet",
                             FirstName = "Kevin",
                             IsDeleted = false,
                             LastName = "Jorgensen",
-                            Role = "User"
+                            Role = "Teacher"
                         });
                 });
 

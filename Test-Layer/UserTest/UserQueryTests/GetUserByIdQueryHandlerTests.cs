@@ -31,7 +31,7 @@ namespace Test_Layer.UserTest.UserQueryTests
             var result = await handler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.AreEqual(expectedUser, result);
+            Assert.That(result, Is.EqualTo(expectedUser));
             userRepositoryMock.Verify(repo => repo.GetUserByIdAsync(query.UserId), Times.Once);
         }
 
@@ -48,7 +48,7 @@ namespace Test_Layer.UserTest.UserQueryTests
             // Act & Assert
             var exception = Assert.ThrowsAsync<KeyNotFoundException>(() => handler.Handle(query, CancellationToken.None));
 
-            // Kontrollera att felmeddelandet innehåller det angivna användar-ID:t
+            // Kontrollera att felmeddelandet innehåller det angivna användar-ID:
             StringAssert.Contains(query.UserId, exception.Message);
         }
 

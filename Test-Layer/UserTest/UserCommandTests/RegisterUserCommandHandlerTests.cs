@@ -35,7 +35,7 @@ namespace Test_Layer.UserTest.UserCommandTests
             var result = await handler.Handle(command, CancellationToken.None);
 
             // Assert
-            Assert.AreEqual(registeredUser, result);
+            Assert.That(result, Is.EqualTo(registeredUser));
             userRepositoryMock.Verify(x => x.RegisterUserAsync(newUser, command.NewUser.Password, command.NewUser.Role), Times.Once);
         }
 

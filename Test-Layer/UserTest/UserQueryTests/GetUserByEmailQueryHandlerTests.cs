@@ -32,7 +32,7 @@ namespace Test_Layer.UserTest.UserQueryTests
         public void Handle_InvalidEmail_ThrowsArgumentException(
             GetUserByEmailQueryHandler handler)
         {
-            // Arrange - Skapar en ny instans med en tom sträng som ogiltig e-postadress
+            // Arrange
             var query = new GetUserByEmailQuery("");
 
             // Act & Assert
