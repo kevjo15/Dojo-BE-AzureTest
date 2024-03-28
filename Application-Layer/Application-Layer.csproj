@@ -9,12 +9,16 @@
 
   <ItemGroup>
     <Compile Remove="Commands\Register\**" />
+    <Compile Remove="Queries\Login\**" />
     <EmbeddedResource Remove="Commands\Register\**" />
+    <EmbeddedResource Remove="Queries\Login\**" />
     <None Remove="Commands\Register\**" />
+    <None Remove="Queries\Login\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.2" />
@@ -32,7 +36,6 @@
     <Folder Include="Commands\UpdateUser\" />
     <Folder Include="Queries\GetAllUsers\" />
     <Folder Include="Queries\GetUserByEmail\" />
-    <Folder Include="Queries\Login\" />
   </ItemGroup>
 
 </Project>

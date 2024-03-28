@@ -1,6 +1,8 @@
 ﻿using Application_Layer.AutoMaper;
+using Application_Layer.PipelineBehaviour;
 using AutoMapper;
 using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application_Layer
@@ -13,6 +15,7 @@ namespace Application_Layer
             services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
 
             services.AddValidatorsFromAssembly(assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
             var config = new MapperConfiguration(cfg =>
             {
