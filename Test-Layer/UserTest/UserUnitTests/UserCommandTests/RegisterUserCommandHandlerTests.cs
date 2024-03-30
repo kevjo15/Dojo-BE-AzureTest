@@ -11,7 +11,7 @@ using Infrastructure_Layer.Repositories.User;
 using Moq;
 using Test_Layer.TestHelper;
 
-namespace Test_Layer.UserTest.UserCommandTests
+namespace Test_Layer.UserTest.UnitUserTests.UserCommandTests
 {
     [TestFixture]
     public class RegisterUserCommandHandlerTests
