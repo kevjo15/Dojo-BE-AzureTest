@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Text;
 using Domain_Layer.Models.UserModel;
 using System.Net;
-using Test_Layer.Infrastructure;
+using Test_Layer.TestHelper;
 
 namespace Test.Application.Integration
 {

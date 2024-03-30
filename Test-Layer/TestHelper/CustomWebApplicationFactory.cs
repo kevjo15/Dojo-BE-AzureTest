@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Test_Layer.Infrastructure
+namespace Test_Layer.TestHelper
 {
     internal class CustomWebApplicationFactory<T> : WebApplicationFactory<Program>
     {
