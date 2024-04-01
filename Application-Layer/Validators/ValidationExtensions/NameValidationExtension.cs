@@ -4,7 +4,7 @@ namespace Application_Layer.Validators.ValidationExtensions
 {
     public static class NameValidationExtension
     {
-        public static IRuleBuilderOptions<T, string> MustBeValidName<T>(this IRuleBuilder<T, string> ruleBuilder) 
+        public static IRuleBuilderOptions<T, string> MustBeValidName<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
             return ruleBuilder
                 .NotEmpty().WithMessage("Name is required.")

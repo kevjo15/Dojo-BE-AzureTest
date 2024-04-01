@@ -1,8 +1,8 @@
 ﻿
-using MediatR;
-using Microsoft.Extensions.Logging;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Application_Layer.PipelineBehaviour
 {

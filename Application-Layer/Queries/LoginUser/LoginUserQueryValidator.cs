@@ -5,7 +5,7 @@ namespace Application_Layer.Queries.LoginUser
 {
     public class LoginUserQueryValidator : AbstractValidator<LoginUserQuery>
     {
-        public LoginUserQueryValidator() 
+        public LoginUserQueryValidator()
         {
             RuleFor(user => user.LoginUserDTO.Email)
                 .MustBeValidEmail();

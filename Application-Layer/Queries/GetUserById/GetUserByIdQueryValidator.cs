@@ -5,7 +5,7 @@ namespace Application_Layer.Queries.GetUserById
 {
     public class GetUserByIdQueryValidator : AbstractValidator<GetUserByIdQuery>
     {
-        public GetUserByIdQueryValidator() 
+        public GetUserByIdQueryValidator()
         {
             RuleFor(user => user.UserId)
                 .MustBeValidUserId();

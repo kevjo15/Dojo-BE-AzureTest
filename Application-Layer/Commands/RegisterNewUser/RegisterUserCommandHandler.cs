@@ -29,7 +29,7 @@ namespace Application_Layer.Commands.RegisterNewUser
 
                 return createdUser;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 throw;
             }

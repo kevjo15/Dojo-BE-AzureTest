@@ -5,10 +5,10 @@ namespace Application_Layer.Commands.DeleteUser
 {
     public class DeleteUserCommandValidator : AbstractValidator<DeleteUserCommand>
     {
-        public DeleteUserCommandValidator() 
+        public DeleteUserCommandValidator()
         {
             RuleFor(user => user.UserId)
                 .MustBeValidUserId();
-        }     
+        }
     }
 }

@@ -26,8 +26,8 @@ namespace Application_Layer
                 cfg.AddProfile<MappingProfiles>();
             });
             services.AddSingleton(config.CreateMapper());
-           
-   
+
+
 
             return services;
         }

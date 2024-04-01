@@ -5,7 +5,7 @@ namespace Application_Layer.Commands.RegisterNewUser
 {
     public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
     {
-        public RegisterUserCommandValidator() 
+        public RegisterUserCommandValidator()
         {
             RuleFor(user => user.NewUser.Role)
                .MustBeValidRole()
