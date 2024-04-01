@@ -2,7 +2,6 @@
 using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer.Repositories.User;
 using MediatR;
-using Serilog;
 
 namespace Application_Layer.Commands.RegisterNewUser
 {
@@ -30,10 +29,8 @@ namespace Application_Layer.Commands.RegisterNewUser
 
                 return createdUser;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
-
-              //  Log.Error("An error occurred while registering the user.", ex);
                 throw;
             }
         }
