@@ -1,5 +1,4 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 
 namespace Application_Layer.PipelineBehaviour
