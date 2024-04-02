@@ -18,8 +18,6 @@ namespace Application_Layer
 
             services.AddValidatorsFromAssembly(assembly);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-            //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-
 
             var config = new MapperConfiguration(cfg =>
             {

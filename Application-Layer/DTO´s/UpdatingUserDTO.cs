@@ -18,7 +18,7 @@ namespace Application_Layer.DTO_s
         public string NewPassword { get; set; } = string.Empty;
 
         [Required]
-        [RegularExpression(@"^(Admin|User|Teacher|Student)$", ErrorMessage = "Invalid role.")]
+        [RegularExpression(@"^(Admin|Teacher|Student)$", ErrorMessage = "Invalid role.")]
         public string Role { get; set; } = string.Empty;
 
         [Required]

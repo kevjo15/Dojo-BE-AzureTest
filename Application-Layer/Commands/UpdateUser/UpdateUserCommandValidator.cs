@@ -1,5 +1,4 @@
-﻿using Application_Layer.Commands.RegisterNewUser;
-using Application_Layer.Validators.ValidationExtensions;
+﻿using Application_Layer.Validators.ValidationExtensions;
 using FluentValidation;
 
 namespace Application_Layer.Commands.UpdateUser
@@ -10,7 +9,7 @@ namespace Application_Layer.Commands.UpdateUser
         {
             RuleFor(user => user.UpdatingUserInfo.Role)
                .MustBeValidRole()
-               .Must(role => role == "Teacher" || role == "Student").WithMessage("Role must be either 'Teacher' or 'Student'.");
+               .Must(role => role == "Teacher" || role == "Student" || role == "Admin").WithMessage("Role must be either 'Teacher', 'Student' or 'Admin'.");
             RuleFor(user => user.UpdatingUserInfo.FirstName)
                .MustBeValidName();
             RuleFor(user => user.UpdatingUserInfo.LastName)

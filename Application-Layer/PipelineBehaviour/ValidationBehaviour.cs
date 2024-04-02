@@ -22,7 +22,7 @@ namespace Application_Layer.PipelineBehaviour
                 if (failures.Count != 0)
                     throw new ValidationException(failures);
                 /*dont forget to ctatch ValidationException in GlobalException Handler and
-                convert it in to response taht is apropriate and return it from API*/
+                convert it in to response that is apropriate and return it from API*/
             }
             return await next();
         }
