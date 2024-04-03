@@ -58,7 +58,7 @@ namespace Test_Layer.UserTests.QueryTests
         {
             // Arrange
             var userRepository = A.Fake<IUserRepository>();
-            var invalidEmail = string.Empty; 
+            var invalidEmail = string.Empty;
             var getUserByEmailQuery = new GetUserByEmailQuery(invalidEmail);
 
             var handler = new GetUserByEmailQueryHandler(userRepository);
