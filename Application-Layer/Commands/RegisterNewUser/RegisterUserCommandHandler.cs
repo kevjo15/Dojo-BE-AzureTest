@@ -33,7 +33,6 @@ namespace Application_Layer.Commands.RegisterNewUser
             catch (Exception ex)
             {
 
-                Log.Error("An error occurred while registering the user.", ex);
                 throw;
             }
         }
