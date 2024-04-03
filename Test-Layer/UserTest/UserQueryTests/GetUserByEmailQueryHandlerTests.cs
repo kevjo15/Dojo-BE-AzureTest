@@ -51,7 +51,7 @@ namespace Test_Layer.UserTests.QueryTests
 
             // Act & Assert
             var ex = Assert.ThrowsAsync<KeyNotFoundException>(() => _handler.Handle(request, CancellationToken.None));
-            Assert.That(ex.Message, Is.EqualTo($"User with Email '{email}' cannot be found!"));
+            Assert.That(ex.Message, Is.EqualTo($"User with Email '{email}' cannot be found!."));
         }
     }
 }
