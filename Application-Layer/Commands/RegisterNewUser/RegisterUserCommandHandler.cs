@@ -2,7 +2,6 @@
 using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer.Repositories.User;
 using MediatR;
-using Serilog;
 
 namespace Application_Layer.Commands.RegisterNewUser
 {

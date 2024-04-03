@@ -47,5 +47,71 @@ namespace Test_Layer.UserTests.CommandTests
             Assert.That(result.Role, Is.EqualTo("Student"));
             Assert.That(result, Is.TypeOf<UserModel>());
         }
+        [Test]
+        public void Handle_UserDoesNotExist_ThrowsArgumentNullException()
+        {
+            // Arrange
+            var userRepository = A.Fake<IUserRepository>();
+            var updatingUserInfo = new UpdatingUserDTO { Email = "nonexistentUser@example.com", CurrentPassword = "oldPassword", NewPassword = "newPassword" };
+            var updateCommand = new UpdateUserCommand(updatingUserInfo);
+
+            // Configure the fake to return null when GetUserByEmailAsync is called with the specified email
+            A.CallTo(() => userRepository.GetUserByEmailAsync(A<string>.That.Matches(email => email == updatingUserInfo.Email)))
+                .Returns(Task.FromResult<UserModel>(null));
+
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UpdatingUserDTO, UserModel>();
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+
+            var handler = new UpdateUserCommandHandler(userRepository, mapper);
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<ArgumentNullException>(async () =>
+            {
+                await handler.Handle(updateCommand, CancellationToken.None);
+            });
+
+            // Assert that the exception message is as expected
+            StringAssert.Contains("User with E-mail nonexistentUser@example.com does not exist in the system!", ex.Message);
+        }
+        [Test]
+        public void Handle_ExceptionThrown_RethrowsException()
+        {
+            // Arrange
+            var userRepository = A.Fake<IUserRepository>();
+            var updatingUserInfo = new UpdatingUserDTO { Email = "testUser@yahoo.com", CurrentPassword = "oldPassword", NewPassword = "newPassword" };
+            var updateCommand = new UpdateUserCommand(updatingUserInfo);
+
+            // Configure the fake to return a user when GetUserByEmailAsync is called
+            var existingUser = new UserModel { Email = updatingUserInfo.Email };
+            A.CallTo(() => userRepository.GetUserByEmailAsync(A<string>.That.Matches(email => email == updatingUserInfo.Email)))
+                .Returns(Task.FromResult(existingUser));
+
+            // AutoMapper Configuration
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UpdatingUserDTO, UserModel>();
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+
+            // Configure the fake to throw an exception when UpdateUserAsync is called
+            A.CallTo(() => userRepository.UpdateUserAsync(A<UserModel>._, A<string>._, A<string>._))
+                .ThrowsAsync(new Exception("Test exception"));
+
+            var handler = new UpdateUserCommandHandler(userRepository, mapper);
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<Exception>(async () =>
+            {
+                await handler.Handle(updateCommand, CancellationToken.None);
+            });
+
+            // Assert that the exception message is as expected
+            Assert.That(ex.Message, Is.EqualTo("Test exception"));
+        }
     }
 }

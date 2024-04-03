@@ -53,5 +53,25 @@ namespace Test_Layer.UserTests.QueryTests
             var ex = Assert.ThrowsAsync<KeyNotFoundException>(() => _handler.Handle(request, CancellationToken.None));
             Assert.That(ex.Message, Is.EqualTo($"User with Email '{email}' cannot be found!."));
         }
+        [Test]
+        public void Handle_InvalidEmail_ThrowsArgumentException()
+        {
+            // Arrange
+            var userRepository = A.Fake<IUserRepository>();
+            var invalidEmail = string.Empty; 
+            var getUserByEmailQuery = new GetUserByEmailQuery(invalidEmail);
+
+            var handler = new GetUserByEmailQueryHandler(userRepository);
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                await handler.Handle(getUserByEmailQuery, CancellationToken.None);
+            });
+
+            // Assert that the exception message is as expected
+            StringAssert.Contains("Email cannot be empty!", ex.Message);
+        }
+
     }
 }

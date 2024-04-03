@@ -68,5 +68,37 @@ namespace Test_Layer.UserTests.CommandTests
                 await handler.Handle(registerCommand, CancellationToken.None);
             });
         }
+        [Test]
+        public void Handle_ExceptionThrown_RethrowsException()
+        {
+            // Arrange
+            var userRepository = A.Fake<IUserRepository>();
+            var newUser = new RegisterUserDTO { Email = "testUser@yahoo.com", Password = "testPassword1!", ConfirmPassword = "testPassword1!", FirstName = "Bojan", LastName = "Mirkovic", Role = "Student" };
+            var registerCommand = new RegisterUserCommand(newUser);
+
+            // AutoMapper Configuration
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<RegisterUserDTO, UserModel>();
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+
+            // Configure the fake to throw an exception when RegisterUserAsync is called
+            A.CallTo(() => userRepository.RegisterUserAsync(A<UserModel>._, A<string>._, A<string>._))
+                .ThrowsAsync(new Exception("Test exception"));
+
+            var handler = new RegisterUserCommandHandler(userRepository, mapper);
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<Exception>(async () =>
+            {
+                await handler.Handle(registerCommand, CancellationToken.None);
+            });
+
+            // Assert that the exception message is as expected
+            Assert.That(ex.Message, Is.EqualTo("Test exception"));
+        }
+
     }
 }

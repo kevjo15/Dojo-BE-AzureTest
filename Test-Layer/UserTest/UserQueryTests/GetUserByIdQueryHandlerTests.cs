@@ -53,5 +53,25 @@ namespace Test_Layer.UserTests.QueryTests
             var ex = Assert.ThrowsAsync<KeyNotFoundException>(() => _handler.Handle(request, CancellationToken.None));
             Assert.That(ex.Message, Is.EqualTo($"User with ID {userId} was not found!"));
         }
+        [Test]
+        public void Handle_InvalidUserId_ThrowsArgumentException()
+        {
+            // Arrange
+            var userRepository = A.Fake<IUserRepository>();
+            var invalidUserId = string.Empty;
+            var getUserByIdQuery = new GetUserByIdQuery(invalidUserId);
+
+            var handler = new GetUserByIdQueryHandler(userRepository);
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                await handler.Handle(getUserByIdQuery, CancellationToken.None);
+            });
+
+            // Assert that the exception message is as expected
+            StringAssert.Contains("UserId cannot be empty.", ex.Message);
+        }
+
     }
 }
