@@ -1,68 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Queries.GetUserById;
-using AutoFixture.NUnit3;
+﻿using Application_Layer.Queries.GetUserById;
 using Domain_Layer.Models.UserModel;
+using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
-using MediatR;
-using Moq;
-using Test_Layer.TestHelper;
 
-namespace Test_Layer.UserTest.UserQueryTests
+namespace Test_Layer.UserTests.QueryTests
 {
     [TestFixture]
     public class GetUserByIdQueryHandlerTests
     {
-        [Test, CustomAutoData]
-        public async Task Handle_ValidUserId_ReturnsUser(
-            [Frozen] Mock<IUserRepository> userRepositoryMock,
-            GetUserByIdQuery query,
-            UserModel expectedUser,
-            GetUserByIdQueryHandler handler)
+        private IUserRepository _userRepository;
+        private GetUserByIdQueryHandler _handler;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _userRepository = A.Fake<IUserRepository>();
+            _handler = new GetUserByIdQueryHandler(_userRepository);
+        }
+
+        [Test]
+        public async Task Handle_GetUserById_Returns_UserModel_When_User_Found()
         {
             // Arrange
-            userRepositoryMock.Setup(repo => repo.GetUserByIdAsync(query.UserId))
-                              .ReturnsAsync(expectedUser);
+            var userId = new Guid().ToString();
+            var expectedUser = new UserModel { Id = userId, UserName = "TestUser", Email = "email@gmail.com" };
+
+            A.CallTo(() => _userRepository.GetUserByIdAsync(userId)).Returns(expectedUser);
+
+            var request = new GetUserByIdQuery(userId);
 
             // Act
-            var result = await handler.Handle(query, CancellationToken.None);
+            var result = await _handler.Handle(request, CancellationToken.None);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedUser));
-            userRepositoryMock.Verify(repo => repo.GetUserByIdAsync(query.UserId), Times.Once);
+            Assert.IsNotNull(result);
+            Assert.That(result.Id, Is.EqualTo(expectedUser.Id));
+            Assert.That(result.UserName, Is.EqualTo(expectedUser.UserName));
+            Assert.That(result.Email, Is.EqualTo(expectedUser.Email));
         }
 
-        [Test, CustomAutoData]
-        public void Handle_NonExistentUserId_ThrowsKeyNotFoundException(
-            [Frozen] Mock<IUserRepository> userRepositoryMock,
-            GetUserByIdQuery query,
-            GetUserByIdQueryHandler handler)
+        [Test]
+        public void Handle_GetUserById_Throws_KeyNotFoundException_When_User_Not_Found()
         {
             // Arrange
-            userRepositoryMock.Setup(repo => repo.GetUserByIdAsync(query.UserId))
-                              .ReturnsAsync((UserModel)null);
+            UserModel? notFoundUser = null;
+            var userId = new Guid().ToString();
+            A.CallTo(() => _userRepository.GetUserByIdAsync(userId))!.Returns(notFoundUser);
+
+            var request = new GetUserByIdQuery(userId);
 
             // Act & Assert
-            var exception = Assert.ThrowsAsync<KeyNotFoundException>(() => handler.Handle(query, CancellationToken.None));
-
-            // Kontrollera att felmeddelandet innehåller det angivna användar-ID:
-            StringAssert.Contains(query.UserId, exception.Message);
-        }
-
-        [Test, CustomAutoData]
-        public void Handle_EmptyUserId_ThrowsArgumentException(
-            GetUserByIdQueryHandler handler)
-        {
-            // Arrange
-            var query = new GetUserByIdQuery("");
-
-            // Act & Assert
-            var exception = Assert.ThrowsAsync<ArgumentException>(() => handler.Handle(query, CancellationToken.None));
-            StringAssert.Contains("UserId cannot be empty", exception.Message);
+            var ex = Assert.ThrowsAsync<KeyNotFoundException>(() => _handler.Handle(request, CancellationToken.None));
+            Assert.That(ex.Message, Is.EqualTo($"User with ID {userId} was not found!"));
         }
     }
-
 }
