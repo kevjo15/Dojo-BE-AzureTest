@@ -20,8 +20,6 @@ namespace Application_Layer.PipelineBehaviour
                 var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
                 if (failures.Count != 0)
                     throw new ValidationException(failures);
-                /*dont forget to ctatch ValidationException in GlobalException Handler and
-                convert it in to response that is apropriate and return it from API*/
             }
             return await next();
         }
