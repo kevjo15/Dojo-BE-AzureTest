@@ -30,9 +30,8 @@ namespace Application_Layer.Commands.RegisterNewUser
 
                 return createdUser;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 throw;
             }
         }
