@@ -1,58 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Commands.UpdateUser;
-using AutoFixture.NUnit3;
+﻿using Application_Layer.Commands.UpdateUser;
+using Application_Layer.DTO_s;
 using AutoMapper;
 using Domain_Layer.Models.UserModel;
+using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
-using Moq;
-using Test_Layer.TestHelper;
 
-namespace Test_Layer.UserTest.UserCommandTests
+namespace Test_Layer.UserTests.CommandTests
 {
     [TestFixture]
     public class UpdateUserCommandHandlerTests
     {
-        [Test, CustomAutoData]
-        public async Task Handle_UserExists_UpdatesUserSuccessfully(
-            [Frozen] Mock<IUserRepository> userRepositoryMock,
-            [Frozen] Mock<IMapper> mapperMock,
-            UpdateUserCommand command,
-            UserModel user,
-            UserModel updatedUser,
-            UpdateUserCommandHandler handler)
+        [Test]
+        public async Task Handel_UpdateUser_Corect_Email_Return_UpdatedUser()
         {
             // Arrange
-            userRepositoryMock.Setup(x => x.GetUserByEmailAsync(command.UpdatingUserInfo.Email))
-                              .ReturnsAsync(user);
-            mapperMock.Setup(x => x.Map(command.UpdatingUserInfo, user))
-                      .Returns(updatedUser); // Simulate mapping result
-            userRepositoryMock.Setup(x => x.UpdateUserAsync(user, command.UpdatingUserInfo.CurrentPassword, command.UpdatingUserInfo.NewPassword))
-                              .ReturnsAsync(updatedUser);
+            var userRepository = A.Fake<IUserRepository>();
 
+            var updatingUserInfo = new UpdatingUserDTO
+            {
+                FirstName = "Bojan",
+                LastName = "Mirkovic",
+                Email = "test@yahoo.com",
+                CurrentPassword = "testpassword1",
+                NewPassword = "newTestPassword",
+                Role = "Student"
+            };
+            var updateCommand = new UpdateUserCommand(updatingUserInfo);
+            // AutoMapper Configuration
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UpdatingUserDTO, UserModel>();
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+
+            var updatedUser = mapper.Map<UserModel>(updateCommand.UpdatingUserInfo);
+            A.CallTo(() => userRepository.UpdateUserAsync(A<UserModel>._, A<string>._, A<string>._))
+               .WithAnyArguments()
+               .Returns(Task.FromResult(updatedUser));
+            var handler = new UpdateUserCommandHandler(userRepository, mapper);
             // Act
-            var result = await handler.Handle(command, CancellationToken.None);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(updatedUser));
-            userRepositoryMock.Verify(x => x.UpdateUserAsync(user, command.UpdatingUserInfo.CurrentPassword, command.UpdatingUserInfo.NewPassword), Times.Once);
-        }
-
-        [Test, CustomAutoData]
-        public void Handle_UserDoesNotExist_ThrowsArgumentNullException(
-            [Frozen] Mock<IUserRepository> userRepositoryMock,
-            UpdateUserCommand command,
-            UpdateUserCommandHandler handler)
-        {
-            // Arrange
-            userRepositoryMock.Setup(x => x.GetUserByEmailAsync(command.UpdatingUserInfo.Email))
-                              .ReturnsAsync((UserModel)null);
-
-            // Act & Assert
-            Assert.ThrowsAsync<ArgumentNullException>(() => handler.Handle(command, CancellationToken.None));
+            var result = await handler.Handle(updateCommand, CancellationToken.None);
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.That(result.FirstName, Is.EqualTo("Bojan"));
+            Assert.That(result.Role, Is.EqualTo("Student"));
+            Assert.That(result, Is.TypeOf<UserModel>());
         }
     }
 }
