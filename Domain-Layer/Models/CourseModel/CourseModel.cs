@@ -3,7 +3,7 @@ namespace Domain_Layer.Models.CourseModel
 {
     public class CourseModel
     {
-        public string Course_Id { get; set; } = Guid.NewGuid().ToString();
+        public string CourseId { get; set; } = Guid.NewGuid().ToString();
         public string Title { get; set; } = string.Empty;
         public string UserId { get; set; } = string.Empty;
         public string CategoryOrSubject { get; set; } = string.Empty;
