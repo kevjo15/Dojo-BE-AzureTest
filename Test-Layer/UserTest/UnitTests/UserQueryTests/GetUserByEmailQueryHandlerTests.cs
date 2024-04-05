@@ -20,6 +20,22 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
         }
 
         [Test, CustomAutoData]
+        public async Task Handle_ValidEmail_ReturnsUser(GetUserByEmailQuery query)
+        {
+            // Arrange
+            var expectedUser = new UserModel { Email = query.Email };
+            A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email))
+                .Returns(Task.FromResult(expectedUser));
+
+            // Act
+            var result = await _handler.Handle(query, CancellationToken.None);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedUser));
+        }
+
+
+        [Test, CustomAutoData]
         public void Handle_EmailNotFound_ThrowsKeyNotFoundException(GetUserByEmailQuery query)
         {
             // Arrange

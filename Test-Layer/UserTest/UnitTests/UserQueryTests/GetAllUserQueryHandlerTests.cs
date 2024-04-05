@@ -2,8 +2,10 @@
 using AutoFixture;
 using Domain_Layer.Models.UserModel;
 using FakeItEasy;
+using FluentAssertions;
 using Infrastructure_Layer.Repositories.User;
 using Test_Layer.TestHelper;
+
 
 namespace Test_Layer.UserTest.UnitTests.UserQueryTests
 {
@@ -36,6 +38,42 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             Assert.That(result, Is.EqualTo(expectedUsers));
             A.CallTo(() => _userRepository.GetAllUsersAsync()).MustHaveHappenedOnceExactly();
         }
+
+        [Test, CustomAutoData]
+        public async Task Handle_ReturnsAllUsers_WithExpectedProperties()
+        {
+            // Arrange
+            var expectedUsers = _fixture.CreateMany<UserModel>(5).ToList(); // Skapa en lista med 5 användare
+            A.CallTo(() => _userRepository.GetAllUsersAsync()).Returns(expectedUsers);
+
+            // Act
+            var result = await _handler.Handle(new GetAllUsersQuery(), CancellationToken.None);
+
+            // Assert
+            result.Should().BeEquivalentTo(expectedUsers, options => options.ComparingByMembers<UserModel>());
+            foreach (var user in result)
+            {
+                var expectedUser = expectedUsers.FirstOrDefault(u => u.Id == user.Id);
+                Assert.That(user.FirstName, Is.EqualTo(expectedUser.FirstName));
+                Assert.That(user.LastName, Is.EqualTo(expectedUser.LastName));
+                Assert.That(user.Id, Is.EqualTo(expectedUser.Id));
+                Assert.That(user.Role, Is.EqualTo(expectedUser.Role));
+            }
+        }
+
+        [Test, CustomAutoData]
+        public async Task Handle_ReturnsEmptyList_WhenNoUsersExist()
+        {
+            // Arrange
+            A.CallTo(() => _userRepository.GetAllUsersAsync()).Returns(new List<UserModel>());
+
+            // Act
+            var result = await _handler.Handle(new GetAllUsersQuery(), CancellationToken.None);
+
+            // Assert
+            Assert.That(result, Is.Empty);
+        }
+
 
         [Test, CustomAutoData]
         public void Handle_WhenRepositoryThrowsException_ThrowsException()

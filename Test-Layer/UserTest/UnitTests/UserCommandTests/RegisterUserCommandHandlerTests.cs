@@ -1,4 +1,5 @@
 ﻿using Application_Layer.Commands.RegisterNewUser;
+using Application_Layer.DTO_s;
 using AutoFixture;
 using AutoMapper;
 using Domain_Layer.Models.UserModel;
@@ -23,6 +24,38 @@ namespace Test_Layer.UserTest.UnitTests.UserCommandTests
             _handler = new RegisterUserCommandHandler(_userRepository, _mapper);
             _fixture = new Fixture();
         }
+
+        [Test]
+        public async Task Handle_ValidNewUser_ReturnsRegisteredUser1()
+        {
+            // Arrange
+            var userDto = _fixture.Build<RegisterUserDTO>()
+                                  .With(u => u.Email, "test@example.com")
+                                  .With(u => u.Password, "Password123!")
+                                  .With(u => u.ConfirmPassword, "Password123!")
+                                  .With(u => u.Role, "Teacher")
+                                  .Create();
+
+            var command = new RegisterUserCommand(userDto);
+            var newUser = _mapper.Map<UserModel>(userDto);
+            var registeredUser = _fixture.Build<UserModel>()
+                                         .With(u => u.Email, newUser.Email)
+                                         .Create();
+
+            A.CallTo(() => _mapper.Map<UserModel>(A<RegisterUserDTO>.That.IsEqualTo(userDto)))
+                .Returns(newUser);
+            A.CallTo(() => _userRepository.RegisterUserAsync(newUser, userDto.Password, userDto.Role))
+                .Returns(registeredUser);
+
+            // Act
+            var result = await _handler.Handle(command, default);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(registeredUser));
+            A.CallTo(() => _userRepository.RegisterUserAsync(A<UserModel>.That.Matches(u => u.Email == newUser.Email && u.FirstName == newUser.FirstName && u.LastName == newUser.LastName), userDto.Password, userDto.Role))
+                .MustHaveHappenedOnceExactly();
+        }
+
 
         [Test]
         public async Task Handle_ValidNewUser_ReturnsRegisteredUser()
@@ -54,6 +87,22 @@ namespace Test_Layer.UserTest.UnitTests.UserCommandTests
 
             // Act & Assert
             Assert.ThrowsAsync<ArgumentNullException>(() => _handler.Handle(command, default));
+        }
+        [Test]
+        public void Handle_FailedRegistration_ThrowsException()
+        {
+            // Arrange
+            var userDto = _fixture.Create<RegisterUserDTO>();
+            var command = new RegisterUserCommand(userDto);
+            var newUser = _mapper.Map<UserModel>(userDto);
+
+            A.CallTo(() => _mapper.Map<UserModel>(A<RegisterUserDTO>.That.IsEqualTo(userDto)))
+                .Returns(newUser);
+            A.CallTo(() => _userRepository.RegisterUserAsync(newUser, userDto.Password, userDto.Role))
+                .Throws<Exception>();
+
+            // Act & Assert
+            Assert.ThrowsAsync<Exception>(() => _handler.Handle(command, default));
         }
     }
 }
