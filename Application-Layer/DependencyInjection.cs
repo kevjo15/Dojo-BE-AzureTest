@@ -17,7 +17,6 @@ namespace Application_Layer
                  .AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
             services.AddValidatorsFromAssembly(assembly);
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
             var config = new MapperConfiguration(cfg =>
             {
