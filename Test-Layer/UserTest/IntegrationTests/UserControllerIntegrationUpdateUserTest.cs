@@ -124,8 +124,8 @@ namespace Test_Layer.UserTest.IntegrationTests
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
             var badRequestResult = result as BadRequestObjectResult;
             Assert.IsNotNull(badRequestResult);
-            Assert.AreEqual(400, badRequestResult.StatusCode);
-            Assert.AreEqual(expectedErrorMessage, badRequestResult.Value);
+            Assert.That(badRequestResult.StatusCode, Is.EqualTo(400));
+            Assert.That(badRequestResult.Value, Is.EqualTo(expectedErrorMessage));
         }
     }
 }

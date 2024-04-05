@@ -89,67 +89,6 @@ namespace Test_Layer.UserTest.IntegrationTests
         }
 
 
-
-
-        //[Test]
-        //public async Task Login_ReturnsOk_WhenLoginIsSuccessful()
-        //{
-        //    // Arrange
-        //    var registerUserDTO = new RegisterUserDTO
-        //    {
-        //        Email = "test@example.com",
-        //        FirstName = "Test",
-        //        LastName = "User",
-        //        Password = "Password123",
-        //        ConfirmPassword = "Password123",
-        //        Role = "Student"
-        //    };
-
-        //    // Assuming this is a registered user
-        //    var expectedUser = new UserModel
-        //    {
-        //        UserName = registerUserDTO.Email,
-        //        FirstName = registerUserDTO.FirstName,
-        //        LastName = registerUserDTO.LastName,
-        //        Role = registerUserDTO.Role
-        //    };
-
-        //    // Set up the mediator to return the expected user when RegisterUserCommand is sent
-        //    A.CallTo(() => _mediator.Send(A<RegisterUserCommand>._, A<CancellationToken>._))
-        //        .Returns(expectedUser);
-
-        //    // Prepare the login attempt
-        //    var loginUserDTO = new LoginUserDTO
-        //    {
-        //        Email = "test@example.com",
-        //        Password = "Password123"
-        //    };
-
-        //    var expectedLoginResult = new LoginResult
-        //    {
-        //        Successful = true,
-        //        Token = "fake_token"
-        //    };
-
-        //    // Set up the mediator to return the expected login result when LoginUserQuery is sent
-        //    A.CallTo(() => _mediator.Send(A<LoginUserQuery>._, A<CancellationToken>._))
-        //        .Returns(expectedLoginResult);
-
-        //    // Act
-        //    var actionResult = await _userController.Login(loginUserDTO) as OkObjectResult;
-
-        //    // Assert
-        //    Assert.IsInstanceOf<OkObjectResult>(actionResult);
-
-        //    // Use reflection to access the token property
-        //    var resultObject = actionResult.Value;
-        //    var tokenProperty = resultObject.GetType().GetProperty("token");
-        //    var tokenValue = tokenProperty.GetValue(resultObject, null) as string;
-
-        //    Assert.NotNull(tokenValue);
-        //    Assert.That(tokenValue, Is.EqualTo(expectedLoginResult.Token));
-        //}
-
         [Test]
         public async Task Login_ReturnsBadRequest_WhenCredentialsAreInvalid()
         {
