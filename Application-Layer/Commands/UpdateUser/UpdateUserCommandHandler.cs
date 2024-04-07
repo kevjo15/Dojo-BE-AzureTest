@@ -2,7 +2,6 @@
 using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer.Repositories.User;
 using MediatR;
-using Serilog;
 
 namespace Application_Layer.Commands.UpdateUser
 {
@@ -29,13 +28,10 @@ namespace Application_Layer.Commands.UpdateUser
 
                 return updatedUser;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Log.Error("An error occurred while updating user inforamtion.", ex);
                 throw;
             }
         }
     }
 }
-
-

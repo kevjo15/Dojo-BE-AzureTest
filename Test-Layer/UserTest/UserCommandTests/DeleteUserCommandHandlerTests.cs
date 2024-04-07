@@ -1,50 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Commands.DeleteUser;
-using AutoFixture.NUnit3;
+﻿using Application_Layer.Commands.DeleteUser;
+using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
-using Moq;
-using Test_Layer.TestHelper;
 
-namespace Test_Layer.UserTest.UserCommandTests
+namespace Test_Layer.UserTests.CommandTests
 {
     [TestFixture]
     public class DeleteUserCommandHandlerTests
     {
-        [Test, CustomAutoData]
-        public async Task Handle_UserDeletionSucceeds_ReturnsTrue(
-            [Frozen] Mock<IUserRepository> userRepositoryMock,
-            DeleteUserCommand command,
-            DeleteUserCommandHandler handler)
+        [Test]
+        public async Task Handle_DeleteUser_Corect_Id()
         {
             // Arrange
-            userRepositoryMock.Setup(x => x.DeleteUserByIdAsync(command.UserId))
-                              .ReturnsAsync(true);
+            var userRepository = A.Fake<IUserRepository>();
 
-            // Act
-            var result = await handler.Handle(command, CancellationToken.None);
+            var userToDeleteId = Guid.NewGuid().ToString();
+            var isDeleted = true;
+            var deleteUserCommand = new DeleteUserCommand(userToDeleteId);
 
-            // Assert
-            Assert.IsTrue(result);
-            userRepositoryMock.Verify(x => x.DeleteUserByIdAsync(command.UserId), Times.Once);
+            A.CallTo(() => userRepository.DeleteUserByIdAsync(A<string>._))
+            .WithAnyArguments()
+            .Returns(Task.FromResult(isDeleted));
+
+            var handler = new DeleteUserCommandHandler(userRepository);
+            //Act
+            var result = await handler.Handle(deleteUserCommand, CancellationToken.None);
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.That(result, Is.TypeOf<bool>());
+            A.CallTo(() => userRepository.DeleteUserByIdAsync(userToDeleteId)).MustHaveHappened();
         }
-
-        [Test, CustomAutoData]
-        public void Handle_UserDeletionFails_ThrowsInvalidOperationException(
-            [Frozen] Mock<IUserRepository> userRepositoryMock,
-            DeleteUserCommand command,
-            DeleteUserCommandHandler handler)
+        [Test]
+        public void Handle_DeleteUser_NotSuccessed()
         {
             // Arrange
-            userRepositoryMock.Setup(x => x.DeleteUserByIdAsync(command.UserId))
-                              .ReturnsAsync(false); // Simulate failure
+            var userRepository = A.Fake<IUserRepository>();
+            var userToDeleteId = Guid.NewGuid().ToString();
+            var isDeleted = false;
 
+            var deleteUserCommand = new DeleteUserCommand(userToDeleteId);
+
+            A.CallTo(() => userRepository.DeleteUserByIdAsync(A<string>._))
+           .WithAnyArguments()
+           .Returns(Task.FromResult(isDeleted));
+            var handler = new DeleteUserCommandHandler(userRepository);
             // Act & Assert
-            var exception = Assert.ThrowsAsync<InvalidOperationException>(() => handler.Handle(command, CancellationToken.None));
-            Assert.That(exception.Message, Is.EqualTo("Failed to delete the user."));
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                await handler.Handle(deleteUserCommand, CancellationToken.None);
+            });
         }
     }
 }

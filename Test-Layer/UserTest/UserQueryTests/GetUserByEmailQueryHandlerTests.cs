@@ -1,61 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Queries.GetUserByEmail;
-using AutoFixture.NUnit3;
+﻿using Application_Layer.Queries.GetUserByEmail;
 using Domain_Layer.Models.UserModel;
+using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
-using Moq;
-using Test_Layer.TestHelper;
 
-namespace Test_Layer.UserTest.UserQueryTests
+namespace Test_Layer.UserTests.QueryTests
 {
     [TestFixture]
     public class GetUserByEmailQueryHandlerTests
     {
-        [Test, CustomAutoData]
-        public void Handle_EmailNotFound_ThrowsKeyNotFoundException(
-         [Frozen] Mock<IUserRepository> userRepositoryMock,
-          GetUserByEmailQuery query,
-           GetUserByEmailQueryHandler handler)
-        {
-            // Arrange
-            userRepositoryMock.Setup(repo => repo.GetUserByEmailAsync(query.Email))
-                              .ReturnsAsync((UserModel)null);
+        private IUserRepository _userRepository;
+        private GetUserByEmailQueryHandler _handler;
 
-            // Act & Assert
-            Assert.ThrowsAsync<KeyNotFoundException>(() => handler.Handle(query, CancellationToken.None));
-        }
-        [Test, CustomAutoData]
-        public void Handle_InvalidEmail_ThrowsArgumentException(
-            GetUserByEmailQueryHandler handler)
+        [SetUp]
+        public void SetUp()
         {
-            // Arrange
-            var query = new GetUserByEmailQuery("");
-
-            // Act & Assert
-            var exception = Assert.ThrowsAsync<ArgumentException>(() => handler.Handle(query, CancellationToken.None));
-            StringAssert.Contains("Email cannot be empty!", exception.Message);
+            _userRepository = A.Fake<IUserRepository>();
+            _handler = new GetUserByEmailQueryHandler(_userRepository);
         }
 
-        [Test, CustomAutoData]
-        public void Handle_EmailDoesNotExist_ThrowsKeyNotFoundException(
-    [Frozen] Mock<IUserRepository> userRepositoryMock,
-    GetUserByEmailQueryHandler handler,
-    string nonExistentEmail)
+        [Test]
+        public async Task Handle_GetUserByEmail_Returns_UserModel_When_User_Found()
         {
             // Arrange
-            var query = new GetUserByEmailQuery(nonExistentEmail);
-            userRepositoryMock.Setup(repo => repo.GetUserByEmailAsync(nonExistentEmail))
-                              .ReturnsAsync((UserModel)null); // Simulera att ingen användare hittas
+            var email = "test@example.com";
+            var expectedUser = new UserModel { Id = "1", UserName = "TestUser", Email = email };
+
+            A.CallTo(() => _userRepository.GetUserByEmailAsync(email)).Returns(expectedUser);
+
+            var request = new GetUserByEmailQuery(email);
+
+            // Act
+            var result = await _handler.Handle(request, CancellationToken.None);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.That(result.Id, Is.EqualTo(expectedUser.Id));
+            Assert.That(result.UserName, Is.EqualTo(expectedUser.UserName));
+            Assert.That(result.Email, Is.EqualTo(expectedUser.Email));
+        }
+
+        [Test]
+        public void Handle_GetUserByEmail_Throws_KeyNotFoundException_When_User_Not_Found()
+        {
+            // Arrange
+            UserModel? notFoundUser = null;
+            var email = "nonexistent@example.com";
+            A.CallTo(() => _userRepository.GetUserByEmailAsync(email))!.Returns(notFoundUser);
+
+            var request = new GetUserByEmailQuery(email);
 
             // Act & Assert
-            var exception = Assert.ThrowsAsync<KeyNotFoundException>(() => handler.Handle(query, CancellationToken.None));
+            var ex = Assert.ThrowsAsync<KeyNotFoundException>(() => _handler.Handle(request, CancellationToken.None));
+            Assert.That(ex.Message, Is.EqualTo($"User with Email '{email}' cannot be found!."));
+        }
+        [Test]
+        public void Handle_InvalidEmail_ThrowsArgumentException()
+        {
+            // Arrange
+            var userRepository = A.Fake<IUserRepository>();
+            var invalidEmail = string.Empty;
+            var getUserByEmailQuery = new GetUserByEmailQuery(invalidEmail);
 
-            // Kontrollera att exception-meddelandet innehåller den e-postadress som inte kunde hittas
-            StringAssert.Contains(nonExistentEmail, exception.Message);
+            var handler = new GetUserByEmailQueryHandler(userRepository);
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
+                await handler.Handle(getUserByEmailQuery, CancellationToken.None);
+            });
+
+            // Assert that the exception message is as expected
+            StringAssert.Contains("Email cannot be empty!", ex.Message);
         }
 
     }
