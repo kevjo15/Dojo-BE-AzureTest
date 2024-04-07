@@ -2,11 +2,10 @@
 using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer.Repositories.User;
 using MediatR;
-using Serilog;
 
 namespace Application_Layer.Commands.RegisterNewUser
 {
-    internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserModel>
+    public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, UserModel>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -25,16 +24,13 @@ namespace Application_Layer.Commands.RegisterNewUser
             try
             {
                 var userToCreate = _mapper.Map<UserModel>(request.NewUser);
-                userToCreate.Role = "Admin";
 
-                var createdUser = await _userRepository.RegisterUserAsync(userToCreate);
+                var createdUser = await _userRepository.RegisterUserAsync(userToCreate, request.NewUser.Password, request.NewUser.Role);
 
                 return createdUser;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                Log.Error("An error occurred while registering the user.", ex);
                 throw;
             }
         }

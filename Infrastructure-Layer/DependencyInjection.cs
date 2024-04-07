@@ -1,5 +1,5 @@
-﻿using Domain_Layer.Models.UserModel;
-using Infrastructure_Layer.Database;
+﻿using Infrastructure_Layer.Database;
+using Infrastructure_Layer.DatabaseHelper;
 using Infrastructure_Layer.Repositories.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +15,7 @@ namespace Infrastructure_Layer
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserRepository, UserRepository>();
-
+            services.AddScoped<DatabaseSeedHelper>();
 
             return services;
         }

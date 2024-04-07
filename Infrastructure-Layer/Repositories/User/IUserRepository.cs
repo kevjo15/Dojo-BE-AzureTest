@@ -4,10 +4,12 @@ namespace Infrastructure_Layer.Repositories.User
 {
     public interface IUserRepository
     {
-        Task<UserModel> RegisterUserAsync(UserModel newUser);
+        Task<UserModel> RegisterUserAsync(UserModel newUser, string password, string role);
         Task<IEnumerable<UserModel>> GetAllUsersAsync();
-        Task DeleteUserAsync(string userId);
         Task<UserModel> GetUserByEmailAsync(string email);
         Task<UserModel> GetUserByIdAsync(string userId);
+        Task<UserModel> UpdateUserAsync(UserModel userToUpdate, string currentPassword, string newPassword);
+        Task<bool> DeleteUserByIdAsync(string userId);
+        Task<string> GenerateJwtTokenAsync(UserModel user);
     }
 }
