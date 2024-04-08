@@ -41,7 +41,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
 
             var user = new UserModel { Email = loginUserDTO.Email };
 
-            _sut = new LoginUserQueryHandler(_signInManager, _userManager, _userRepository);
+            _handler = new LoginUserQueryHandler(_signInManager, _userManager, _userRepository);
 
             A.CallTo(() => _userManager.FindByEmailAsync(A<string>.Ignored))
                 .Returns(user);
