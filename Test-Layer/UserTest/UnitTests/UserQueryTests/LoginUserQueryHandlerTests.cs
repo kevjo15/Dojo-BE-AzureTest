@@ -1,10 +1,10 @@
-﻿using Application_Layer.Queries.LoginUser;
+﻿using Application_Layer.DTO_s;
+using Application_Layer.Queries.LoginUser;
 using Domain_Layer.Models.UserModel;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Test_Layer.TestHelper;
 
 namespace Test_Layer.UserTest.UnitTests.UserQueryTests
 {
@@ -14,7 +14,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
         private UserManager<UserModel> _userManager;
         private SignInManager<UserModel> _signInManager;
         private IUserRepository _userRepository;
-        private LoginUserQueryHandler _sut;
+        private LoginUserQueryHandler _handler;
 
         [SetUp]
         public void SetUp()
@@ -29,12 +29,20 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
                     _userManager, A.Fake<IHttpContextAccessor>(), claimsFactory, null, null, null, null)));
             _userRepository = A.Fake<IUserRepository>();
 
-            _sut = new LoginUserQueryHandler(_signInManager, _userManager, _userRepository);
+            _handler = new LoginUserQueryHandler(_signInManager, _userManager, _userRepository);
         }
 
-        [Test, CustomAutoData]
-        public async Task Handle_SuccessfulLogin_ReturnsSuccessToken(UserModel user, LoginUserQuery query)
+        [Test]
+        public async Task Handle_SuccessfulLogin_ReturnsSuccessToken()
         {
+            // Arrange
+            var loginUserDTO = new LoginUserDTO { Email = "user@example.com", Password = "Password123" };
+            var query = new LoginUserQuery(loginUserDTO);
+
+            var user = new UserModel { Email = loginUserDTO.Email };
+
+            _handler = new LoginUserQueryHandler(_signInManager, _userManager, _userRepository);
+
             A.CallTo(() => _userManager.FindByEmailAsync(A<string>.Ignored))
                 .Returns(user);
             A.CallTo(() => _signInManager.CheckPasswordSignInAsync(user, A<string>.Ignored, false))
@@ -42,41 +50,50 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             A.CallTo(() => _userRepository.GenerateJwtTokenAsync(A<UserModel>.Ignored))
                 .Returns("TestToken");
 
-            var result = await _sut.Handle(query, CancellationToken.None);
+            var result = await _handler.Handle(query, CancellationToken.None);
 
             Assert.IsTrue(result.Successful);
             Assert.IsNotNull(result.Token);
             Assert.IsNull(result.Error);
         }
 
-        [Test, CustomAutoData]
-        public async Task Handle_InvalidCredentials_ReturnsFailure(UserModel user, LoginUserQuery query)
+        [Test]
+        public async Task Handle_InvalidCredentials_ReturnsFailure()
         {
+            var loginUserDTO = new LoginUserDTO { Email = "user@example.com", Password = "WrongPassword" };
+            var query = new LoginUserQuery(loginUserDTO);
+
+            var user = new UserModel { Email = loginUserDTO.Email };
+
             A.CallTo(() => _userManager.FindByEmailAsync(A<string>.Ignored))
                 .Returns(user);
             A.CallTo(() => _signInManager.CheckPasswordSignInAsync(user, A<string>.Ignored, false))
                 .Returns(SignInResult.Failed);
 
-            var result = await _sut.Handle(query, CancellationToken.None);
+            var result = await _handler.Handle(query, CancellationToken.None);
 
             Assert.IsFalse(result.Successful);
             Assert.IsNull(result.Token);
             Assert.That(result.Error, Is.EqualTo("Invalid login attempt."));
         }
 
-        [Test, CustomAutoData]
-        public async Task Handle_UserNotFound_ReturnsFailure(LoginUserQuery query)
+        [Test]
+        public async Task Handle_UserNotFound_ReturnsFailure()
         {
+            // Arrange
+            var loginUserDTO = new LoginUserDTO { Email = "nonexistent@example.com", Password = "Password123" };
+            var query = new LoginUserQuery(loginUserDTO);
+
             A.CallTo(() => _userManager.FindByEmailAsync(A<string>.Ignored))
                 .Returns((UserModel)null);
 
-            var result = await _sut.Handle(query, CancellationToken.None);
+            // Act
+            var result = await _handler.Handle(query, CancellationToken.None);
 
+            // Assert
             Assert.IsFalse(result.Successful);
             Assert.IsNull(result.Token);
             Assert.That(result.Error, Is.EqualTo("User not found."));
         }
-
-
     }
 }

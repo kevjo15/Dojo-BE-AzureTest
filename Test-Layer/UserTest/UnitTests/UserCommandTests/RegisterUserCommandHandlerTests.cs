@@ -52,6 +52,10 @@ namespace Test_Layer.UserTest.UnitTests.UserCommandTests
 
             // Assert
             Assert.That(result, Is.EqualTo(registeredUser));
+            Assert.That(result.Id, Is.EqualTo(registeredUser.Id));
+            Assert.That(result.FirstName, Is.EqualTo(registeredUser.FirstName));
+            Assert.That(result.Email, Is.EqualTo(registeredUser.Email));
+            Assert.That(result.Role, Is.EqualTo(registeredUser.Role));
             A.CallTo(() => _userRepository.RegisterUserAsync(A<UserModel>.That.Matches(u => u.Email == newUser.Email && u.FirstName == newUser.FirstName && u.LastName == newUser.LastName), userDto.Password, userDto.Role))
                 .MustHaveHappenedOnceExactly();
         }

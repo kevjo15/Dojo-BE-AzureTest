@@ -2,7 +2,7 @@
 using Domain_Layer.Models.UserModel;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
-using Test_Layer.TestHelper;
+
 
 namespace Test_Layer.UserTest.UnitTests.UserQueryTests
 {
@@ -19,11 +19,14 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             _handler = new GetUserByEmailQueryHandler(_userRepository);
         }
 
-        [Test, CustomAutoData]
-        public async Task Handle_ValidEmail_ReturnsUser(GetUserByEmailQuery query)
+        [Test]
+        public async Task Handle_ValidEmail_ReturnsUser()
         {
             // Arrange
-            var expectedUser = new UserModel { Email = query.Email };
+            string email = "user@example.com";
+            var query = new GetUserByEmailQuery(email);
+            var expectedUser = new UserModel { Email = email };
+
             A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email))
                 .Returns(Task.FromResult(expectedUser));
 
@@ -35,18 +38,21 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
         }
 
 
-        [Test, CustomAutoData]
-        public void Handle_EmailNotFound_ThrowsKeyNotFoundException(GetUserByEmailQuery query)
+        [Test]
+        public void Handle_EmailNotFound_ThrowsKeyNotFoundException()
         {
             // Arrange
-            A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email))
+            string email = "nonexistent@example.com";
+            var query = new GetUserByEmailQuery(email);
+            A.CallTo(() => _userRepository.GetUserByEmailAsync(email))
+
                 .Returns(Task.FromResult<UserModel>(null));
 
             // Act & Assert
             Assert.ThrowsAsync<KeyNotFoundException>(() => _handler.Handle(query, CancellationToken.None));
         }
 
-        [Test, CustomAutoData]
+        [Test]
         public void Handle_InvalidEmail_ThrowsArgumentException()
         {
             // Arrange
@@ -57,10 +63,11 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             StringAssert.Contains("Email cannot be empty!", exception.Message);
         }
 
-        [Test, CustomAutoData]
-        public void Handle_EmailDoesNotExist_ThrowsKeyNotFoundException(string nonExistentEmail)
+        [Test]
+        public void Handle_EmailDoesNotExist_ThrowsKeyNotFoundException()
         {
             // Arrange
+            string nonExistentEmail = "nonexistent@example.com";
             var query = new GetUserByEmailQuery(nonExistentEmail);
             A.CallTo(() => _userRepository.GetUserByEmailAsync(nonExistentEmail))
                 .Returns(Task.FromResult<UserModel>(null));
