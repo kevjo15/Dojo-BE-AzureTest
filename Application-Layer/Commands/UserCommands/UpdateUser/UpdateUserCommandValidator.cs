@@ -1,7 +1,8 @@
-﻿using Application_Layer.Validators.ValidationExtensions;
+﻿using Application_Layer.Commands.UpdateUser;
+using Application_Layer.Validators.ValidationExtensions;
 using FluentValidation;
 
-namespace Application_Layer.Commands.UpdateUser
+namespace Application_Layer.Commands.UserCommands.UpdateUser
 {
     public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
     {
