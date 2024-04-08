@@ -73,7 +73,7 @@ namespace Application_Layer.Controllers
             }
             else
             {
-                return NotFound($"Användaren med ID {id} hittades inte.");
+                return NotFound($"User with ID {id} was not found.");
             }
         }
 
@@ -89,7 +89,7 @@ namespace Application_Layer.Controllers
             }
             else
             {
-                return NotFound($"Användaren med e-postadressen {email} hittades inte.");
+                return NotFound($"User with Email {email} was not found.");
             }
         }
 
@@ -107,7 +107,7 @@ namespace Application_Layer.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[Authorize]
+        [Authorize]
         [HttpPut("updateUser")]
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdatingUserDTO userDto)
