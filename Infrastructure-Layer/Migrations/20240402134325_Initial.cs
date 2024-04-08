@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace Infrastructure_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class UserTests : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -166,12 +164,7 @@ namespace Infrastructure_Layer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { "047425eb-15a5-4310-9d25-e281ab036868", 0, "f2b6df21-96a2-4c26-97a0-edd3a096b9a3", "UserModel", "elliot@infinet.com", false, "Elliot", false, "Dahlin", false, null, null, null, "AQAAAAIAAYagAAAAENYSjmJUJHn8WSrMMxzPyD+UVCWwSqJWEJbNtWUQJHojvs7DS6BLNGcBqDa7xCZDRA==", null, false, "Student", "96bbb328-d12b-4126-8e2d-f9b47b21e508", false, "elliot@infinet.com" },
-                    { "047425eb-15a5-4310-9d25-e281ab036869", 0, "afd5c911-9c6b-4446-afd6-b4933bee1b8a", "UserModel", "kevin@infinet.com", false, "Kevin", false, "Jorgensen", false, null, null, null, "AQAAAAIAAYagAAAAEMBrVr77P2BYNbY71mYq0s1Ki3JKOYl4AsyS5xt06qH1Cq5lW0i4Vx4OxOS7X/ANSA==", null, false, "Teacher", "79f96e46-d0f0-4fdb-a730-c195e2348baf", false, "kevin@infinet" },
-                    { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "866722de-3c96-447a-8511-d706b8549140", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, null, null, "AQAAAAIAAYagAAAAEGCRLCqn5PuQnc+oXgpoyc0rmedOl5p6PdW+5VAmQTkpwViBre3vnTz+Nk3tsPe3/w==", null, false, "Admin", "ef398d03-1e40-40c4-9c28-c94392f405c3", false, "bojan@infinet.com" }
-                });
+                values: new object[] { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "da87db29-1279-4aba-8ebe-f700eaa445b5", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, "BOJAN@INFINET.COM", "BOJAN@INFINET.COM", "AQAAAAIAAYagAAAAEFgE/nV1Hw7Q+sAwkPbMqcu6QP8n386ZR0ow7guLl2ZNtYSXfahpwYGCqhx41pvLTQ==", null, false, "Admin", "71b1d3b5-3f8e-4e21-866b-85de090a96e9", false, "bojan@infinet.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

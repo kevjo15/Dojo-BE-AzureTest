@@ -256,55 +256,21 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "866722de-3c96-447a-8511-d706b8549140",
+                            ConcurrencyStamp = "da87db29-1279-4aba-8ebe-f700eaa445b5",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEGCRLCqn5PuQnc+oXgpoyc0rmedOl5p6PdW+5VAmQTkpwViBre3vnTz+Nk3tsPe3/w==",
+                            NormalizedEmail = "BOJAN@INFINET.COM",
+                            NormalizedUserName = "BOJAN@INFINET.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFgE/nV1Hw7Q+sAwkPbMqcu6QP8n386ZR0ow7guLl2ZNtYSXfahpwYGCqhx41pvLTQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ef398d03-1e40-40c4-9c28-c94392f405c3",
+                            SecurityStamp = "71b1d3b5-3f8e-4e21-866b-85de090a96e9",
                             TwoFactorEnabled = false,
                             UserName = "bojan@infinet.com",
                             FirstName = "Bojan",
                             IsDeleted = false,
                             LastName = "Mirkovic",
                             Role = "Admin"
-                        },
-                        new
-                        {
-                            Id = "047425eb-15a5-4310-9d25-e281ab036868",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f2b6df21-96a2-4c26-97a0-edd3a096b9a3",
-                            Email = "elliot@infinet.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAENYSjmJUJHn8WSrMMxzPyD+UVCWwSqJWEJbNtWUQJHojvs7DS6BLNGcBqDa7xCZDRA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "96bbb328-d12b-4126-8e2d-f9b47b21e508",
-                            TwoFactorEnabled = false,
-                            UserName = "elliot@infinet.com",
-                            FirstName = "Elliot",
-                            IsDeleted = false,
-                            LastName = "Dahlin",
-                            Role = "Student"
-                        },
-                        new
-                        {
-                            Id = "047425eb-15a5-4310-9d25-e281ab036869",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "afd5c911-9c6b-4446-afd6-b4933bee1b8a",
-                            Email = "kevin@infinet.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEMBrVr77P2BYNbY71mYq0s1Ki3JKOYl4AsyS5xt06qH1Cq5lW0i4Vx4OxOS7X/ANSA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "79f96e46-d0f0-4fdb-a730-c195e2348baf",
-                            TwoFactorEnabled = false,
-                            UserName = "kevin@infinet",
-                            FirstName = "Kevin",
-                            IsDeleted = false,
-                            LastName = "Jorgensen",
-                            Role = "Teacher"
                         });
                 });
 
