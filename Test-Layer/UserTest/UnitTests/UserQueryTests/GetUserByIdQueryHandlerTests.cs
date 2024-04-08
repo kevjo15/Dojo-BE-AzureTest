@@ -2,7 +2,6 @@
 using Domain_Layer.Models.UserModel;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
-using Test_Layer.TestHelper;
 
 namespace Test_Layer.UserTest.UnitTests.UserQueryTests
 {
@@ -19,10 +18,13 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             _handler = new GetUserByIdQueryHandler(_userRepository);
         }
 
-        [Test, CustomAutoData]
-        public async Task Handle_ValidUserId_ReturnsUser(GetUserByIdQuery query, UserModel expectedUser)
+        [Test]
+        public async Task Handle_ValidUserId_ReturnsUser()
         {
             // Arrange
+            var userId = new Guid().ToString();
+            var expectedUser = new UserModel { Id = userId, UserName = "TestUser", Email = "email@gmail.com" };
+            var query = new GetUserByIdQuery(userId);
             A.CallTo(() => _userRepository.GetUserByIdAsync(query.UserId))
                 .Returns(expectedUser);
 
@@ -31,13 +33,18 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedUser));
+            Assert.That(result.Id, Is.EqualTo(expectedUser.Id));
+            Assert.That(result.UserName, Is.EqualTo(expectedUser.UserName));
+            Assert.That(result.Email, Is.EqualTo(expectedUser.Email));
             A.CallTo(() => _userRepository.GetUserByIdAsync(query.UserId)).MustHaveHappenedOnceExactly();
         }
 
-        [Test, CustomAutoData]
-        public void Handle_NonExistentUserId_ThrowsKeyNotFoundException(GetUserByIdQuery query)
+        [Test]
+        public void Handle_NonExistentUserId_ThrowsKeyNotFoundException()
         {
             // Arrange
+            var userId = new Guid().ToString();
+            var query = new GetUserByIdQuery(userId);
             A.CallTo(() => _userRepository.GetUserByIdAsync(query.UserId))
                 .Returns(Task.FromResult<UserModel>(null));
 
@@ -47,7 +54,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             StringAssert.Contains(query.UserId, exception.Message);
         }
 
-        [Test, CustomAutoData]
+        [Test]
         public void Handle_EmptyUserId_ThrowsArgumentException()
         {
             // Arrange

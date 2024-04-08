@@ -5,7 +5,6 @@ using AutoMapper;
 using Domain_Layer.Models.UserModel;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
-using Test_Layer.TestHelper;
 
 namespace Test_Layer.UserTest.UnitTests.UserCommandTests
 {
@@ -90,5 +89,50 @@ namespace Test_Layer.UserTest.UnitTests.UserCommandTests
             // Act & Assert
             Assert.ThrowsAsync<ArgumentNullException>(() => _handler.Handle(command, default));
         }
+        [Test]
+        public void Handle_UpdateFails_ThrowsException()
+        {
+            // Arrange
+            var updatingUserInfo = new UpdatingUserDTO
+            {
+                Email = "existingEmail@example.com",
+                CurrentPassword = "ValidCurrentPassword123",
+                NewPassword = "NewValidPassword123",
+                Role = "Teacher",
+                FirstName = "UpdatedFirstName",
+                LastName = "UpdatedLastName"
+            };
+            var command = new UpdateUserCommand(updatingUserInfo);
+
+            var existingUser = new UserModel
+            {
+                Email = "existingEmail@example.com",
+                FirstName = "OriginalFirstName",
+                LastName = "OriginalLastName",
+                Role = "Student"
+            };
+
+            A.CallTo(() => _userRepository.GetUserByEmailAsync(updatingUserInfo.Email))
+                .Returns(Task.FromResult(existingUser));
+
+            // Simulera ett undantag vid försök att uppdatera användaren
+            A.CallTo(() => _userRepository.UpdateUserAsync(
+                    A<UserModel>.Ignored,
+                    updatingUserInfo.CurrentPassword,
+                    updatingUserInfo.NewPassword))
+                .ThrowsAsync(new InvalidOperationException("Update failed due to an unexpected error."));
+
+            // Act & Assert
+            var exception = Assert.ThrowsAsync<InvalidOperationException>(() => _handler.Handle(command, default));
+            Assert.That(exception.Message, Is.EqualTo("Update failed due to an unexpected error."));
+
+            A.CallTo(() => _userRepository.UpdateUserAsync(
+                A<UserModel>.Ignored, 
+                updatingUserInfo.CurrentPassword,
+                updatingUserInfo.NewPassword))
+                .MustHaveHappenedOnceExactly();
+
+        }
+
     }
 }

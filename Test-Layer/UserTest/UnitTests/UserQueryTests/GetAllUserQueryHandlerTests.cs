@@ -4,7 +4,6 @@ using Domain_Layer.Models.UserModel;
 using FakeItEasy;
 using FluentAssertions;
 using Infrastructure_Layer.Repositories.User;
-using Test_Layer.TestHelper;
 
 
 namespace Test_Layer.UserTest.UnitTests.UserQueryTests
@@ -24,7 +23,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             _fixture = new Fixture();
         }
 
-        [Test, CustomAutoData]
+        [Test]
         public async Task Handle_CallsGetAllUsersAsync_ReturnsAllUsers()
         {
             // Arrange
@@ -39,7 +38,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             A.CallTo(() => _userRepository.GetAllUsersAsync()).MustHaveHappenedOnceExactly();
         }
 
-        [Test, CustomAutoData]
+        [Test]
         public async Task Handle_ReturnsAllUsers_WithExpectedProperties()
         {
             // Arrange
@@ -61,7 +60,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             }
         }
 
-        [Test, CustomAutoData]
+        [Test]
         public async Task Handle_ReturnsEmptyList_WhenNoUsersExist()
         {
             // Arrange
@@ -75,7 +74,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
         }
 
 
-        [Test, CustomAutoData]
+        [Test]
         public void Handle_WhenRepositoryThrowsException_ThrowsException()
         {
             // Arrange
