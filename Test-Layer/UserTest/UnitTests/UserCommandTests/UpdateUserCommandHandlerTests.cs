@@ -88,6 +88,7 @@ namespace Test_Layer.UserTest.UnitTests.UserCommandTests
             // Act & Assert
             Assert.ThrowsAsync<ArgumentNullException>(() => _handler.Handle(command, default));
         }
+      
         [Test]
         public void Handle_UpdateFails_ThrowsException()
         {
@@ -132,6 +133,5 @@ namespace Test_Layer.UserTest.UnitTests.UserCommandTests
                 .MustHaveHappenedOnceExactly();
 
         }
-
     }
 }

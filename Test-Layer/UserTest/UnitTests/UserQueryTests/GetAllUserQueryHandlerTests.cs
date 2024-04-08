@@ -5,7 +5,6 @@ using FakeItEasy;
 using FluentAssertions;
 using Infrastructure_Layer.Repositories.User;
 
-
 namespace Test_Layer.UserTest.UnitTests.UserQueryTests
 {
     [TestFixture]

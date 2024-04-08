@@ -1,4 +1,4 @@
-﻿using Application_Layer.DTO_s;
+using Application_Layer.DTO_s;
 using Application_Layer.Queries.LoginUser;
 using Domain_Layer.Models.UserModel;
 using FakeItEasy;
@@ -40,6 +40,8 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             var query = new LoginUserQuery(loginUserDTO);
 
             var user = new UserModel { Email = loginUserDTO.Email };
+
+            _sut = new LoginUserQueryHandler(_signInManager, _userManager, _userRepository);
 
             A.CallTo(() => _userManager.FindByEmailAsync(A<string>.Ignored))
                 .Returns(user);
@@ -93,7 +95,5 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             Assert.IsNull(result.Token);
             Assert.That(result.Error, Is.EqualTo("User not found."));
         }
-
-
     }
 }

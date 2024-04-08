@@ -25,6 +25,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             var userId = new Guid().ToString();
             var expectedUser = new UserModel { Id = userId, UserName = "TestUser", Email = "email@gmail.com" };
             var query = new GetUserByIdQuery(userId);
+
             A.CallTo(() => _userRepository.GetUserByIdAsync(query.UserId))
                 .Returns(expectedUser);
 
@@ -45,6 +46,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             // Arrange
             var userId = new Guid().ToString();
             var query = new GetUserByIdQuery(userId);
+
             A.CallTo(() => _userRepository.GetUserByIdAsync(query.UserId))
                 .Returns(Task.FromResult<UserModel>(null));
 

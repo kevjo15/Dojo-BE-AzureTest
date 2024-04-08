@@ -3,6 +3,7 @@ using Domain_Layer.Models.UserModel;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
 
+
 namespace Test_Layer.UserTest.UnitTests.UserQueryTests
 {
     [TestFixture]
@@ -25,6 +26,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             string email = "user@example.com";
             var query = new GetUserByEmailQuery(email);
             var expectedUser = new UserModel { Email = email };
+
             A.CallTo(() => _userRepository.GetUserByEmailAsync(query.Email))
                 .Returns(Task.FromResult(expectedUser));
 
@@ -43,6 +45,7 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
             string email = "nonexistent@example.com";
             var query = new GetUserByEmailQuery(email);
             A.CallTo(() => _userRepository.GetUserByEmailAsync(email))
+
                 .Returns(Task.FromResult<UserModel>(null));
 
             // Act & Assert
@@ -63,7 +66,6 @@ namespace Test_Layer.UserTest.UnitTests.UserQueryTests
         [Test]
         public void Handle_EmailDoesNotExist_ThrowsKeyNotFoundException()
         {
-
             // Arrange
             string nonExistentEmail = "nonexistent@example.com";
             var query = new GetUserByEmailQuery(nonExistentEmail);
