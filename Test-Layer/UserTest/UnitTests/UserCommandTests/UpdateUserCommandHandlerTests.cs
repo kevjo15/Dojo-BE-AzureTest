@@ -69,7 +69,6 @@ namespace Test_Layer.UserTest.UnitTests.UserCommandTests
             Assert.That(result.LastName, Is.EqualTo(updatingUserInfo.LastName));
             Assert.That(result.Role, Is.EqualTo(updatingUserInfo.Role));
 
-            // Verifiera att UpdateUserAsync anropats med den förväntade användaren och lösenorden
             A.CallTo(() => _userRepository.UpdateUserAsync(
                 A<UserModel>.That.Matches(u => u.Email == updatingUserInfo.Email && u.FirstName == updatingUserInfo.FirstName && u.LastName == updatingUserInfo.LastName),
                 updatingUserInfo.CurrentPassword,
@@ -127,7 +126,7 @@ namespace Test_Layer.UserTest.UnitTests.UserCommandTests
             Assert.That(exception.Message, Is.EqualTo("Update failed due to an unexpected error."));
 
             A.CallTo(() => _userRepository.UpdateUserAsync(
-                A<UserModel>.Ignored, 
+                A<UserModel>.Ignored,
                 updatingUserInfo.CurrentPassword,
                 updatingUserInfo.NewPassword))
                 .MustHaveHappenedOnceExactly();
