@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using Application_Layer.Commands.CourseCommands.DeleteCourse;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Layer.Controllers
 {
-    [Route("api/[Coursecontroller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
     {
@@ -12,6 +13,28 @@ namespace API_Layer.Controllers
         public CourseController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpDelete("DeleteCourse/{courseId}")]
+        public async Task<IActionResult> DeleteCourse(string courseId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new DeleteCourseCommand(courseId));
+
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                else
+                {
+                    return BadRequest(result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
