@@ -1,4 +1,5 @@
-﻿using Infrastructure_Layer.Database;
+﻿using Domain_Layer.Models.CourseModel;
+using Infrastructure_Layer.Database;
 
 namespace Infrastructure_Layer.Repositories.Course
 {
@@ -20,5 +21,13 @@ namespace Infrastructure_Layer.Repositories.Course
                 await _dojoDBContext.SaveChangesAsync();
             }
         }
+        public async Task<bool> UpdateCourseAsync(CourseModel courseToUpdate)
+        {
+            _dojoDBContext.CourseModel.Update(courseToUpdate);
+            await _dojoDBContext.SaveChangesAsync();
+
+            return true;
+        }
+
     }
 }
