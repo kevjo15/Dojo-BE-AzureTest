@@ -20,6 +20,6 @@ namespace Application_Layer.Commands.CourseCommands.UpdateCourse
             CourseId = courseId;
         }
 
-        
+
     }
 }
