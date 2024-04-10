@@ -56,6 +56,35 @@ namespace Infrastructure_Layer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CourseModel",
+                columns: table => new
+                {
+                    CourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryOrSubject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LevelOfDifficulty = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PriceOrPriceModel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EnrolmentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: false),
+                    AverageRating = table.Column<double>(type: "float", nullable: true),
+                    ThumbnailOrImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreationTimestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModificationTimestamp = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ContentUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Prerequisites = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CourseIsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    CourseIsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    IssueCertificate = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseModel", x => x.CourseId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -164,7 +193,7 @@ namespace Infrastructure_Layer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "da87db29-1279-4aba-8ebe-f700eaa445b5", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, "BOJAN@INFINET.COM", "BOJAN@INFINET.COM", "AQAAAAIAAYagAAAAEFgE/nV1Hw7Q+sAwkPbMqcu6QP8n386ZR0ow7guLl2ZNtYSXfahpwYGCqhx41pvLTQ==", null, false, "Admin", "71b1d3b5-3f8e-4e21-866b-85de090a96e9", false, "bojan@infinet.com" });
+                values: new object[] { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "501a74a9-0c4c-4878-bb2b-7c509161e843", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, "BOJAN@INFINET.COM", "BOJAN@INFINET.COM", "AQAAAAIAAYagAAAAEI8JoxWYd7pm3Mmck38oe/Z5+7ziGVjtbTRKxPMNfrvO5gzi5nocvgcwNdWVoagp0A==", null, false, "Admin", "f8d78813-f5c7-4577-a56b-93e0af8f8b7b", false, "bojan@infinet.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -223,6 +252,9 @@ namespace Infrastructure_Layer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "CourseModel");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

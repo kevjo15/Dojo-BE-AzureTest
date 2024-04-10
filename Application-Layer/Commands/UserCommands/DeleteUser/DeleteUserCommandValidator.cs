@@ -8,7 +8,7 @@ namespace Application_Layer.Commands.DeleteUser
         public DeleteUserCommandValidator()
         {
             RuleFor(user => user.UserId)
-                .MustBeValidUserId();
+                .MustBeValidId();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Infrastructure_Layer.Database;
+﻿using Domain_Layer.Models.CourseModel;
+using Infrastructure_Layer.Database;
 
 namespace Infrastructure_Layer.Repositories.Course
 {
@@ -19,6 +20,27 @@ namespace Infrastructure_Layer.Repositories.Course
                 _dojoDBContext.CourseModel.Remove(course);
                 await _dojoDBContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<CourseModel> GetCourseByIdAsync(string courseId)
+        {
+            try
+            {
+                CourseModel? wantedCourse = await _dojoDBContext.CourseModel.FindAsync(courseId);
+
+                if (wantedCourse == null)
+                {
+                    throw new Exception($"There was no course with Id {courseId} in the database");
+                }
+
+                return await Task.FromResult(wantedCourse);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"An error occured while getting a course with Id {courseId} from database", ex);
+            }
+            throw new NotImplementedException();
         }
     }
 }

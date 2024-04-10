@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    [Migration("20240402134325_Initial")]
+    [Migration("20240410092146_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -24,6 +24,77 @@ namespace Infrastructure_Layer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain_Layer.Models.CourseModel.CourseModel", b =>
+                {
+                    b.Property<string>("CourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double?>("AverageRating")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CategoryOrSubject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContentUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CourseIsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CourseIsPublic")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreationTimestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
+                    b.Property<string>("EnrolmentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IssueCertificate")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModificationTimestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LevelOfDifficulty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prerequisites")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PriceOrPriceModel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThumbnailOrImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CourseId");
+
+                    b.ToTable("CourseModel");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -259,15 +330,15 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "da87db29-1279-4aba-8ebe-f700eaa445b5",
+                            ConcurrencyStamp = "501a74a9-0c4c-4878-bb2b-7c509161e843",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOJAN@INFINET.COM",
                             NormalizedUserName = "BOJAN@INFINET.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFgE/nV1Hw7Q+sAwkPbMqcu6QP8n386ZR0ow7guLl2ZNtYSXfahpwYGCqhx41pvLTQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI8JoxWYd7pm3Mmck38oe/Z5+7ziGVjtbTRKxPMNfrvO5gzi5nocvgcwNdWVoagp0A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "71b1d3b5-3f8e-4e21-866b-85de090a96e9",
+                            SecurityStamp = "f8d78813-f5c7-4577-a56b-93e0af8f8b7b",
                             TwoFactorEnabled = false,
                             UserName = "bojan@infinet.com",
                             FirstName = "Bojan",

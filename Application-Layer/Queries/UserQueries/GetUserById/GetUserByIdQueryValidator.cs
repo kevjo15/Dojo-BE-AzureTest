@@ -8,7 +8,7 @@ namespace Application_Layer.Queries.GetUserById
         public GetUserByIdQueryValidator()
         {
             RuleFor(user => user.UserId)
-                .MustBeValidUserId();
+                .MustBeValidId();
         }
     }
 }
