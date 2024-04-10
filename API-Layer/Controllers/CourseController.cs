@@ -1,6 +1,8 @@
 ﻿using Application_Layer.Commands.CourseCommands.DeleteCourse;
 using Application_Layer.Commands.CourseCommands.UpdateCourse;
 using Application_Layer.DTO_s;
+using Application_Layer.Queries.CourseQueries.GetCourseById;
+using Application_Layer.Queries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +19,20 @@ namespace API_Layer.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("GetCourseById/{courseId}")]
+        public async Task<IActionResult> GetCourseById(string courseId)
+        {
+            var user = await _mediator.Send(new GetCourseByIdQuery(courseId));
+
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return NotFound($"Course with ID {courseId} was not found.");
+            }
+        }
         [HttpDelete("DeleteCourse/{courseId}")]
         public async Task<IActionResult> DeleteCourse(string courseId)
         {

@@ -28,7 +28,7 @@ namespace Application_Layer.Commands.CourseCommands.DeleteCourse
             }
             try
             {
-                await _moduleRepository.DeleteModulesByCourseIdAsync(request.CourseId);
+                //await _moduleRepository.DeleteModulesByCourseIdAsync(request.CourseId);
                 await _courseRepository.DeleteCourseByIdAsync(request.CourseId);
 
                 return new DeleteCourseResult { Success = true, Message = "Course and related modules successfully deleted" };

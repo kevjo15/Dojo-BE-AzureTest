@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain_Layer.Models.CourseModel;
+using MediatR;
 
 namespace Application_Layer.Queries.CourseQueries.GetCourseById
 {
-    internal class GetCourseByIdQuery
+    public class GetCourseByIdQuery : IRequest<CourseModel>
     {
+        public string CourseId { get; private set; }
+        public GetCourseByIdQuery(string courseId)
+        {
+            CourseId = courseId;
+        }
     }
 }
