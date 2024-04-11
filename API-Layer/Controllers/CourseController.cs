@@ -55,7 +55,7 @@ namespace API_Layer.Controllers
             }
         }
 
-        [HttpPut("{courseId}")]
+        [HttpPut("UpdateCourse{courseId}")]
         public async Task<IActionResult> UpdateCourse(string courseId, [FromBody] CourseUpdateDTO courseUpdateDTO)
         {
             var command = new UpdateCourseCommand(courseUpdateDTO, courseId);

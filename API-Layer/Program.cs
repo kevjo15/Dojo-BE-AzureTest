@@ -6,7 +6,9 @@ using Infrastructure_Layer.Database;
 using Infrastructure_Layer.DatabaseHelper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,8 +41,14 @@ builder.Services.AddSwaggerGen(c =>
                 Id = "Bearer"
             }
         },
-        Array.Empty<string>()
+            Array.Empty<string>()
     }
+    });
+
+    c.MapType<TimeSpan>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Example = new OpenApiString("00:00:00")
     });
 
 });
