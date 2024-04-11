@@ -14,7 +14,7 @@ namespace Infrastructure_Layer
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("SQLAZURECONNSTR_DOJO_PROD_DB");
-            if(connectionString is null)
+            if (connectionString is null)
             {
                 connectionString = configuration.GetConnectionString("DefaultConnection");
             }
