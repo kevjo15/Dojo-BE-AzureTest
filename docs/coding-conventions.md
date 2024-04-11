@@ -10,7 +10,6 @@ adheres to the principles of Clean Architecture.
 
 - [Clean Architecture](#clean-architecture)
 - [Unit Testing](#unit-testing)
-- [Code Formatting](#code-formatting)
 - [Pull Request](#pull-request)
 - [Clean Code Principles](#clean-code-principles)
 - [C# Language Guidelines](#c-language-guidelines)
@@ -52,31 +51,7 @@ We encourage using the TDD methodology:
 - Write a failing test
 - Implement the functionality to make the test pass
 - Refactor the code
-
-## Code Formatting
-
-We have code style and conventions defined in the [.editorconfig](../.editorconfig) file. The conventions are based on
-[Microsoft's Code-style rule options](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options).
-
-To comply with the code style defined in [.editorconfig](../.editorconfig), use `dotnet format` locally before pushing
-code.
-
-To enforce running `dotnet format` on commit, apply the following steps, to hook up `dotnet format` so that it
-automatically formats the code in the files included in your commit.
-
-1. Replace the content of `.git/hooks/pre-commit.sample` with the following:
-
-   ```
-   #!/bin/sh
-   FILES=$(git diff --cached --name-only --diff-filter=ACM "*.cs")
-   if [ -n "$FILES" ]
-   then
-      dotnet format --no-restore --verbosity n --include $FILES
-      echo "$FILES" | xargs git add
-   fi
-   ```
-
-2. Change the name of `.git/hooks/pre-commit.sample` to `.git/hooks/pre-commit`.
+  
 
 ## Git Conventions
 

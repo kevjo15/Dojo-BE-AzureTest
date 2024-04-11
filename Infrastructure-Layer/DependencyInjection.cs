@@ -1,11 +1,26 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Infrastructure_Layer.Database;
+using Infrastructure_Layer.DatabaseHelper;
+using Infrastructure_Layer.Repositories.Course;
+using Infrastructure_Layer.Repositories.Module;
+using Infrastructure_Layer.Repositories.User;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure_Layer
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddDbContext<DojoDBContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IModuleRepository, ModuleRepository>();
+            services.AddScoped<DatabaseSeedHelper>();
+
             return services;
         }
     }
