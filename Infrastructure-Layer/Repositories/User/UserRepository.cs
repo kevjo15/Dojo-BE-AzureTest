@@ -13,13 +13,11 @@ namespace Infrastructure_Layer.Repositories.User
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<UserModel> _userManager;
-        private readonly DojoDBContext _dojoDBContext;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-        public UserRepository(UserManager<UserModel> userManager, DojoDBContext dojoDBContext, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public UserRepository(UserManager<UserModel> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
-            _dojoDBContext = dojoDBContext;
             _roleManager = roleManager;
             _configuration = configuration;
         }

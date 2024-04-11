@@ -1,5 +1,7 @@
 ﻿using Infrastructure_Layer.Database;
 using Infrastructure_Layer.DatabaseHelper;
+using Infrastructure_Layer.Repositories.Course;
+using Infrastructure_Layer.Repositories.Module;
 using Infrastructure_Layer.Repositories.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,8 @@ namespace Infrastructure_Layer
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IModuleRepository, ModuleRepository>();
             services.AddScoped<DatabaseSeedHelper>();
 
             return services;
