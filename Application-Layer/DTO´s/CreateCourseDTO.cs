@@ -4,7 +4,6 @@ namespace Application_Layer.DTO_s
 {
     public class CreateCourseDTO
     {
-        public string CourseId { get; set; } = Guid.NewGuid().ToString();
         public string Title { get; set; } = string.Empty;
         public string UserId { get; set; } = string.Empty;
         public string CategoryOrSubject { get; set; } = string.Empty;

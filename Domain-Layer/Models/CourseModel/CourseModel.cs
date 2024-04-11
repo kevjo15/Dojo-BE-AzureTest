@@ -1,8 +1,13 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain_Layer.Models.CourseModel
 {
     public class CourseModel
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string CourseId { get; set; } = Guid.NewGuid().ToString();
         public string Title { get; set; } = string.Empty;
         public string UserId { get; set; } = string.Empty;

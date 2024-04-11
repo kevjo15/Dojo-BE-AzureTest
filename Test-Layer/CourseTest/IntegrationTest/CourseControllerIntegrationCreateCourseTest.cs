@@ -51,7 +51,7 @@ namespace Test_Layer.CourseTest.IntegrationTest
         public async Task CreateCourse_ReturnsBadRequest_WhenCourseCreationFails()
         {
             // Arrange
-            var courseDTO = new CreateCourseDTO(); // Invalid DTO
+            var courseDTO = new CreateCourseDTO();
             A.CallTo(() => _mediator.Send(A<CreateCourseCommand>.That.Matches(c => c.CourseDTO == courseDTO), default))
                 .Returns(new CreateCourseResult { Success = false, Message = "Failed to create the course." });
 
@@ -70,7 +70,7 @@ namespace Test_Layer.CourseTest.IntegrationTest
         public async Task CreateCourse_ReturnsBadRequest_WhenExceptionOccurs()
         {
             // Arrange
-            var courseDTO = new CreateCourseDTO(); // Invalid DTO
+            var courseDTO = new CreateCourseDTO();
             var exceptionMessage = "An error occurred";
 
             A.CallTo(() => _mediator.Send(A<CreateCourseCommand>.That.Matches(c => c.CourseDTO == courseDTO), default))

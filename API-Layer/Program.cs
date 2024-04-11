@@ -7,6 +7,7 @@ using Infrastructure_Layer.DatabaseHelper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,7 @@ builder.Services.AddSwaggerGen(c =>
         BearerFormat = "JWT"
     });
 
+
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
 {
     {
@@ -41,6 +43,12 @@ builder.Services.AddSwaggerGen(c =>
         },
         Array.Empty<string>()
     }
+    });
+
+    c.MapType<TimeSpan>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Example = new OpenApiString("00:00:00")
     });
 
 });
