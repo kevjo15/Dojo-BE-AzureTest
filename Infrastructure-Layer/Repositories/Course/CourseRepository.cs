@@ -42,5 +42,11 @@ namespace Infrastructure_Layer.Repositories.Course
             }
             throw new NotImplementedException();
         }
+
+        public async Task AddCourseAsync(CourseModel course)
+        {
+            _dojoDBContext.CourseModel.Add(course);
+            await _dojoDBContext.SaveChangesAsync();
+        }
     }
 }
