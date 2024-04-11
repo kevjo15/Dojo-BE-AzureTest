@@ -13,8 +13,13 @@ namespace Infrastructure_Layer
     {
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString("SQLAZURECONNSTR_DOJO_PROD_DB");
+            if (connectionString is null)
+            {
+                connectionString = configuration.GetConnectionString("DefaultConnection");
+            }
             services.AddDbContext<DojoDBContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(connectionString));
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();

@@ -2,11 +2,11 @@
 
 ## Description
 
-  <!-- Briefly describe the changes introduced by this pull request. -->
+<!-- Briefly describe the changes introduced by this pull request. -->
 
 ## Changes Made
 
-  <!-- List the main changes made in this pull request. -->
+<!-- List the main changes made in this pull request. -->
 
 ## Related Ticket or Issue
 
