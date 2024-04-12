@@ -89,7 +89,6 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dojo BE API V1");
 });
 
-app.MapIdentityApi<UserModel>();
 
 app.UseHttpsRedirection();
 
