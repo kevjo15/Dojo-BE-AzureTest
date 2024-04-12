@@ -1,5 +1,7 @@
 ﻿using Application_Layer.Commands.CourseCommands.DeleteCourse;
+using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
+using Application_Layer.Queries.GetAllUsers;
 using Application_Layer.Queries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +17,19 @@ namespace API_Layer.Controllers
         public CourseController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+        [HttpGet ("SearchCourseBy/{searchCriteria}")]
+        public async Task<IActionResult> GetAllCourses(string searchCriteria)
+        {
+          try
+          {
+              return Ok(await _mediator.Send(new GetAllCoursesBySearchCriteriaQuery(searchCriteria)));
+          }
+          catch (Exception ex)
+          {
+              return BadRequest(ex.Message);
+          }
+            
         }
 
         [HttpGet("GetCourseById/{courseId}")]
