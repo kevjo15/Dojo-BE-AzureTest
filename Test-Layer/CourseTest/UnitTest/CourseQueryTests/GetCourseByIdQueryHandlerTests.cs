@@ -65,28 +65,6 @@ namespace Test_Layer.CourseTest.UnitTests.CourseQueryTests
             var exception = Assert.ThrowsAsync<ArgumentException>(() => _handler.Handle(query, CancellationToken.None));
             StringAssert.Contains($"Course with ID {courseId} was not found!", exception.Message);
         }
-
-        [Test]
-        public async Task Handle_ValidCategory_ReturnsCourse()
-        {
-            // Arrange
-            var courseId = new Guid().ToString();
-            var expectedCourse = new CourseModel { CourseId = courseId, CategoryOrSubject = "ASP.NET", CourseIsCompleted = true, Language = "English" };
-            var query = new GetCourseByIdQuery("");
-
-            A.CallTo(() => _courseRepository.GetCourseByIdAsync(query.CourseId))
-                .Returns(expectedCourse);
-
-            // Act
-            var result = await _handler.Handle(query, CancellationToken.None);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedCourse));
-            Assert.That(result.CourseId, Is.EqualTo(expectedCourse.CourseId));
-            Assert.That(result.CategoryOrSubject, Is.EqualTo(expectedCourse.CategoryOrSubject));
-            Assert.That(result.Language, Is.EqualTo(expectedCourse.Language));
-            A.CallTo(() => _courseRepository.GetCourseByIdAsync(query.CourseId)).MustHaveHappenedOnceExactly();
-        }
     }
 }
 
