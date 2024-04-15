@@ -1,5 +1,7 @@
-﻿using Application_Layer.Commands.CourseCommands.DeleteCourse;
-using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
+using Application_Layer.Commands.CourseCommands;
+using Application_Layer.Commands.CourseCommands.DeleteCourse;
+using Application_Layer.DTO_s;
+
 using Application_Layer.Queries.CourseQueries.GetCourseById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +32,29 @@ namespace API_Layer.Controllers
             }
 
         }
+
+        [HttpPost("CreateCourse")]
+        public async Task<IActionResult> CreateCourse([FromBody] CreateCourseDTO courseDTO)
+        {
+            try
+            {
+                var result = await _mediator.Send(new CreateCourseCommand(courseDTO));
+
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                else
+                {
+                    return BadRequest(result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpGet("GetCourseById/{courseId}")]
         public async Task<IActionResult> GetCourseById(string courseId)

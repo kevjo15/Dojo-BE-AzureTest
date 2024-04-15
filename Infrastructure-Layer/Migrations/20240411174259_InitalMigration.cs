@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitalMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -193,7 +193,7 @@ namespace Infrastructure_Layer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "501a74a9-0c4c-4878-bb2b-7c509161e843", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, "BOJAN@INFINET.COM", "BOJAN@INFINET.COM", "AQAAAAIAAYagAAAAEI8JoxWYd7pm3Mmck38oe/Z5+7ziGVjtbTRKxPMNfrvO5gzi5nocvgcwNdWVoagp0A==", null, false, "Admin", "f8d78813-f5c7-4577-a56b-93e0af8f8b7b", false, "bojan@infinet.com" });
+                values: new object[] { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "9c2e9eae-af8c-437e-bf83-577ecfc7d93b", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, "BOJAN@INFINET.COM", "BOJAN@INFINET.COM", "AQAAAAIAAYagAAAAEH0+cIqMvCuYZPGn1lssuUP2R9DJ2w5GPTeDzQOpnj0V1h7DAD01YiP8qYG3rXCKwA==", null, false, "Admin", "5a9e093a-f4d4-4ec3-a6a2-773a41251193", false, "bojan@infinet.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

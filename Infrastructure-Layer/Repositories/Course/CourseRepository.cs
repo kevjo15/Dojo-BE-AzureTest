@@ -67,6 +67,5 @@ namespace Infrastructure_Layer.Repositories.Course
                 throw new Exception($"An error occurred while getting courses with criteria: {searchCriteria} from the database", ex);
             }
         }
-
     }
 }
