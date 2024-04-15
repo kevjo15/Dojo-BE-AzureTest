@@ -67,4 +67,3 @@ namespace Test_Layer.CourseTest.UnitTests.CourseQueryTests
         }
     }
 }
-
