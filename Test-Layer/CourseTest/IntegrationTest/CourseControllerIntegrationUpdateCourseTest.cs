@@ -33,12 +33,38 @@ namespace Test_Layer.CourseTest.IntegrationTest
             var courseId = "existing-course-id";
             var courseUpdateDTO = new CourseUpdateDTO
             {
-                Title = "Updated Title",
+                Title = "New Title",
+                CategoryOrSubject = "New Category",
+                LevelOfDifficulty = "Intermediate",
+                PriceOrPriceModel = "Free",
+                EnrolmentStatus = "Open",
+                Language = "French",
+                Duration = TimeSpan.FromHours(1),
+                ThumbnailOrImageUrl = "http://example.com/newimage.jpg",
+                ContentUrl = "http://example.com/newcontent",
+                Tags = "New, Course, Tags",
+                Prerequisites = "None",
+                CourseIsPublic = true,
+                CourseIsCompleted = false,
+                IssueCertificate = true
             };
             var updatedCourseResult = new CourseModel
             {
                 CourseId = courseId,
                 Title = courseUpdateDTO.Title,
+                CategoryOrSubject = courseUpdateDTO.CategoryOrSubject,
+                LevelOfDifficulty = courseUpdateDTO.LevelOfDifficulty,
+                PriceOrPriceModel = courseUpdateDTO.PriceOrPriceModel,
+                EnrolmentStatus = courseUpdateDTO.EnrolmentStatus,
+                Language = courseUpdateDTO.Language,
+                Duration = courseUpdateDTO.Duration,
+                ThumbnailOrImageUrl = courseUpdateDTO.ThumbnailOrImageUrl,
+                ContentUrl = courseUpdateDTO.ContentUrl,
+                Tags = courseUpdateDTO.Tags,
+                Prerequisites = courseUpdateDTO.Prerequisites,
+                CourseIsPublic = courseUpdateDTO.CourseIsPublic,
+                CourseIsCompleted = courseUpdateDTO.CourseIsCompleted,
+                IssueCertificate = courseUpdateDTO.IssueCertificate,
             };
 
             A.CallTo(() => _mediator.Send(A<UpdateCourseCommand>.That.Matches(c => c.CourseId == courseId && c.CourseUpdateDTO == courseUpdateDTO), A<CancellationToken>.Ignored))
@@ -52,9 +78,6 @@ namespace Test_Layer.CourseTest.IntegrationTest
             var okResult = result as OkObjectResult;
             Assert.IsNotNull(okResult);
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
-            //var model = okResult.Value as CourseModel;
-            //Assert.IsNotNull(model);
-            //Assert.That(model.Title, Is.EqualTo(courseUpdateDTO.Title));
         }
 
 

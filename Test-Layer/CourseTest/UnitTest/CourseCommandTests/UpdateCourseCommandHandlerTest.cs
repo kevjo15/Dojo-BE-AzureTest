@@ -51,7 +51,8 @@ namespace Test_Layer.CourseTest.UnitTest.CourseCommandTests
             A.CallTo(() => _courseRepository.UpdateCourseAsync(A<CourseModel>.That.Matches(m => m.CourseId == courseId))).Returns(Task.FromResult(true));
 
             A.CallTo(() => _mapper.Map(A<CourseUpdateDTO>.That.IsEqualTo(courseUpdateDTO), A<CourseModel>.Ignored))
-               .Invokes((CourseUpdateDTO source, CourseModel destination) => {
+               .Invokes((CourseUpdateDTO source, CourseModel destination) =>
+               {
                    destination.Title = source.Title;
                    destination.CategoryOrSubject = source.CategoryOrSubject;
                    destination.LevelOfDifficulty = source.LevelOfDifficulty;
@@ -81,22 +82,6 @@ namespace Test_Layer.CourseTest.UnitTest.CourseCommandTests
             Assert.IsNotNull(updatedCourse);
 
             updatedCourse.Should().BeEquivalentTo(courseUpdateDTO, options => options.ComparingByMembers<CourseUpdateDTO>());
-
-            //Assert.That(updatedCourse.Title, Is.EqualTo(courseUpdateDTO.Title));
-            //Assert.That(updatedCourse.CategoryOrSubject, Is.EqualTo(courseUpdateDTO.CategoryOrSubject));
-            //Assert.That(updatedCourse.LevelOfDifficulty, Is.EqualTo(courseUpdateDTO.LevelOfDifficulty));
-            //Assert.That(updatedCourse.PriceOrPriceModel, Is.EqualTo(courseUpdateDTO.PriceOrPriceModel));
-            //Assert.That(updatedCourse.EnrolmentStatus, Is.EqualTo(courseUpdateDTO.EnrolmentStatus));
-            //Assert.That(updatedCourse.Language, Is.EqualTo(courseUpdateDTO.Language));
-            //Assert.That(updatedCourse.Duration, Is.EqualTo(courseUpdateDTO.Duration));
-            //Assert.That(updatedCourse.ThumbnailOrImageUrl, Is.EqualTo(courseUpdateDTO.ThumbnailOrImageUrl));
-            //Assert.That(updatedCourse.ContentUrl, Is.EqualTo(courseUpdateDTO.ContentUrl));
-            //Assert.That(updatedCourse.Tags, Is.EqualTo(courseUpdateDTO.Tags));
-            //Assert.That(updatedCourse.Prerequisites, Is.EqualTo(courseUpdateDTO.Prerequisites));
-            //Assert.That(updatedCourse.CourseIsPublic, Is.EqualTo(courseUpdateDTO.CourseIsPublic));
-            //Assert.That(updatedCourse.CourseIsCompleted, Is.EqualTo(courseUpdateDTO.CourseIsCompleted));
-            //Assert.That(updatedCourse.IssueCertificate, Is.EqualTo(courseUpdateDTO.IssueCertificate));
-
         }
 
         [Test]
