@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application_Layer.Commands.CourseCommands.CreateCourse;
+using Application_Layer.DTO_s;
+using MediatR;
 
 namespace Application_Layer.Commands.CourseCommands
 {
-    internal class CreateCourseCommand
+    public class CreateCourseCommand : IRequest<CreateCourseResult>
     {
+        public CreateCourseDTO CourseDTO { get; }
+
+        public CreateCourseCommand(CreateCourseDTO courseDTO)
+        {
+            CourseDTO = courseDTO;
+        }
     }
 }

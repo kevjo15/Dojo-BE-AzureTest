@@ -1,14 +1,9 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain_Layer.Models.CourseModel
+namespace Application_Layer.DTO_s
 {
-    public class CourseModel
+    public class CreateCourseDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string CourseId { get; set; } = Guid.NewGuid().ToString();
         public string Title { get; set; } = string.Empty;
         public string UserId { get; set; } = string.Empty;
         public string CategoryOrSubject { get; set; } = string.Empty;

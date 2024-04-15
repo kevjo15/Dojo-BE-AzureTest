@@ -25,6 +25,7 @@ namespace Infrastructure_Layer.Migrations
             modelBuilder.Entity("Domain_Layer.Models.CourseModel.CourseModel", b =>
                 {
                     b.Property<string>("CourseId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<double?>("AverageRating")
@@ -327,15 +328,15 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4154af81-575b-4373-b481-8e9a189c8797",
+                            ConcurrencyStamp = "9c2e9eae-af8c-437e-bf83-577ecfc7d93b",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOJAN@INFINET.COM",
                             NormalizedUserName = "BOJAN@INFINET.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMG+6sW01ln3gWe2mupmuxgGL902d8MMzoW3OTy4nl53EzBXaD5nf0FXK5/Mt8DvUw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH0+cIqMvCuYZPGn1lssuUP2R9DJ2w5GPTeDzQOpnj0V1h7DAD01YiP8qYG3rXCKwA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bbe0db6b-9d24-41f2-880a-f0d69fbbc961",
+                            SecurityStamp = "5a9e093a-f4d4-4ec3-a6a2-773a41251193",
                             TwoFactorEnabled = false,
                             UserName = "bojan@infinet.com",
                             FirstName = "Bojan",
