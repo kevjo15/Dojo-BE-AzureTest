@@ -1,6 +1,4 @@
 ﻿using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
-using Application_Layer.Queries.CourseQueries.GetCourseById;
-using Azure.Core;
 using Domain_Layer.Models.CourseModel;
 using Domain_Layer.Models.UserModel;
 using FakeItEasy;
@@ -151,11 +149,11 @@ namespace Test_Layer.CourseTest.UnitTest.CourseQueryTests
             CollectionAssert.AreEqual(expectedCourse, result); //compare both lists directly for equality
         }
         [Test]
-        public async Task Handle_SearchCriteria_EmptyOrWhitespace_ThrowsArgumentException()
+        public void Handle_SearchCriteria_EmptyOrWhitespace_ThrowsArgumentException()
         {
             // Arrange
             var searchCriteria = "  ";
-            var query = new GetAllCoursesBySearchCriteriaQuery(searchCriteria); 
+            var query = new GetAllCoursesBySearchCriteriaQuery(searchCriteria);
 
             // Act & Assert
             var ex = Assert.ThrowsAsync<ArgumentException>(async () => await _handler.Handle(query, CancellationToken.None));

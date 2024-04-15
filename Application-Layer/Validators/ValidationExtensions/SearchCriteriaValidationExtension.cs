@@ -5,7 +5,7 @@ namespace Application_Layer.Validators.ValidationExtensions
 {
     public static class SearchCriteriaValidationExtension
     {
-        public static IRuleBuilderOptions<T, string> MustBeValidSearchCriteria<T>(this IRuleBuilder<T, string> ruleBuilder) 
+        public static IRuleBuilderOptions<T, string> MustBeValidSearchCriteria<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
             return ruleBuilder
                 .NotNull().WithMessage("Search criteria cant be NULL")
