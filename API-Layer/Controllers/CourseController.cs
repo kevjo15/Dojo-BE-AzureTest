@@ -1,7 +1,7 @@
 ﻿using Application_Layer.Commands.CourseCommands;
 using Application_Layer.Commands.CourseCommands.DeleteCourse;
 using Application_Layer.DTO_s;
-
+using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
