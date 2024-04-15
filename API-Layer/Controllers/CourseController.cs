@@ -2,7 +2,6 @@
 using Application_Layer.Commands.CourseCommands.DeleteCourse;
 using Application_Layer.DTO_s;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
-using Application_Layer.Queries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,13 +9,10 @@ namespace API_Layer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseController : ControllerBase
+    public class CourseController : BaseController
     {
-        private readonly IMediator _mediator;
-
-        public CourseController(IMediator mediator)
+        public CourseController(IMediator mediator) : base(mediator)
         {
-            _mediator = mediator;
         }
 
         [HttpPost("CreateCourse")]
@@ -26,14 +22,7 @@ namespace API_Layer.Controllers
             {
                 var result = await _mediator.Send(new CreateCourseCommand(courseDTO));
 
-                if (result.Success)
-                {
-                    return Ok(result.Message);
-                }
-                else
-                {
-                    return BadRequest(result.Message);
-                }
+                return CreateResponse(result);
             }
             catch (Exception ex)
             {
@@ -45,17 +34,11 @@ namespace API_Layer.Controllers
         [HttpGet("GetCourseById/{courseId}")]
         public async Task<IActionResult> GetCourseById(string courseId)
         {
-            var user = await _mediator.Send(new GetCourseByIdQuery(courseId));
+            var result = await _mediator.Send(new GetCourseByIdQuery(courseId));
 
-            if (user != null)
-            {
-                return Ok(user);
-            }
-            else
-            {
-                return NotFound($"Course with ID {courseId} was not found.");
-            }
+            return CreateResponse(result);
         }
+
         [HttpDelete("DeleteCourse/{courseId}")]
         public async Task<IActionResult> DeleteCourse(string courseId)
         {
@@ -63,14 +46,7 @@ namespace API_Layer.Controllers
             {
                 var result = await _mediator.Send(new DeleteCourseCommand(courseId));
 
-                if (result.Success)
-                {
-                    return Ok(result.Message);
-                }
-                else
-                {
-                    return BadRequest(result.Message);
-                }
+                return CreateResponse(result);
             }
             catch (Exception ex)
             {
