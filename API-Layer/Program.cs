@@ -30,6 +30,7 @@ builder.Services.AddSwaggerGen(c =>
         BearerFormat = "JWT"
     });
 
+
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
 {
     {
@@ -89,7 +90,6 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dojo BE API V1");
 });
 
-app.MapIdentityApi<UserModel>();
 
 app.UseHttpsRedirection();
 

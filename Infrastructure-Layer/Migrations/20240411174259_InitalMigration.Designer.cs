@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Migrations
 {
     [DbContext(typeof(DojoDBContext))]
-    [Migration("20240410092146_Initial")]
-    partial class Initial
+    [Migration("20240411174259_InitalMigration")]
+    partial class InitalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,7 @@ namespace Infrastructure_Layer.Migrations
             modelBuilder.Entity("Domain_Layer.Models.CourseModel.CourseModel", b =>
                 {
                     b.Property<string>("CourseId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<double?>("AverageRating")
@@ -330,15 +331,15 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "501a74a9-0c4c-4878-bb2b-7c509161e843",
+                            ConcurrencyStamp = "9c2e9eae-af8c-437e-bf83-577ecfc7d93b",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOJAN@INFINET.COM",
                             NormalizedUserName = "BOJAN@INFINET.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI8JoxWYd7pm3Mmck38oe/Z5+7ziGVjtbTRKxPMNfrvO5gzi5nocvgcwNdWVoagp0A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH0+cIqMvCuYZPGn1lssuUP2R9DJ2w5GPTeDzQOpnj0V1h7DAD01YiP8qYG3rXCKwA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f8d78813-f5c7-4577-a56b-93e0af8f8b7b",
+                            SecurityStamp = "5a9e093a-f4d4-4ec3-a6a2-773a41251193",
                             TwoFactorEnabled = false,
                             UserName = "bojan@infinet.com",
                             FirstName = "Bojan",
