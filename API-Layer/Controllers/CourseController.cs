@@ -1,5 +1,6 @@
 ﻿using Application_Layer.Commands.CourseCommands;
 using Application_Layer.Commands.CourseCommands.DeleteCourse;
+using Application_Layer.Commands.CourseCommands.UpdateCourse;
 using Application_Layer.DTO_s;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
 using Application_Layer.Queries.GetUserById;
@@ -76,6 +77,21 @@ namespace API_Layer.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPut("UpdateCourse{courseId}")]
+        public async Task<IActionResult> UpdateCourse(string courseId, [FromBody] CourseUpdateDTO courseUpdateDTO)
+        {
+            var command = new UpdateCourseCommand(courseUpdateDTO, courseId);
+
+            var updatedCourse = await _mediator.Send(command);
+
+            if (updatedCourse == null)
+            {
+                return NotFound($"Course with ID {courseId} not found.");
+            }
+
+            return Ok(updatedCourse);
         }
     }
 }

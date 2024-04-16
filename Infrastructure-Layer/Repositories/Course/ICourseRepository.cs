@@ -9,5 +9,6 @@ namespace Infrastructure_Layer.Repositories.Course
         Task DeleteCourseByIdAsync(string courseId);
         Task AddCourseAsync(CourseModel course);
         Task<CourseModel> GetCourseByIdAsync(string courseId);
+        Task<bool> UpdateCourseAsync(CourseModel courseToUpdate);
     }
 }
