@@ -1,6 +1,6 @@
+﻿using Application_Layer.Commands.CourseCommands;
 using Application_Layer.Commands.CourseCommands.DeleteCourse;
 using Application_Layer.Commands.CourseCommands.UpdateCourse;
-using Application_Layer.Commands.CourseCommands;
 using Application_Layer.DTO_s;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
 using Application_Layer.Queries.GetUserById;
