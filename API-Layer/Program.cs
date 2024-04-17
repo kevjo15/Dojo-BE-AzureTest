@@ -90,7 +90,6 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dojo BE API V1");
 });
 
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

@@ -1,4 +1,5 @@
 ﻿using API_Layer.Controllers;
+using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
 using Domain_Layer.Models.CourseModel;
 using FakeItEasy;
@@ -22,7 +23,7 @@ namespace Test_Layer.CourseTest.IntegrationTest
         }
 
         [Test]
-        public async Task GetCourseById_ReturnsOk_WhenUserExists()
+        public async Task GetCourseById_ReturnsOk_WhenCourseExists()
         {
             // Arrange
             var courseId = "test-id";
@@ -45,17 +46,15 @@ namespace Test_Layer.CourseTest.IntegrationTest
             Assert.That(returnedCourse.CourseId, Is.EqualTo(courseId));
             Assert.That(returnedCourse.CategoryOrSubject, Is.EqualTo("ASP.NET"));
             Assert.That(returnedCourse.Language, Is.EqualTo("English"));
-
         }
-
         [Test]
-        public async Task GetCourseById_ReturnsNotFound_WhenUserDoesNotExist()
+        public async Task GetCourseById_ReturnsNotFound_WhenCourseDoesNotExist()
         {
             // Arrange
             var courseId = "non-existent-id";
 
             A.CallTo(() => _mediator.Send(A<GetCourseByIdQuery>.That.Matches(q => q.CourseId == courseId), default))
-                .Returns(Task.FromResult<CourseModel>(null));
+                .Returns(await Task.FromResult<CourseModel>(null)); // Simulate the course not being found
 
             // Act
             var result = await _controller.GetCourseById(courseId);
@@ -63,8 +62,8 @@ namespace Test_Layer.CourseTest.IntegrationTest
             // Assert
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
             var notFoundResult = result as NotFoundObjectResult;
-            Assert.That(notFoundResult.StatusCode, Is.EqualTo(404));
             Assert.That(notFoundResult.Value, Is.EqualTo($"Course with ID {courseId} was not found."));
+            Assert.That(notFoundResult.StatusCode, Is.EqualTo(404));
         }
     }
 }

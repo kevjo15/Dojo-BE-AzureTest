@@ -1,6 +1,4 @@
-﻿
-
-using Domain_Layer.Models.CourseModel;
+﻿using Domain_Layer.Models.CourseModel;
 
 namespace Infrastructure_Layer.Repositories.Course
 {
@@ -9,6 +7,7 @@ namespace Infrastructure_Layer.Repositories.Course
         Task DeleteCourseByIdAsync(string courseId);
         Task AddCourseAsync(CourseModel course);
         Task<CourseModel> GetCourseByIdAsync(string courseId);
+        Task<List<CourseModel>> GetCoursesBySearchCriteria(SearchCriteria searchCriteriaInfo);
         Task<bool> UpdateCourseAsync(CourseModel courseToUpdate);
     }
 }
