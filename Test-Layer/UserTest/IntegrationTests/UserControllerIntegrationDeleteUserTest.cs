@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Application_Layer.Commands.DeleteUser;
 using Application_Layer.Controllers;
+using Application_Layer.Queries.GetUserByEmail;
+using Domain_Layer.Models.UserModel;
 using FakeItEasy;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Test_Layer.UserTest.IntegrationTests
@@ -22,58 +21,109 @@ namespace Test_Layer.UserTest.IntegrationTests
         {
             _mediator = A.Fake<IMediator>();
             _controller = new UserController(_mediator);
+
+            var expiration = new DateTimeOffset(DateTime.UtcNow.AddHours(1)).ToUnixTimeSeconds();
+
+
+            var claims = new List<Claim>
+            {
+             new Claim(ClaimTypes.Email, "logged-in-user@example.com"),
+             new Claim(ClaimTypes.Role, "Admin"),
+             new Claim("exp", expiration.ToString()),
+             new Claim("iss", "your-issuer"),
+             new Claim("aud", "your-audience")
+            };
+            var identity = new ClaimsIdentity(claims, "TestAuthType");
+            var principal = new ClaimsPrincipal(identity);
+
+            _controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext { User = principal }
+            };
+
+            var expectedUser = new UserModel
+            {
+                Id = "logged-in-user-id",
+                UserName = "logged-in-user@example.com",
+                FirstName = "Test",
+                LastName = "User",
+                Role = "Admin"
+            };
+
+            A.CallTo(() => _mediator.Send(A<GetUserByEmailQuery>.That.Matches(c => c.Email == "logged-in-user@example.com"), A<CancellationToken>._))
+                .Returns(expectedUser);
         }
 
         [Test]
         public async Task DeleteUser_ReturnsOk_WhenUserSuccessfullyDeleted()
         {
             // Arrange
-            var userId = "existing-user-id";
-            A.CallTo(() => _mediator.Send(A<DeleteUserCommand>.That.Matches(c => c.UserId == userId), default))
+            var userId = "logged-in-user-id";
+            A.CallTo(() => _mediator.Send(A<GetUserByEmailQuery>.That.Matches(c => c.Email == "logged-in-user@example.com"), A<CancellationToken>._))
+                .Returns(new UserModel { Id = userId, Email = "logged-in-user@example.com" });
+
+            A.CallTo(() => _mediator.Send(A<DeleteUserCommand>.That.Matches(c => c.UserId == userId), A<CancellationToken>._))
                 .Returns(true);
 
             // Act
-            var result = await _controller.DeleteUser(userId);
+            var actionResult = await _controller.DeleteUser(userId) as OkObjectResult;
 
             // Assert
-            Assert.IsInstanceOf<OkObjectResult>(result);
-            var okResult = result as OkObjectResult;
-            Assert.IsNotNull(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(200));
-            Assert.That(okResult.Value, Is.EqualTo("User successfully deleted."));
+            Assert.IsNotNull(actionResult);
+            Assert.IsInstanceOf<OkObjectResult>(actionResult);
+            Assert.That(actionResult.Value, Is.EqualTo("User successfully deleted."));
         }
+
 
         [Test]
         public async Task DeleteUser_ReturnsBadRequest_WhenUserDeletionFails()
         {
             // Arrange
-            var userId = "non-existing-user-id";
-            A.CallTo(() => _mediator.Send(A<DeleteUserCommand>.That.Matches(c => c.UserId == userId), default))
+            var userId = "logged-in-user-id";
+            A.CallTo(() => _mediator.Send(A<GetUserByEmailQuery>.That.Matches(c => c.Email == "logged-in-user@example.com"), A<CancellationToken>._))
+                .Returns(new UserModel { Id = userId, Email = "logged-in-user@example.com" });
+
+            A.CallTo(() => _mediator.Send(A<DeleteUserCommand>.That.Matches(c => c.UserId == userId), A<CancellationToken>._))
                 .Returns(false);
 
             // Act
-            var result = await _controller.DeleteUser(userId);
+            var actionResult = await _controller.DeleteUser(userId) as BadRequestObjectResult;
 
             // Assert
-            Assert.IsInstanceOf<BadRequestObjectResult>(result);
-            var badRequestResult = result as BadRequestObjectResult;
-            Assert.IsNotNull(badRequestResult);
-            Assert.That(badRequestResult.StatusCode, Is.EqualTo(400));
-            Assert.That(badRequestResult.Value, Is.EqualTo("Failed to delete the user."));
+            Assert.IsNotNull(actionResult);
+            Assert.IsInstanceOf<BadRequestObjectResult>(actionResult);
+            Assert.That(actionResult.Value, Is.EqualTo("Failed to delete the user."));
         }
+
+
+
 
         [Test]
-        public async Task DeleteUser_ReturnsUnauthorized_WhenUserIdIsEmpty()
+        public async Task DeleteUser_ReturnsBadRequest_WhenUserIdIsEmpty()
         {
             // Act
-            var result = await _controller.DeleteUser(string.Empty);
+            var actionResult = await _controller.DeleteUser(string.Empty) as BadRequestObjectResult;
 
             // Assert
-            Assert.IsInstanceOf<UnauthorizedObjectResult>(result);
-            var unauthorizedResult = result as UnauthorizedObjectResult;
-            Assert.IsNotNull(unauthorizedResult);
-            Assert.That(unauthorizedResult.StatusCode, Is.EqualTo(401));
-            Assert.That(unauthorizedResult.Value, Is.EqualTo("User is not recognized."));
+            Assert.IsInstanceOf<BadRequestObjectResult>(actionResult);
+            Assert.That(actionResult.Value, Is.EqualTo("User is not recognized."));
         }
+
+
+        [Test]
+        public async Task DeleteUser_ReturnsForbidden_WhenUserDoesNotHavePermission()
+        {
+            // Arrange
+            var userId = "existing-user-id";
+            A.CallTo(() => _mediator.Send(A<GetUserByEmailQuery>.That.Matches(c => c.Email == "logged-in-user@example.com"), A<CancellationToken>._))
+                .Returns(new UserModel { Id = "logged-in-user-id", Role = "User" });
+
+            // Act
+            var actionResult = await _controller.DeleteUser(userId) as ForbidResult;
+
+            // Assert
+            Assert.IsInstanceOf<ForbidResult>(actionResult);
+        }
+
     }
 }

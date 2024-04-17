@@ -61,7 +61,7 @@ namespace Application_Layer.Controllers
             }
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
@@ -77,7 +77,7 @@ namespace Application_Layer.Controllers
             }
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("by-email/{email}")]
         public async Task<IActionResult> GetUserByEmail(string email)
         {
@@ -95,7 +95,7 @@ namespace Application_Layer.Controllers
 
         [HttpGet]
         [Route("GetAllUsers")]
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -109,12 +109,9 @@ namespace Application_Layer.Controllers
         }
         [Authorize]
         [HttpPut("updateUser")]
-        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdatingUserDTO userDto)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var command = new UpdateUserCommand(userDto);
-
             try
             {
                 var result = await _mediator.Send(command);
@@ -133,27 +130,51 @@ namespace Application_Layer.Controllers
             }
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize]
         [HttpDelete("deleteUser/{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                return Unauthorized("User is not recognized.");
-            }
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return BadRequest("User is not recognized.");
+                }
 
-            var command = new DeleteUserCommand(userId);
-            var result = await _mediator.Send(command);
+                var userLoggedInMail = User.FindFirstValue(ClaimTypes.Email);
+                if (string.IsNullOrEmpty(userLoggedInMail))
+                {
+                    return BadRequest("User is not recognized.");
+                }
 
-            if (result)
-            {
-                return Ok("User successfully deleted.");
+                var userQuery = new GetUserByEmailQuery(userLoggedInMail);
+                var currentUser = await _mediator.Send(userQuery);
+                if (currentUser == null || string.IsNullOrEmpty(currentUser.Id))
+                {
+                    return UnprocessableEntity("User is not recognized.");
+                }
+
+                if (currentUser.Id != userId)
+                {
+                    return Forbid("You do not have permission to delete this user.");
+                }
+
+                var command = new DeleteUserCommand(userId);
+                var result = await _mediator.Send(command);
+                if (result)
+                {
+                    return Ok("User successfully deleted.");
+                }
+                else
+                {
+                    return BadRequest("Failed to delete the user.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Failed to delete the user.");
+                return BadRequest("An error occurred: " + ex.Message);
             }
         }
+
     }
 }
