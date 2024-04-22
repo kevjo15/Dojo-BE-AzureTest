@@ -1,5 +1,6 @@
 ﻿using System.Reflection.Emit;
 using Domain_Layer.Models.CourseModel;
+using Domain_Layer.Models.ModulModel;
 using Domain_Layer.Models.UserModel;
 using Infrastructure_Layer.DatabaseHelper;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace Infrastructure_Layer.Database
         }
         public DbSet<UserModel> User { get; set; }
         public DbSet<CourseModel> CourseModel { get; set; }
+        public DbSet<ModulModel> ModuleModel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
