@@ -26,7 +26,7 @@ namespace Application_Layer.Validators.ValidationExtensions
                 return false; // Name must be between 2 and 20 characters
             }
 
-            if (!Regex.IsMatch(searchCriteria, "^[a-zA-Z--/:]+$"))
+            if (!Regex.IsMatch(searchCriteria, "^[a-zA-Z--/.:]+( [a-zA-Z]+)*$"))
             {
                 return false; // Name can only contain letters
             }

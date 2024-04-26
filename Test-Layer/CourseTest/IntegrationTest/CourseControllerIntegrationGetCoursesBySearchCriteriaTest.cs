@@ -41,7 +41,7 @@ namespace Test_Layer.CourseTest.IntegrationTest
                 .Returns(expectedCourses);
 
             // Act
-            var result = await _controller.GetAllCourses(_searchCriteria);
+            var result = await _controller.SearchCoursesBySearchTerm(_searchCriteria);
 
             // Assert
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
@@ -63,7 +63,7 @@ namespace Test_Layer.CourseTest.IntegrationTest
                 .Throws(new Exception(exceptionMessage));
 
             // Act
-            var result = await _controller.GetAllCourses(_searchCriteria);
+            var result = await _controller.SearchCoursesBySearchTerm(_searchCriteria);
 
             // Assert
             Assert.IsInstanceOf<BadRequestObjectResult>(result);

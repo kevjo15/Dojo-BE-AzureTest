@@ -152,34 +152,39 @@ namespace Test_Layer.CourseTest.UnitTest.CourseQueryTests
             CollectionAssert.AreEqual(expectedCourse, result); //compare both lists directly for equality
         }
         [Test]
-        public void Handle_SearchCriteria_EmptyOrWhitespace_ThrowsArgumentException()
+        public async Task Handle_WithoutSearchCriteria_ReturnsAllCourses()
         {
             // Arrange
-            var query = new GetAllCoursesBySearchCriteriaQuery(null);
+            _searchCriteria = new SearchCriteria() { SearchBySearchTerm = false };
 
-            // Act & Assert
-            var ex = Assert.ThrowsAsync<ArgumentException>(async () => await _handler.Handle(query, CancellationToken.None));
+            var request = new GetAllCoursesBySearchCriteriaQuery(_searchCriteria);
+            var expectedCourses = new List<CourseModel> { new CourseModel { CourseId = "08260480-52a0-4c0e-a588-274101a2c3be", Title = "Test Course" } };
+
+            A.CallTo(() => _courseRepository.GetAllCourses()).Returns(expectedCourses);
+
+            // Act
+            var result = await _handler.Handle(request, CancellationToken.None);
 
             // Assert
-            Assert.That(ex.Message, Does.Contain("Course with searched criteria, was not found!"));
+            Assert.That(result, Is.EqualTo(expectedCourses));
         }
         [Test]
-        public void Handle_SearchCriteria_NotFound_ThrowsKeyNotFoundException()
+        public void Handle_NoCoursesFound_ThrowsExceptionWithInnerInvalidOperationException()
         {
             // Arrange
-            var searchCriteriaIsWrong = "NonExistentCourseId";
-            _searchCriteria = new SearchCriteria() { CourseId = searchCriteriaIsWrong };
-            var query = new GetAllCoursesBySearchCriteriaQuery(_searchCriteria);
-
-            // Set up the mock repository to return null for the given search criteria
-            A.CallTo(() => _courseRepository.GetCoursesBySearchCriteria(_searchCriteria)).Returns(Task.FromResult<List<CourseModel>>(null)); ;
+            _searchCriteria = new SearchCriteria()
+            {
+                CourseId = "NonExistentCourseId",
+                Title = "NonExistentCourseTitle",
+                SearchBySearchTerm = true
+            };
+            var request = new GetAllCoursesBySearchCriteriaQuery(_searchCriteria);
+            A.CallTo(() => _courseRepository.GetCoursesBySearchCriteria(_searchCriteria)).Returns(new List<CourseModel>());
 
             // Act & Assert
-            var ex = Assert.ThrowsAsync<KeyNotFoundException>(async () => await _handler.Handle(query, CancellationToken.None));
-
-            // Assert
-            Assert.That(ex.Message, Does.Contain($"Course with searched criteria, was not found!"));
+            var ex = Assert.ThrowsAsync<Exception>(() => _handler.Handle(request, CancellationToken.None));
+            Assert.That(ex.InnerException, Is.TypeOf<InvalidOperationException>());
+            Assert.That(ex.InnerException.Message, Is.EqualTo("No courses found matching the search term."));
         }
-
     }
 }
