@@ -1,6 +1,8 @@
 ﻿using Application_Layer.DTO_s;
+using Application_Layer.DTO_s.Module;
 using AutoMapper;
 using Domain_Layer.Models.CourseModel;
+using Domain_Layer.Models.ModulModel;
 using Domain_Layer.Models.UserModel;
 
 namespace Application_Layer.AutoMaper
@@ -23,6 +25,7 @@ namespace Application_Layer.AutoMaper
             .ForMember(dest => dest.CreationTimestamp, opt => opt.Ignore())
             .ForMember(dest => dest.LastModificationTimestamp, opt => opt.MapFrom(src => DateTime.UtcNow));
             CreateMap<CreateCourseDTO, CourseModel>();
+            CreateMap<CreateModuleDTO, ModulModel>();
         }
     }
 }
