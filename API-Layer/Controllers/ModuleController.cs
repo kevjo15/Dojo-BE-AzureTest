@@ -1,5 +1,6 @@
 ﻿using Application_Layer.Commands.ModuleCommands.CreateModule;
 using Application_Layer.DTO_s.Module;
+using Application_Layer.Queries.ModuleQueries.GetAllModulesByCourse;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +18,11 @@ namespace API_Layer.Controllers
         }
 
         [HttpPost("CreateModule")]
-
         public async Task<IActionResult> CreateModule([FromBody] CreateModuleDTO moduleDTO)
         {
             try
             {
                 var result = await _mediator.Send(new CreateModuleCommand(moduleDTO));
-
                 if (result.Success)
                 {
                     return Ok(result.Message);
@@ -35,11 +34,25 @@ namespace API_Layer.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }
-
-
+        [HttpGet("GetAllModulesByCourseId/{courseId}")]
+        public async Task<IActionResult> GetAllModulesByCourseId(string courseId)
+        {
+            try
+            {
+                var modules = await _mediator.Send(new GetAllModulesByCourseIdQuery(courseId));
+                if (modules == null)
+                {
+                    return NotFound($"Course with ID {courseId} was not found.");
+                }
+                return Ok(modules);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using API_Layer.Controllers;
-using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
 using Domain_Layer.Models.CourseModel;
 using FakeItEasy;
