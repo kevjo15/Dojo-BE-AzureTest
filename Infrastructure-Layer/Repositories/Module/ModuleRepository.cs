@@ -36,6 +36,10 @@ namespace Infrastructure_Layer.Repositories.Module
                                               select module).ToListAsync();
             return allModulesByCourseId;
         }
+        public async Task<ModulModel> GetModuleByIdAsync(string moduleId)
+        {
+            return await _dojoDBContext.ModuleModel.FindAsync(moduleId);
+        }
 
     }
 }

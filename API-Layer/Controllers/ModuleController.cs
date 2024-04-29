@@ -3,6 +3,7 @@ using Application_Layer.Commands.ModuleCommands.CreateModule;
 using Application_Layer.Commands.ModuleCommands.DeleteModule;
 using Application_Layer.DTO_s.Module;
 using Application_Layer.Queries.ModuleQueries.GetAllModulesByCourse;
+using Application_Layer.Queries.ModuleQueries.GetModuleById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -81,6 +82,20 @@ namespace API_Layer.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [HttpGet("GetModuleById/{moduleId}")]
+        public async Task<IActionResult> GetModuleById(string moduleId)
+        {
+            {
+                var module = await _mediator.Send(new GetModuleByIdQuery(moduleId));
+                if (module != null)
+                {
+                    return Ok(module);
+                }
+                else
+                {
+                    return NotFound($"Module with ID {moduleId} was not found.");
+                }
+            }
+        }
     }
 }
