@@ -16,10 +16,18 @@ namespace Infrastructure_Layer.Repositories.Module
             _dojoDBContext.ModuleModel.Add(modul);
             await _dojoDBContext.SaveChangesAsync();
         }
-        public Task DeleteModulesByCourseIdAsync(string courseId)
+
+        public async Task DeleteModulesByCourseIdAsync(string courseId)
+
         {
-            throw new NotImplementedException();
+            var modulesToDelete = _dojoDBContext.ModuleModel.Where(m => m.CourseId == courseId);
+            _dojoDBContext.ModuleModel.RemoveRange(modulesToDelete);
+            await _dojoDBContext.SaveChangesAsync();
         }
+
+
+
+
         public async Task<List<ModulModel>> GetAllModulesByCourseId(string courseId)
         {
             var allModulesByCourseId = await (from module in _dojoDBContext.ModuleModel
@@ -28,5 +36,6 @@ namespace Infrastructure_Layer.Repositories.Module
                                               select module).ToListAsync();
             return allModulesByCourseId;
         }
+
     }
 }

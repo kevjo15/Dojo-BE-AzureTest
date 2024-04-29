@@ -1,4 +1,6 @@
-﻿using Application_Layer.Commands.ModuleCommands.CreateModule;
+﻿using Application_Layer.Commands.CourseCommands.DeleteCourse;
+using Application_Layer.Commands.ModuleCommands.CreateModule;
+using Application_Layer.Commands.ModuleCommands.DeleteModule;
 using Application_Layer.DTO_s.Module;
 using Application_Layer.Queries.ModuleQueries.GetAllModulesByCourse;
 using MediatR;
@@ -37,6 +39,30 @@ namespace API_Layer.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpDelete("DeleteModule/{courseId}")]
+        public async Task<IActionResult> DeleteModule([FromBody] string courseId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new DeleteModuleCommand(courseId));
+
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                else
+                {
+                    return BadRequest(result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("GetAllModulesByCourseId/{courseId}")]
         public async Task<IActionResult> GetAllModulesByCourseId(string courseId)
         {
@@ -48,11 +74,13 @@ namespace API_Layer.Controllers
                     return NotFound($"Course with ID {courseId} was not found.");
                 }
                 return Ok(modules);
+
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }
