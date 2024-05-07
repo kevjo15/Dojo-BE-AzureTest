@@ -14,5 +14,6 @@ namespace Domain_Layer.Models.ModulModel
         public string Description { get; set; } = string.Empty;
         public int OrderInCourse { get; set; }
         public string? ResourceURL { get; set; }
+        public ICollection<Domain_Layer.Models.ContentModel.ContentModel> Contents { get; set; }
     }
 }

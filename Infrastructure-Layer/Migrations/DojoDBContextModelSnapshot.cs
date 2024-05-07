@@ -22,6 +22,51 @@ namespace Infrastructure_Layer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ContentModelModulModel", b =>
+                {
+                    b.Property<string>("ContentsContentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ModulesModulId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ContentsContentId", "ModulesModulId");
+
+                    b.HasIndex("ModulesModulId");
+
+                    b.ToTable("ContentModelModulModel");
+                });
+
+            modelBuilder.Entity("Domain_Layer.Models.ContentModel.ContentModel", b =>
+                {
+                    b.Property<string>("ContentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ContentTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContentURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModulId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ContentId");
+
+                    b.ToTable("ContentModel");
+                });
+
             modelBuilder.Entity("Domain_Layer.Models.CourseModel.CourseModel", b =>
                 {
                     b.Property<string>("CourseId")
@@ -357,15 +402,15 @@ namespace Infrastructure_Layer.Migrations
                         {
                             Id = "08260479-52a0-4c0e-a588-274101a2c3be",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "861a3529-31f2-4dda-9cf8-624b2ed841fa",
+                            ConcurrencyStamp = "f42efb57-cf3f-4c84-88bf-80e897a25387",
                             Email = "bojan@infinet.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BOJAN@INFINET.COM",
                             NormalizedUserName = "BOJAN@INFINET.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEs3CcicGaIltrtzbeICviJPFk/Angd9v5Bw7rBNM8h/uGQKzmnr/MZJuSoSz92BQA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGQ/VpSN6zkqU3/GyfOepbLMBV5WMf0UpZiBzW+rq1Z9tKWhQ7wWwGT3gUBY14FCYg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "eda8ac44-5b50-4751-853a-93348b7d4aff",
+                            SecurityStamp = "c158c06f-33dc-423f-9beb-70be18f3d690",
                             TwoFactorEnabled = false,
                             UserName = "bojan@infinet.com",
                             FirstName = "Bojan",
@@ -373,6 +418,21 @@ namespace Infrastructure_Layer.Migrations
                             LastName = "Mirkovic",
                             Role = "Admin"
                         });
+                });
+
+            modelBuilder.Entity("ContentModelModulModel", b =>
+                {
+                    b.HasOne("Domain_Layer.Models.ContentModel.ContentModel", null)
+                        .WithMany()
+                        .HasForeignKey("ContentsContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain_Layer.Models.ModulModel.ModulModel", null)
+                        .WithMany()
+                        .HasForeignKey("ModulesModulId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

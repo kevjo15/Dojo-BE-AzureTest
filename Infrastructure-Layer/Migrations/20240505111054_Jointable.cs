@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure_Layer.Migrations
 {
     /// <inheritdoc />
-    public partial class GetModuleById : Migration
+    public partial class Jointable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,6 +53,22 @@ namespace Infrastructure_Layer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContentModel",
+                columns: table => new
+                {
+                    ContentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ModulId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContentTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContentURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContentModel", x => x.ContentId);
                 });
 
             migrationBuilder.CreateTable(
@@ -206,10 +222,34 @@ namespace Infrastructure_Layer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ContentModelModulModel",
+                columns: table => new
+                {
+                    ContentsContentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ModulesModulId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContentModelModulModel", x => new { x.ContentsContentId, x.ModulesModulId });
+                    table.ForeignKey(
+                        name: "FK_ContentModelModulModel_ContentModel_ContentsContentId",
+                        column: x => x.ContentsContentId,
+                        principalTable: "ContentModel",
+                        principalColumn: "ContentId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ContentModelModulModel_ModuleModel_ModulesModulId",
+                        column: x => x.ModulesModulId,
+                        principalTable: "ModuleModel",
+                        principalColumn: "ModulId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "861a3529-31f2-4dda-9cf8-624b2ed841fa", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, "BOJAN@INFINET.COM", "BOJAN@INFINET.COM", "AQAAAAIAAYagAAAAEEs3CcicGaIltrtzbeICviJPFk/Angd9v5Bw7rBNM8h/uGQKzmnr/MZJuSoSz92BQA==", null, false, "Admin", "eda8ac44-5b50-4751-853a-93348b7d4aff", false, "bojan@infinet.com" });
+                values: new object[] { "08260479-52a0-4c0e-a588-274101a2c3be", 0, "f42efb57-cf3f-4c84-88bf-80e897a25387", "UserModel", "bojan@infinet.com", false, "Bojan", false, "Mirkovic", false, null, "BOJAN@INFINET.COM", "BOJAN@INFINET.COM", "AQAAAAIAAYagAAAAEGQ/VpSN6zkqU3/GyfOepbLMBV5WMf0UpZiBzW+rq1Z9tKWhQ7wWwGT3gUBY14FCYg==", null, false, "Admin", "c158c06f-33dc-423f-9beb-70be18f3d690", false, "bojan@infinet.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -249,6 +289,11 @@ namespace Infrastructure_Layer.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContentModelModulModel_ModulesModulId",
+                table: "ContentModelModulModel",
+                column: "ModulesModulId");
         }
 
         /// <inheritdoc />
@@ -270,16 +315,22 @@ namespace Infrastructure_Layer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CourseModel");
+                name: "ContentModelModulModel");
 
             migrationBuilder.DropTable(
-                name: "ModuleModel");
+                name: "CourseModel");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ContentModel");
+
+            migrationBuilder.DropTable(
+                name: "ModuleModel");
         }
     }
 }
