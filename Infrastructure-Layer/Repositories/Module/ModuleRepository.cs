@@ -1,4 +1,10 @@
-﻿using Domain_Layer.Models.ModulModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
+using Domain_Layer.Models.ModulModel;
 using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +13,11 @@ namespace Infrastructure_Layer.Repositories.Module
     public class ModuleRepository : IModuleRepository
     {
         private readonly DojoDBContext _dojoDBContext;
-        public ModuleRepository(DojoDBContext dojoDBContext)
+        private readonly IMapper _mapper;
+        public ModuleRepository(DojoDBContext dojoDBContext, IMapper mapper)
         {
             _dojoDBContext = dojoDBContext;
+            _mapper = mapper;
         }
         public async Task CreateModuleAsync(ModulModel modul)
         {
@@ -39,6 +47,20 @@ namespace Infrastructure_Layer.Repositories.Module
         public async Task<ModulModel> GetModuleByIdAsync(string moduleId)
         {
             return await _dojoDBContext.ModuleModel.FindAsync(moduleId);
+        }
+
+        public async Task<bool> UpdateModuleAsync(ModulModel updatedModule)
+        {
+            var module = await _dojoDBContext.ModuleModel.FirstOrDefaultAsync(m => m.ModulId == updatedModule.ModulId);
+            if (module == null)
+            {
+                return false;
+            }
+
+            _mapper.Map(updatedModule, module);
+
+            await _dojoDBContext.SaveChangesAsync();
+            return true;
         }
 
     }

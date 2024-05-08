@@ -1,6 +1,6 @@
-﻿using Application_Layer.Commands.CourseCommands.DeleteCourse;
-using Application_Layer.Commands.ModuleCommands.CreateModule;
+﻿using Application_Layer.Commands.ModuleCommands.CreateModule;
 using Application_Layer.Commands.ModuleCommands.DeleteModule;
+using Application_Layer.Commands.ModuleCommands.UpdateModule;
 using Application_Layer.DTO_s.Module;
 using Application_Layer.Queries.ModuleQueries.GetAllModulesByCourse;
 using Application_Layer.Queries.ModuleQueries.GetModuleById;
@@ -96,6 +96,29 @@ namespace API_Layer.Controllers
                     return NotFound($"Module with ID {moduleId} was not found.");
                 }
             }
+        }
+
+        [HttpPut("UpdateModule/{moduleId}")]
+        public async Task<IActionResult> UpdateModule(string moduleId, [FromBody] UpdateModuleDTO moduleDto)
+        {
+            try
+            {
+                if (moduleDto == null)
+                {
+                    return BadRequest("Invalid request: No data provided.");
+                }
+
+                var command = new UpdateModuleCommand(moduleId, moduleDto);
+
+                var result = await _mediator.Send(command);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

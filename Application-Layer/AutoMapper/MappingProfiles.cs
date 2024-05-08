@@ -26,6 +26,8 @@ namespace Application_Layer.AutoMaper
             .ForMember(dest => dest.LastModificationTimestamp, opt => opt.MapFrom(src => DateTime.UtcNow));
             CreateMap<CreateCourseDTO, CourseModel>();
             CreateMap<CreateModuleDTO, ModulModel>();
+            CreateMap<UpdateModuleDTO, ModulModel>()
+            .ForMember(dest => dest.ModulId, opt => opt.Ignore());
         }
     }
 }
