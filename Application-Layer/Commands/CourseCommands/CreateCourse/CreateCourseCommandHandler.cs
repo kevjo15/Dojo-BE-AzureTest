@@ -20,7 +20,7 @@ namespace Application_Layer.Commands.CourseCommands
         {
             try
             {
-                var courseModel = _mapper.Map<CourseModel>(request.CourseDTO);
+                var courseModel = _mapper.Map<CourseModel>(request.CreateCourseDTO);
                 await _courseRepository.AddCourseAsync(courseModel);
                 return new CreateCourseResult { Success = true, Message = "Course successfully created" };
             }

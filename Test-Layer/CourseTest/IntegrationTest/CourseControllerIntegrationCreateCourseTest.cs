@@ -33,7 +33,7 @@ namespace Test_Layer.CourseTest.IntegrationTest
                 LevelOfDifficulty = "5/10",
 
             };
-            A.CallTo(() => _mediator.Send(A<CreateCourseCommand>.That.Matches(c => c.CourseDTO.Title == courseDTO.Title), default))
+            A.CallTo(() => _mediator.Send(A<CreateCourseCommand>.That.Matches(c => c.CreateCourseDTO.Title == courseDTO.Title), default))
                 .Returns(new CreateCourseResult { Success = true, Message = "Course successfully created" });
 
             // Act
@@ -52,7 +52,7 @@ namespace Test_Layer.CourseTest.IntegrationTest
         {
             // Arrange
             var courseDTO = new CreateCourseDTO();
-            A.CallTo(() => _mediator.Send(A<CreateCourseCommand>.That.Matches(c => c.CourseDTO == courseDTO), default))
+            A.CallTo(() => _mediator.Send(A<CreateCourseCommand>.That.Matches(c => c.CreateCourseDTO == courseDTO), default))
                 .Returns(new CreateCourseResult { Success = false, Message = "Failed to create the course." });
 
             // Act
@@ -73,7 +73,7 @@ namespace Test_Layer.CourseTest.IntegrationTest
             var courseDTO = new CreateCourseDTO();
             var exceptionMessage = "An error occurred";
 
-            A.CallTo(() => _mediator.Send(A<CreateCourseCommand>.That.Matches(c => c.CourseDTO == courseDTO), default))
+            A.CallTo(() => _mediator.Send(A<CreateCourseCommand>.That.Matches(c => c.CreateCourseDTO == courseDTO), default))
                 .Throws(new Exception(exceptionMessage));
 
             // Act
