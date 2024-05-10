@@ -1,5 +1,5 @@
 ﻿using Application_Layer.Queries.ModuleQueries.GetAllModulesByCourse;
-using Domain_Layer.Models.ModulModel;
+using Domain_Layer.Models.Module;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Module;
 
@@ -22,11 +22,11 @@ namespace Test_Layer.ModuleTest.UnitTest.ModuleQueryTest
         {
             // Arrange
             var courseId = new Guid().ToString();
-            var listOfModules = new List<ModulModel>
+            var listOfModules = new List<ModuleModel>
             {
-                new ModulModel{CourseId = courseId , OrderInCourse = 1},
-                new ModulModel{CourseId = courseId , OrderInCourse = 2},
-                new ModulModel{CourseId = courseId , OrderInCourse = 3},
+                new ModuleModel{ OrderInCourse = 1},
+                new ModuleModel{ OrderInCourse = 2},
+                new ModuleModel{ OrderInCourse = 3},
             };
             var query = new GetAllModulesByCourseIdQuery(courseId);
 
@@ -55,7 +55,7 @@ namespace Test_Layer.ModuleTest.UnitTest.ModuleQueryTest
         {
             // Arrange
             var courseId = new Guid().ToString();
-            var emptyListOfModules = new List<ModulModel>();
+            var emptyListOfModules = new List<ModuleModel>();
             var query = new GetAllModulesByCourseIdQuery(courseId);
 
             A.CallTo(() => _moduleRepository.GetAllModulesByCourseId(courseId))

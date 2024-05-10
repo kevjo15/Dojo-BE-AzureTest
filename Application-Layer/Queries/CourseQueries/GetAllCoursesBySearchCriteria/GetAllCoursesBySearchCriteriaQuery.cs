@@ -1,5 +1,4 @@
-﻿using Domain_Layer.Models.CourseModel;
-using Infrastructure_Layer.Repositories.Course;
+﻿using Domain_Layer.Models.Course;
 using MediatR;
 
 namespace Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria

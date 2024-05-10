@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Domain_Layer.Models.ModulModel;
+﻿using AutoMapper;
+using Domain_Layer.Models.Module;
 using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,39 +14,37 @@ namespace Infrastructure_Layer.Repositories.Module
             _dojoDBContext = dojoDBContext;
             _mapper = mapper;
         }
-        public async Task CreateModuleAsync(ModulModel modul)
+        public async Task CreateModuleAsync(ModuleModel modul)
         {
             _dojoDBContext.ModuleModel.Add(modul);
             await _dojoDBContext.SaveChangesAsync();
         }
 
-        public async Task DeleteModulesByCourseIdAsync(string courseId)
-
+        public Task DeleteModulesByCourseIdAsync(string courseId)
         {
-            var modulesToDelete = _dojoDBContext.ModuleModel.Where(m => m.CourseId == courseId);
-            _dojoDBContext.ModuleModel.RemoveRange(modulesToDelete);
-            await _dojoDBContext.SaveChangesAsync();
+            //var modulesToDelete = _dojoDBContext.ModuleModel.Where(m => m.CourseId == courseId);
+            //_dojoDBContext.ModuleModel.RemoveRange(modulesToDelete);
+            //await _dojoDBContext.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-
-
-
-        public async Task<List<ModulModel>> GetAllModulesByCourseId(string courseId)
+        public async Task<List<ModuleModel>> GetAllModulesByCourseId(string courseId)
         {
-            var allModulesByCourseId = await (from module in _dojoDBContext.ModuleModel
-                                              where (module.CourseId.Equals(courseId))
-                                              orderby module.OrderInCourse
-                                              select module).ToListAsync();
+            var allModulesByCourseId = await _dojoDBContext.CourseHasModules
+                                            .Where(cm => cm.Course.CourseId == courseId)
+                                            .Select(cm => cm.Module)
+                                            .OrderBy(cm => cm.OrderInCourse)
+                                            .ToListAsync();
             return allModulesByCourseId;
         }
-        public async Task<ModulModel> GetModuleByIdAsync(string moduleId)
+        public async Task<ModuleModel> GetModuleByIdAsync(string moduleId)
         {
             return await _dojoDBContext.ModuleModel.FindAsync(moduleId);
         }
 
-        public async Task<bool> UpdateModuleAsync(ModulModel updatedModule)
+        public async Task<bool> UpdateModuleAsync(ModuleModel updatedModule)
         {
-            var module = await _dojoDBContext.ModuleModel.FirstOrDefaultAsync(m => m.ModulId == updatedModule.ModulId);
+            var module = await _dojoDBContext.ModuleModel.FirstOrDefaultAsync(m => m.ModuleId == updatedModule.ModuleId);
             if (module == null)
             {
                 return false;
@@ -62,6 +55,5 @@ namespace Infrastructure_Layer.Repositories.Module
             await _dojoDBContext.SaveChangesAsync();
             return true;
         }
-
     }
 }

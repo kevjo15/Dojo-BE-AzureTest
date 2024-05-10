@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain_Layer.Models.CourseModel
+namespace Domain_Layer.Models.Course
 {
     public class SearchCriteria
     {

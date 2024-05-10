@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Queries.ModuleQueries.GetModuleById;
-using Domain_Layer.Models.ModulModel;
+﻿using Application_Layer.Queries.ModuleQueries.GetModuleById;
+using Domain_Layer.Models.Module;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Module;
 using Microsoft.AspNetCore.Mvc;
@@ -34,10 +29,10 @@ namespace Test_Layer.ModuleTest.UnitTest.ModuleQueryTest
             string description = "This is a test module";
             int orderInCource = 0;
 
-            var expectedModule = new ModulModel
+            var expectedModule = new ModuleModel
             {
-                ModulId = moduleId,
-                ModulTitle = moduleTitle,
+                ModuleId = moduleId,
+                ModuleTitle = moduleTitle,
                 Description = description,
                 OrderInCourse = orderInCource
             };
@@ -51,10 +46,10 @@ namespace Test_Layer.ModuleTest.UnitTest.ModuleQueryTest
             Assert.IsInstanceOf<OkObjectResult>(actionResult);
             var okResult = actionResult as OkObjectResult;
             Assert.IsNotNull(okResult);
-            var moduleResult = okResult.Value as ModulModel;
+            var moduleResult = okResult.Value as ModuleModel;
             Assert.IsNotNull(moduleResult);
-            Assert.That(moduleResult.ModulId, Is.EqualTo(expectedModule.ModulId));
-            Assert.That(moduleResult.ModulTitle, Is.EqualTo(expectedModule.ModulTitle));
+            Assert.That(moduleResult.ModuleId, Is.EqualTo(expectedModule.ModuleId));
+            Assert.That(moduleResult.ModuleTitle, Is.EqualTo(expectedModule.ModuleTitle));
             Assert.That(moduleResult.Description, Is.EqualTo(expectedModule.Description));
             Assert.That(moduleResult.OrderInCourse, Is.EqualTo(expectedModule.OrderInCourse));
         }
@@ -65,7 +60,7 @@ namespace Test_Layer.ModuleTest.UnitTest.ModuleQueryTest
             // Arrange
             var moduleId = Guid.NewGuid().ToString();
 
-            A.CallTo(() => _moduleRepository.GetModuleByIdAsync(moduleId)).Returns(Task.FromResult<ModulModel>(null));
+            A.CallTo(() => _moduleRepository.GetModuleByIdAsync(moduleId)).Returns(Task.FromResult<ModuleModel>(null));
 
             // Act
             var actionResult = await _handler.Handle(new GetModuleByIdQuery(moduleId), default);

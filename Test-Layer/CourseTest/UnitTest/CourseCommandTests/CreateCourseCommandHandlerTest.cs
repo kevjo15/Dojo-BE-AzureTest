@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Commands.CourseCommands;
+﻿using Application_Layer.Commands.CourseCommands;
 using Application_Layer.DTO_s;
 using AutoMapper;
-using Domain_Layer.Models.CourseModel;
+using Domain_Layer.Models.Course;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Course;
 

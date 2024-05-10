@@ -1,13 +1,11 @@
-﻿using System.Security.Claims;
-using System.Text;
+﻿using System.Text;
 using Application_Layer;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using Infrastructure_Layer;
 using Infrastructure_Layer.Database;
 using Infrastructure_Layer.DatabaseHelper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;

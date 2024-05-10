@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Commands.RegisterNewUser;
+﻿using Application_Layer.Commands.RegisterNewUser;
 using Application_Layer.Controllers;
 using Application_Layer.DTO_s;
 using Application_Layer.Queries.LoginUser;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using FakeItEasy;
-using FakeItEasy.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Test_Layer.UserTest.IntegrationTests
 {

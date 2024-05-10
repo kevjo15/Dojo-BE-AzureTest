@@ -1,6 +1,6 @@
 ﻿using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
-using Domain_Layer.Models.CourseModel;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.Course;
+using Domain_Layer.Models.User;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Course;
 
@@ -44,7 +44,7 @@ namespace Test_Layer.CourseTest.UnitTest.CourseQueryTests
             // Assert
             Assert.That(result, Is.EqualTo(expectedCourse));
             Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<List<CourseModel>>()); // result is a list of CourseModel objects
+            Assert.That(result, Is.InstanceOf<List<CourseModel>>()); // result is a list of Course objects
             Assert.That(result.Count, Is.EqualTo(1));
             CollectionAssert.AreEqual(expectedCourse, result); //compare both lists directly for equality
         }
@@ -74,7 +74,7 @@ namespace Test_Layer.CourseTest.UnitTest.CourseQueryTests
             // Assert
             Assert.That(result, Is.EqualTo(expectedCourse));
             Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<List<CourseModel>>()); // result is a list of CourseModel objects
+            Assert.That(result, Is.InstanceOf<List<CourseModel>>()); // result is a list of Course objects
             Assert.That(result.Count, Is.EqualTo(1));
             CollectionAssert.AreEqual(expectedCourse, result); //compare both lists directly for equality
         }
@@ -105,7 +105,7 @@ namespace Test_Layer.CourseTest.UnitTest.CourseQueryTests
             // Assert
             Assert.That(result, Is.EqualTo(expectedCourse));
             Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<List<CourseModel>>()); // result is a list of CourseModel objects
+            Assert.That(result, Is.InstanceOf<List<CourseModel>>()); // result is a list of Course objects
             Assert.That(result.Count, Is.EqualTo(1));
             CollectionAssert.AreEqual(expectedCourse, result); //compare both lists directly for equality
         }
@@ -147,7 +147,7 @@ namespace Test_Layer.CourseTest.UnitTest.CourseQueryTests
             // Assert
             Assert.That(result, Is.EqualTo(expectedCourse));
             Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<List<CourseModel>>()); // result is a list of CourseModel objects
+            Assert.That(result, Is.InstanceOf<List<CourseModel>>()); // result is a list of Course objects
             Assert.That(result.Count, Is.EqualTo(1));
             CollectionAssert.AreEqual(expectedCourse, result); //compare both lists directly for equality
         }

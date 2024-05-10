@@ -1,5 +1,4 @@
 ﻿
-
 namespace Application_Layer.Commands.CourseCommands.CreateCourse
 {
     public class CreateCourseResult

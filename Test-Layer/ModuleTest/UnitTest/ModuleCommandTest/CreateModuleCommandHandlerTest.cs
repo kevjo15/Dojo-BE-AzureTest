@@ -1,7 +1,7 @@
 ﻿using Application_Layer.Commands.ModuleCommands.CreateModule;
 using Application_Layer.DTO_s.Module;
 using AutoMapper;
-using Domain_Layer.Models.ModulModel;
+using Domain_Layer.Models.Module;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Module;
 
@@ -28,13 +28,12 @@ namespace Test_Layer.ModuleTest.UnitTest.ModuleCommandTest
             // Arrange
             var moduleDTO = new CreateModuleDTO
             {
-                CourseId = "09a09211-1ec0-4626-8c4c-2878472c5859",
                 ModulTitle = "Introduction to Testing",
                 Description = "A basic module on testing",
                 OrderInCourse = 1
             };
-            var modulModel = new ModulModel();
-            A.CallTo(() => _mapper.Map<ModulModel>(moduleDTO)).Returns(modulModel);
+            var modulModel = new ModuleModel();
+            A.CallTo(() => _mapper.Map<ModuleModel>(moduleDTO)).Returns(modulModel);
             A.CallTo(() => _moduleRepository.CreateModuleAsync(modulModel)).Returns(Task.CompletedTask);
 
             // Act
@@ -51,13 +50,12 @@ namespace Test_Layer.ModuleTest.UnitTest.ModuleCommandTest
             // Arrange
             var moduleDTO = new CreateModuleDTO
             {
-                CourseId = "a5de4c71-c224-4257-b19b-eb47d55e4575",
                 ModulTitle = "Faulty Module",
                 Description = "This module should fail",
                 OrderInCourse = -1
             };
-            var modulModel = new ModulModel();
-            A.CallTo(() => _mapper.Map<ModulModel>(moduleDTO)).Returns(modulModel);
+            var modulModel = new ModuleModel();
+            A.CallTo(() => _mapper.Map<ModuleModel>(moduleDTO)).Returns(modulModel);
             A.CallTo(() => _moduleRepository.CreateModuleAsync(modulModel)).Throws(new Exception("Database error"));
 
             // Act
@@ -73,7 +71,7 @@ namespace Test_Layer.ModuleTest.UnitTest.ModuleCommandTest
         {
             // Arrange
             var moduleDTO = new CreateModuleDTO();
-            A.CallTo(() => _mapper.Map<ModulModel>(A<CreateModuleDTO>.Ignored)).Throws(new Exception("Mapping failed"));
+            A.CallTo(() => _mapper.Map<ModuleModel>(A<CreateModuleDTO>.Ignored)).Throws(new Exception("Mapping failed"));
 
             // Act
             var result = await _handler.Handle(new CreateModuleCommand(moduleDTO), default);

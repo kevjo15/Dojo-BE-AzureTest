@@ -1,8 +1,8 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain_Layer.Models.ModuleHasContent;
 
-namespace Domain_Layer.Models.ContentModel
+namespace Domain_Layer.Models.Content
 {
     public class ContentModel
     {
@@ -14,6 +14,6 @@ namespace Domain_Layer.Models.ContentModel
         public string ContentType { get; set; } = string.Empty;
         public string? ContentURL { get; set; }
         public string Description { get; set; } = string.Empty;
-        public ICollection<Domain_Layer.Models.ModulModel.ModulModel> Modules { get; set; }
+        public ICollection<ModuleHasContentModel> ModuleHasContents { get; set; } = new List<ModuleHasContentModel>();
     }
 }

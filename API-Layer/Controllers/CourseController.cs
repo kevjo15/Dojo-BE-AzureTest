@@ -4,7 +4,7 @@ using Application_Layer.Commands.CourseCommands.UpdateCourse;
 using Application_Layer.DTO_s;
 using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
-using Domain_Layer.Models.CourseModel;
+using Domain_Layer.Models.Course;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

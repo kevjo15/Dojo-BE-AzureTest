@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Validators.ValidationExtensions;
+﻿using Application_Layer.Validators.ValidationExtensions;
 using FluentValidation;
 
 namespace Application_Layer.Queries.ModuleQueries.GetModuleById

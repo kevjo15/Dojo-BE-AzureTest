@@ -2,7 +2,7 @@
 using Application_Layer.Commands.DeleteUser;
 using Application_Layer.Controllers;
 using Application_Layer.Queries.GetUserByEmail;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using FakeItEasy;
 using MediatR;
 using Microsoft.AspNetCore.Http;

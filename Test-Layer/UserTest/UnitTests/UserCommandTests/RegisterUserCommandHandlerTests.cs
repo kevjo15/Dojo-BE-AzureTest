@@ -2,7 +2,7 @@
 using Application_Layer.DTO_s;
 using AutoFixture;
 using AutoMapper;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.User;
 

@@ -1,6 +1,6 @@
 ﻿using Application_Layer.Controllers;
 using Application_Layer.Queries.GetUserById;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using FakeItEasy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

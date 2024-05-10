@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Commands.CourseCommands.DeleteCourse;
+﻿using Application_Layer.Commands.CourseCommands.DeleteCourse;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Course;
 using Infrastructure_Layer.Repositories.Module;

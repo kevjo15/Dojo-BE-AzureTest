@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using API_Layer.Controllers;
+﻿using API_Layer.Controllers;
 using Application_Layer.Queries.ModuleQueries.GetModuleById;
-using Domain_Layer.Models.ModulModel;
+using Domain_Layer.Models.Module;
 using FakeItEasy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +27,7 @@ namespace Test_Layer.ModuleTest.IntegrationTest
             var moduleId = Guid.NewGuid().ToString();
             string moduleTitle = "Test Module";
             string description = "Description";
-            var expectedModule = new ModulModel { ModulId = moduleId, ModulTitle = moduleTitle, Description = description };
+            var expectedModule = new ModuleModel { ModuleId = moduleId, ModuleTitle = moduleTitle, Description = description };
 
             A.CallTo(() => _mediator.Send(A<GetModuleByIdQuery>.That.Matches(q => q.ModuleId == moduleId), default))
                 .Returns(Task.FromResult<IActionResult>(new OkObjectResult(expectedModule)));

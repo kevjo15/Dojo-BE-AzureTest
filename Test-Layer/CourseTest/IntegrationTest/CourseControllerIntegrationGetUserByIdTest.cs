@@ -1,6 +1,6 @@
 ﻿using API_Layer.Controllers;
 using Application_Layer.Queries.CourseQueries.GetCourseById;
-using Domain_Layer.Models.CourseModel;
+using Domain_Layer.Models.Course;
 using FakeItEasy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

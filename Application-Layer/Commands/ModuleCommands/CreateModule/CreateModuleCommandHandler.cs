@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Domain_Layer.Models.ModulModel;
+﻿using AutoMapper;
+using Domain_Layer.Models.Module;
 using Infrastructure_Layer.Repositories.Module;
 using MediatR;
 
@@ -25,7 +20,7 @@ namespace Application_Layer.Commands.ModuleCommands.CreateModule
         {
             try
             {
-                var modulModel = _mapper.Map<ModulModel>(request.ModuleDTO);
+                var modulModel = _mapper.Map<ModuleModel>(request.ModuleDTO);
                 await _moduleRepository.CreateModuleAsync(modulModel);
                 return new CreateModuleResult { Success = true, Message = "Module successfully created" };
             }

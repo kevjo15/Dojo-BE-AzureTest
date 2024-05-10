@@ -1,8 +1,9 @@
-﻿using System.Reflection.Emit;
-using Domain_Layer.Models.ContentModel;
-using Domain_Layer.Models.CourseModel;
-using Domain_Layer.Models.ModulModel;
-using Domain_Layer.Models.UserModel;
+﻿using Domain_Layer.Models.Content;
+using Domain_Layer.Models.Course;
+using Domain_Layer.Models.CourseHasModule;
+using Domain_Layer.Models.Module;
+using Domain_Layer.Models.ModuleHasContent;
+using Domain_Layer.Models.User;
 using Infrastructure_Layer.DatabaseHelper;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +19,45 @@ namespace Infrastructure_Layer.Database
         }
         public DbSet<UserModel> User { get; set; }
         public DbSet<CourseModel> CourseModel { get; set; }
-        public DbSet<ModulModel> ModuleModel { get; set; }
+        public DbSet<ModuleModel> ModuleModel { get; set; }
         public DbSet<ContentModel> ContentModel { get; set; }
+        public DbSet<CourseHasModuleModel> CourseHasModules { get; set; }
+        public DbSet<ModuleHasContentModel> ModuleHasContents { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<CourseModel>().HasKey(c => c.CourseId);
-            _databaseSeedHelper.SeedData(builder);
             base.OnModelCreating(builder);
+
+            builder.Entity<CourseHasModuleModel>()
+                 .HasKey(cm => new { cm.CourseId, cm.ModuleId });
+
+            builder.Entity<CourseHasModuleModel>()
+               .HasOne(cm => cm.Course)
+               .WithMany(c => c.CourseHasModules)
+               .HasForeignKey(cm => cm.CourseId);
+
+            builder.Entity<CourseHasModuleModel>()
+               .HasOne(cm => cm.Module)
+               .WithMany(m => m.CourseHasModules)
+               .HasForeignKey(cm => cm.ModuleId);
+
+            //
+            builder.Entity<ModuleHasContentModel>()
+               .HasKey(mc => new { mc.ModuleId, mc.ContentId });
+
+            builder.Entity<ModuleHasContentModel>()
+               .HasOne(mc => mc.Module)
+               .WithMany(m => m.ModuleHasContents)
+               .HasForeignKey(mc => mc.ModuleId);
+
+            builder.Entity<ModuleHasContentModel>()
+               .HasOne(mc => mc.Content)
+               .WithMany(m => m.ModuleHasContents)
+               .HasForeignKey(mc => mc.ContentId);
+
+            _databaseSeedHelper.SeedData(builder);
+
         }
     }
 }

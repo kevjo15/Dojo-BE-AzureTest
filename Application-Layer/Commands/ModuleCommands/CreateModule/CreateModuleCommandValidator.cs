@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Application_Layer.Commands.ModuleCommands.CreateModule
 {
@@ -11,9 +6,6 @@ namespace Application_Layer.Commands.ModuleCommands.CreateModule
     {
         public CreateModuleCommandValidator()
         {
-            RuleFor(x => x.ModuleDTO.CourseId)
-                .NotEmpty().WithMessage("CourseId is required.")
-                .Length(1, 50).WithMessage("CourseId must be between 1 and 50 characters.");
 
             RuleFor(x => x.ModuleDTO.ModulTitle)
                 .NotEmpty().WithMessage("Module title is required.")

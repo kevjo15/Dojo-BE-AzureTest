@@ -1,10 +1,8 @@
-﻿using System.Security.Claims;
-using Application_Layer.AutoMaper;
+﻿using Application_Layer.AutoMaper;
 using Application_Layer.PipelineBehaviour;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application_Layer

@@ -1,6 +1,6 @@
 ﻿using Application_Layer.Commands.CourseCommands.CreateCourse;
 using AutoMapper;
-using Domain_Layer.Models.CourseModel;
+using Domain_Layer.Models.Course;
 using Infrastructure_Layer.Repositories.Course;
 using MediatR;
 

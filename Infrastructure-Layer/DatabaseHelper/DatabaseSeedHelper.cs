@@ -1,4 +1,4 @@
-﻿using Domain_Layer.Models.UserModel;
+﻿using Domain_Layer.Models.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

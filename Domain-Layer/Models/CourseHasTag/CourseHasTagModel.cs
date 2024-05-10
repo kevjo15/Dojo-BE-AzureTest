@@ -1,5 +1,5 @@
 ﻿
-namespace Domain_Layer.Models.CourseHasTagModel
+namespace Domain_Layer.Models.CourseHasTag
 {
     public class CourseHasTagModel
     {

@@ -1,6 +1,6 @@
 ﻿using Application_Layer.Queries.GetAllUsers;
 using AutoFixture;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using FakeItEasy;
 using FluentAssertions;
 using Infrastructure_Layer.Repositories.User;

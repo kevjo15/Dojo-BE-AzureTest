@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using API_Layer.Controllers;
+﻿using API_Layer.Controllers;
 using Application_Layer.Commands.ModuleCommands.UpdateModule;
 using Application_Layer.DTO_s.Module;
-using Domain_Layer.Models.ModulModel;
+using Domain_Layer.Models.Module;
 using FakeItEasy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -33,17 +28,15 @@ namespace Test_Layer.ModuleTest.IntegrationTest
             var moduleId = Guid.NewGuid().ToString();
             var moduleUpdateDTO = new UpdateModuleDTO
             {
-                CourseId = Guid.NewGuid().ToString(),
                 ModulTitle = "New Title",
                 Description = "New Description",
                 OrderInCourse = 2,
                 ResourceURL = "http://example.com/newresource"
             };
-            var updatedModuleResult = new ModulModel
+            var updatedModuleResult = new ModuleModel
             {
-                ModulId = moduleId,
-                CourseId = moduleUpdateDTO.CourseId,
-                ModulTitle = moduleUpdateDTO.ModulTitle,
+                ModuleId = moduleId,
+                ModuleTitle = moduleUpdateDTO.ModulTitle,
                 Description = moduleUpdateDTO.Description,
                 OrderInCourse = moduleUpdateDTO.OrderInCourse,
                 ResourceURL = moduleUpdateDTO.ResourceURL

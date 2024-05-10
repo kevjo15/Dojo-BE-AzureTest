@@ -1,6 +1,6 @@
 ﻿using API_Layer.Controllers;
 using Application_Layer.Queries.ModuleQueries.GetAllModulesByCourse;
-using Domain_Layer.Models.ModulModel;
+using Domain_Layer.Models.Module;
 using FakeItEasy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,9 +26,9 @@ namespace Test_Layer.ModuleTest.IntegrationTest
         {
             // Arrange
             var courseId = "test-id";
-            var modulesByCourseId = new List<ModulModel>
+            var modulesByCourseId = new List<ModuleModel>
             {
-              new ModulModel  { CourseId = courseId, OrderInCourse = 1, ModulTitle = "Introduction"}
+              new ModuleModel  { OrderInCourse = 1, ModuleTitle = "Introduction"}
             };
 
             A.CallTo(() => _mediator.Send(A<GetAllModulesByCourseIdQuery>.That.Matches(q => q.CourseId == courseId), default))
@@ -43,10 +43,10 @@ namespace Test_Layer.ModuleTest.IntegrationTest
             Assert.That(okResult.Value, Is.EqualTo(modulesByCourseId));
             Assert.That(okResult.StatusCode, Is.EqualTo(200));
 
-            var returnedCourse = okResult.Value as List<ModulModel>;
+            var returnedCourse = okResult.Value as List<ModuleModel>;
             Assert.NotNull(returnedCourse);
             Assert.That(returnedCourse.Count, Is.EqualTo(1));
-            Assert.That(returnedCourse[0].ModulTitle, Is.EqualTo("Introduction"));
+            Assert.That(returnedCourse[0].ModuleTitle, Is.EqualTo("Introduction"));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace Test_Layer.ModuleTest.IntegrationTest
             var courseId = "non-existent-id";
 
             A.CallTo(() => _mediator.Send(A<GetAllModulesByCourseIdQuery>.That.Matches(q => q.CourseId == courseId), default))
-                .Returns(await Task.FromResult<List<ModulModel>>(null)); // Simulate the course not being found
+                .Returns(await Task.FromResult<List<ModuleModel>>(null)); // Simulate the course not being found
 
             // Act
             var result = await _controller.GetAllModulesByCourseId(courseId);

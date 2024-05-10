@@ -1,5 +1,4 @@
-﻿
-namespace Domain_Layer.Models.TagModel
+﻿namespace Domain_Layer.Models.Tag
 {
     public class TagModel
     {

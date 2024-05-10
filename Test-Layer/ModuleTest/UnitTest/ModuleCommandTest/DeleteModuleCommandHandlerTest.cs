@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Commands.ModuleCommands.DeleteModule;
+﻿using Application_Layer.Commands.ModuleCommands.DeleteModule;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Module;
 

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 using Application_Layer.Commands.UpdateUser;
 using Application_Layer.Controllers;
 using Application_Layer.DTO_s;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using FakeItEasy;
 using MediatR;
 using Microsoft.AspNetCore.Http;

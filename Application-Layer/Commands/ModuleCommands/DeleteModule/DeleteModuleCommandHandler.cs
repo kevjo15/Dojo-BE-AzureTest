@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Infrastructure_Layer.Repositories.Module;
+﻿using Infrastructure_Layer.Repositories.Module;
 using MediatR;
 
 namespace Application_Layer.Commands.ModuleCommands.DeleteModule

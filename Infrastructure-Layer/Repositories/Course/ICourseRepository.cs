@@ -1,4 +1,4 @@
-﻿using Domain_Layer.Models.CourseModel;
+﻿using Domain_Layer.Models.Course;
 
 namespace Infrastructure_Layer.Repositories.Course
 {

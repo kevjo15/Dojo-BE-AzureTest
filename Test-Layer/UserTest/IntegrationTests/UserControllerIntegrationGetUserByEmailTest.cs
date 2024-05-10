@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.Controllers;
+﻿using Application_Layer.Controllers;
 using Application_Layer.Queries.GetUserByEmail;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using FakeItEasy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

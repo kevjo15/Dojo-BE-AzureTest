@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain_Layer.Models.ModulModel;
+﻿using Domain_Layer.Models.Module;
 
 namespace Infrastructure_Layer.Repositories.Module
 {
     public interface IModuleRepository
     {
         Task DeleteModulesByCourseIdAsync(string courseId);
-        Task<bool> UpdateModuleAsync(ModulModel module);
-        Task<List<ModulModel>> GetAllModulesByCourseId(string courseId);
-        Task CreateModuleAsync(ModulModel modul);
-        Task<ModulModel> GetModuleByIdAsync(string moduleId);
-
+        Task<List<ModuleModel>> GetAllModulesByCourseId(string courseId);
+        Task CreateModuleAsync(ModuleModel modul);
+        Task<ModuleModel> GetModuleByIdAsync(string moduleId);
+        Task<bool> UpdateModuleAsync(ModuleModel module);
     }
 }

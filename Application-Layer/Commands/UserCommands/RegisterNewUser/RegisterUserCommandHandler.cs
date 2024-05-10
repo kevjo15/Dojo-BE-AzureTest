@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain_Layer.Models.UserModel;
+using Domain_Layer.Models.User;
 using Infrastructure_Layer.Repositories.User;
 using MediatR;
 

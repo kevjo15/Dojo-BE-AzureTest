@@ -1,6 +1,6 @@
 ﻿using API_Layer.Controllers;
 using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
-using Domain_Layer.Models.CourseModel;
+using Domain_Layer.Models.Course;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Course;
 using MediatR;
