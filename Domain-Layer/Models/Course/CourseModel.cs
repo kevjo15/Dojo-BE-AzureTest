@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain_Layer.Models.CourseHasModule;
+using Domain_Layer.Models.CourseHasTag;
 namespace Domain_Layer.Models.Course
 
 {
@@ -28,5 +29,6 @@ namespace Domain_Layer.Models.Course
         public bool CourseIsCompleted { get; set; }
         public bool IssueCertificate { get; set; }
         public ICollection<CourseHasModuleModel> CourseHasModules { get; set; } = new List<CourseHasModuleModel>();
+        public ICollection<CourseHasTagModel> CourseHasTags { get; set; } = new List<CourseHasTagModel>();
     }
 }

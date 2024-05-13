@@ -1,6 +1,7 @@
 ﻿using Domain_Layer.Models.Content;
 using Domain_Layer.Models.Course;
 using Domain_Layer.Models.CourseHasModule;
+using Domain_Layer.Models.CourseHasTag;
 using Domain_Layer.Models.Module;
 using Domain_Layer.Models.ModuleHasContent;
 using Domain_Layer.Models.User;
@@ -23,6 +24,7 @@ namespace Infrastructure_Layer.Database
         public DbSet<ContentModel> ContentModel { get; set; }
         public DbSet<CourseHasModuleModel> CourseHasModules { get; set; }
         public DbSet<ModuleHasContentModel> ModuleHasContents { get; set; }
+        public DbSet<CourseHasTagModel> CourseHasTags { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -41,7 +43,6 @@ namespace Infrastructure_Layer.Database
                .HasOne(cm => cm.Module)
                .WithMany(m => m.CourseHasModules)
                .HasForeignKey(cm => cm.ModuleId);
-
             //
             builder.Entity<ModuleHasContentModel>()
                .HasKey(mc => new { mc.ModuleId, mc.ContentId });
@@ -55,6 +56,19 @@ namespace Infrastructure_Layer.Database
                .HasOne(mc => mc.Content)
                .WithMany(m => m.ModuleHasContents)
                .HasForeignKey(mc => mc.ContentId);
+            //
+            builder.Entity<CourseHasTagModel>()
+                .HasKey(ct => new { ct.CourseId, ct.TagId });
+
+            builder.Entity<CourseHasTagModel>()
+                .HasOne(ct => ct.Course)
+                .WithMany(c => c.CourseHasTags)
+                .HasForeignKey(ct => ct.CourseId);
+
+            builder.Entity<CourseHasTagModel>()
+               .HasOne(ct => ct.Tag)
+               .WithMany(t => t.CourseHasTags)
+               .HasForeignKey(ct => ct.TagId);
 
             _databaseSeedHelper.SeedData(builder);
 
