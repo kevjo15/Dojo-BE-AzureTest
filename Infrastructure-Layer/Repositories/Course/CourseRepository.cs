@@ -1,4 +1,6 @@
-﻿using Domain_Layer.Models.Course;
+﻿using Domain_Layer.CommandOperationResult;
+using Domain_Layer.Models.Course;
+using Domain_Layer.Models.CourseHasModule;
 using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -76,6 +78,43 @@ namespace Infrastructure_Layer.Repositories.Course
         public Task<List<CourseModel>> GetAllCourses()
         {
             return _dojoDBContext.CourseModel.ToListAsync();
+        }
+
+        public async Task<OperationResult<bool>> ConnectCourseWithModuleAsync(string courseId, string moduleId)
+        {
+            // Retrieve the existing course and module
+            var course = await _dojoDBContext.CourseModel.FindAsync(courseId);
+            var module = await _dojoDBContext.ModuleModel.FindAsync(moduleId);
+
+            // Return false if either entity is not found
+            if (course == null || module == null)
+            {
+                return new OperationResult<bool> { Success = false, Message = "Course or module not found." };
+            }
+
+            // Check if the association already exists
+            var existingAssociation = await _dojoDBContext.CourseHasModules
+             .FirstOrDefaultAsync(chm => chm.Course.CourseId == courseId && chm.Module.ModuleId == moduleId);
+
+            if (existingAssociation != null)
+            {
+                return new OperationResult<bool> { Success = false, Message = $"Association between course ID {courseId} and module ID {moduleId} already exists." };
+            }
+
+            // Create a new association
+            var courseHasModule = new CourseHasModuleModel
+            {
+                Course = course,
+                Module = module
+            };
+
+            // Add the association to the course's modules
+            course.CourseHasModules.Add(courseHasModule);
+
+            // Save changes
+            await _dojoDBContext.SaveChangesAsync();
+
+            return new OperationResult<bool> { Success = true, Data = true };
         }
     }
 }

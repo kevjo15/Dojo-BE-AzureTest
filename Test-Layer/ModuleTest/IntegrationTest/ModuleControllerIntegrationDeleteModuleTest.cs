@@ -23,12 +23,12 @@ namespace Test_Layer.ModuleTest.IntegrationTest
         public async Task DeleteModule_ReturnsOk_WhenModuleSuccessfullyDeleted()
         {
             // Arrange
-            var courseId = "1408b448-83a4-4158-9a96-f5aa02d3cdac";
-            A.CallTo(() => _mediator.Send(A<DeleteModuleCommand>.That.Matches(x => x.CourseId == courseId), default))
+            var moduleId = "1408b448-83a4-4158-9a96-f5aa02d3cdac";
+            A.CallTo(() => _mediator.Send(A<DeleteModuleCommand>.That.Matches(x => x.ModuleId == moduleId), default))
                 .Returns(new DeleteModuleResult { Success = true, Message = "Modules successfully deleted" });
 
             // Act
-            var result = await _controller.DeleteModule(courseId);
+            var result = await _controller.DeleteModule(moduleId);
 
             // Assert
             Assert.IsInstanceOf<OkObjectResult>(result);
@@ -41,11 +41,11 @@ namespace Test_Layer.ModuleTest.IntegrationTest
         public async Task DeleteModule_ReturnsBadRequest_WhenModuleDeletionFails()
         {
             // Arrange
-            var courseId = "f8e9cbb3-4a9a-46a5-8c27-a3a4b254954a";
-            A.CallTo(() => _mediator.Send(A<DeleteModuleCommand>.That.Matches(x => x.CourseId == courseId), default)).Returns(new DeleteModuleResult { Success = false, Message = "Failed to delete modules" });
+            var moduleId = "f8e9cbb3-4a9a-46a5-8c27-a3a4b254954a";
+            A.CallTo(() => _mediator.Send(A<DeleteModuleCommand>.That.Matches(x => x.ModuleId == moduleId), default)).Returns(new DeleteModuleResult { Success = false, Message = "Failed to delete modules" });
 
             // Act
-            var result = await _controller.DeleteModule(courseId);
+            var result = await _controller.DeleteModule(moduleId);
 
             // Assert
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
@@ -59,11 +59,11 @@ namespace Test_Layer.ModuleTest.IntegrationTest
         {
 
             // Arrange
-            var courseId = "ce212c9a-40ae-475c-89a1-387c575a9b6c";
-            A.CallTo(() => _mediator.Send(A<DeleteModuleCommand>.That.Matches(x => x.CourseId == courseId), default)).Throws(new Exception("Unhandled exception"));
+            var moduleId = "ce212c9a-40ae-475c-89a1-387c575a9b6c";
+            A.CallTo(() => _mediator.Send(A<DeleteModuleCommand>.That.Matches(x => x.ModuleId == moduleId), default)).Throws(new Exception("Unhandled exception"));
 
             // Act
-            var result = await _controller.DeleteModule(courseId);
+            var result = await _controller.DeleteModule(moduleId);
 
             // Assert
             Assert.IsInstanceOf<BadRequestObjectResult>(result);

@@ -42,12 +42,12 @@ namespace API_Layer.Controllers
         }
 
 
-        [HttpDelete("DeleteModule/{courseId}")]
-        public async Task<IActionResult> DeleteModule([FromBody] string courseId)
+        [HttpDelete("DeleteModule/{moduleId}")]
+        public async Task<IActionResult> DeleteModule(string moduleId)
         {
             try
             {
-                var result = await _mediator.Send(new DeleteModuleCommand(courseId));
+                var result = await _mediator.Send(new DeleteModuleCommand(moduleId));
 
                 if (result.Success)
                 {

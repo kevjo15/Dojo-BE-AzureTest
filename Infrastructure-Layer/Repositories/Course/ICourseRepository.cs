@@ -1,4 +1,5 @@
-﻿using Domain_Layer.Models.Course;
+﻿using Domain_Layer.CommandOperationResult;
+using Domain_Layer.Models.Course;
 
 namespace Infrastructure_Layer.Repositories.Course
 {
@@ -10,5 +11,6 @@ namespace Infrastructure_Layer.Repositories.Course
         Task<List<CourseModel>> GetCoursesBySearchCriteria(SearchCriteria searchCriteriaInfo);
         Task<bool> UpdateCourseAsync(CourseModel courseToUpdate);
         Task<List<CourseModel>> GetAllCourses();
+        Task<OperationResult<bool>> ConnectCourseWithModuleAsync(string courseId, string moduleId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Infrastructure_Layer.Repositories.Module;
+﻿using Infrastructure_Layer.Database;
+using Infrastructure_Layer.Repositories.Module;
 using MediatR;
 
 namespace Application_Layer.Commands.ModuleCommands.DeleteModule
@@ -16,7 +17,7 @@ namespace Application_Layer.Commands.ModuleCommands.DeleteModule
         {
             try
             {
-                await _moduleRepository.DeleteModulesByCourseIdAsync(request.CourseId);
+                await _moduleRepository.DeleteModuleByModuleIdAsync(request.ModuleId);
                 return new DeleteModuleResult { Success = true, Message = "Modules successfully deleted" };
             }
             catch (Exception ex)

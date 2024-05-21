@@ -1,4 +1,5 @@
 ﻿using Application_Layer.Commands.CourseCommands;
+using Application_Layer.Commands.CourseCommands.CreateCourseHasModuleConnection;
 using Application_Layer.Commands.CourseCommands.DeleteCourse;
 using Application_Layer.Commands.CourseCommands.UpdateCourse;
 using Application_Layer.DTO_s;
@@ -55,7 +56,27 @@ namespace API_Layer.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("course/{courseId}/add-module/{moduleId}")]
+        public async Task<IActionResult> CreateCourseHasModulesConnection(string courseId, string moduleId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new CreateCourseHasModuleConnectionCommand(courseId, moduleId));
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                else
+                {
+                    return BadRequest(result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
 
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpGet("GetCourseById/{courseId}")]
         public async Task<IActionResult> GetCourseById(string courseId)

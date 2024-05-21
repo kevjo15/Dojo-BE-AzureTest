@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application_Layer.Validators.ValidationExtensions;
+using FluentValidation;
 
 namespace Application_Layer.Commands.ModuleCommands.DeleteModule
 {
@@ -6,8 +7,8 @@ namespace Application_Layer.Commands.ModuleCommands.DeleteModule
     {
         public DeleteModuleCommandValidator()
         {
-            RuleFor(x => x.CourseId)
-                .NotEmpty().WithMessage("CourseId is required.");
+            RuleFor(x => x.ModuleId)
+                .MustBeValidId();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Domain_Layer.Models.Module;
 using Infrastructure_Layer.Database;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,15 @@ namespace Infrastructure_Layer.Repositories.Module
             await _dojoDBContext.SaveChangesAsync();
         }
 
-        public Task DeleteModulesByCourseIdAsync(string courseId)
+        public async Task DeleteModuleByModuleIdAsync(string moduleId)
         {
-            //var modulesToDelete = _dojoDBContext.ModuleModel.Where(m => m.CourseId == courseId);
-            //_dojoDBContext.ModuleModel.RemoveRange(modulesToDelete);
-            //await _dojoDBContext.SaveChangesAsync();
-            throw new NotImplementedException();
+            var module = await _dojoDBContext.ModuleModel.FindAsync(moduleId);
+            if (module == null)
+            {
+                throw new Exception($"Module with Id: {moduleId} is not exist in the database");
+            }
+            _dojoDBContext.ModuleModel.Remove(module);
+            await _dojoDBContext.SaveChangesAsync();
         }
 
         public async Task<List<ModuleModel>> GetAllModulesByCourseId(string courseId)
@@ -39,7 +43,12 @@ namespace Infrastructure_Layer.Repositories.Module
         }
         public async Task<ModuleModel> GetModuleByIdAsync(string moduleId)
         {
-            return await _dojoDBContext.ModuleModel.FindAsync(moduleId);
+            var module = await _dojoDBContext.ModuleModel.FindAsync(moduleId);
+            if (module == null)
+            {
+                throw new Exception($"Module with Id: {moduleId} is not exist in the database");
+            }
+            return module;
         }
 
         public async Task<bool> UpdateModuleAsync(ModuleModel updatedModule)

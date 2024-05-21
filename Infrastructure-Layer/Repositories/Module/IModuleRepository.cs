@@ -4,7 +4,7 @@ namespace Infrastructure_Layer.Repositories.Module
 {
     public interface IModuleRepository
     {
-        Task DeleteModulesByCourseIdAsync(string courseId);
+        Task DeleteModuleByModuleIdAsync(string moduleId);
         Task<List<ModuleModel>> GetAllModulesByCourseId(string courseId);
         Task CreateModuleAsync(ModuleModel modul);
         Task<ModuleModel> GetModuleByIdAsync(string moduleId);
