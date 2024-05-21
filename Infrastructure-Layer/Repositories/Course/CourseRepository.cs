@@ -17,11 +17,12 @@ namespace Infrastructure_Layer.Repositories.Course
         public async Task DeleteCourseByIdAsync(string courseId)
         {
             var course = await _dojoDBContext.CourseModel.FindAsync(courseId);
-            if (course != null)
+            if (course == null)
             {
-                _dojoDBContext.CourseModel.Remove(course);
-                await _dojoDBContext.SaveChangesAsync();
+                throw new Exception($"Course with courseId: {courseId} is not existing in the database");
             }
+            _dojoDBContext.CourseModel.Remove(course);
+            await _dojoDBContext.SaveChangesAsync();
         }
 
         public async Task<CourseModel> GetCourseByIdAsync(string courseId)
@@ -78,6 +79,16 @@ namespace Infrastructure_Layer.Repositories.Course
         public Task<List<CourseModel>> GetAllCourses()
         {
             return _dojoDBContext.CourseModel.ToListAsync();
+        }
+        public async Task DeleteCourseHasModuleConnection(string courseId, string moduleId)
+        {
+            var connection = await _dojoDBContext.CourseHasModules.FindAsync(courseId, moduleId);
+            if (connection == null)
+            {
+                throw new Exception($"There was no connection between courseId: {courseId} and moduleId: {moduleId} in the database");
+            }
+            _dojoDBContext.CourseHasModules.Remove(connection);
+            await _dojoDBContext.SaveChangesAsync();
         }
 
         public async Task<OperationResult<bool>> ConnectCourseWithModuleAsync(string courseId, string moduleId)

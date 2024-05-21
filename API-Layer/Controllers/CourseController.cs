@@ -1,6 +1,7 @@
 ﻿using Application_Layer.Commands.CourseCommands;
 using Application_Layer.Commands.CourseCommands.CreateCourseHasModuleConnection;
 using Application_Layer.Commands.CourseCommands.DeleteCourse;
+using Application_Layer.Commands.CourseCommands.DeleteCourseHasModuleConnection;
 using Application_Layer.Commands.CourseCommands.UpdateCourse;
 using Application_Layer.DTO_s;
 using Application_Layer.Queries.CourseQueries.GetAllCoursesBySearchCriteria;
@@ -110,6 +111,27 @@ namespace API_Layer.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete("courses/{courseId}/remove-module/{moduleId}")]
+        public async Task<IActionResult> DeleteCourseHasModuleConnection(string courseId, string moduleId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new DeleteCourseHasModuleConnectionCommand(courseId, moduleId));
+                if (result.Success)
+                {
+                    return Ok(result.Message);
+                }
+                else
+                {
+                    return BadRequest(result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+
                 return BadRequest(ex.Message);
             }
         }

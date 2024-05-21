@@ -1,7 +1,6 @@
 ﻿using Application_Layer.Commands.CourseCommands.DeleteCourse;
 using FakeItEasy;
 using Infrastructure_Layer.Repositories.Course;
-using Infrastructure_Layer.Repositories.Module;
 
 namespace Test_Layer.CourseTest.UnitTest.CourseCommandTests
 {
@@ -9,14 +8,12 @@ namespace Test_Layer.CourseTest.UnitTest.CourseCommandTests
     public class DeleteCourseCommandHandlerTests
     {
         private ICourseRepository _courseRepository;
-        private IModuleRepository _moduleRepository;
         private DeleteCourseCommandHandler _handler;
         [SetUp]
         public void SetUp()
         {
             _courseRepository = A.Fake<ICourseRepository>();
-            _moduleRepository = A.Fake<IModuleRepository>();
-            _handler = new DeleteCourseCommandHandler(_courseRepository, _moduleRepository);
+            _handler = new DeleteCourseCommandHandler(_courseRepository);
         }
 
         [Test]
