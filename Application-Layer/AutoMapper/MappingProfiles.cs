@@ -1,6 +1,8 @@
 ﻿using Application_Layer.DTO_s;
+using Application_Layer.DTO_s.Content;
 using Application_Layer.DTO_s.Module;
 using AutoMapper;
+using Domain_Layer.Models.Content;
 using Domain_Layer.Models.Course;
 using Domain_Layer.Models.Module;
 using Domain_Layer.Models.User;
@@ -28,6 +30,7 @@ namespace Application_Layer.AutoMaper
             CreateMap<CreateModuleDTO, ModuleModel>();
             CreateMap<UpdateModuleDTO, ModuleModel>()
             .ForMember(dest => dest.ModuleId, opt => opt.Ignore());
+            CreateMap<CreateContentDTO, ContentModel>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Infrastructure_Layer.Database;
 using Infrastructure_Layer.DatabaseHelper;
+using Infrastructure_Layer.Repositories.Content;
 using Infrastructure_Layer.Repositories.Course;
 using Infrastructure_Layer.Repositories.Module;
 using Infrastructure_Layer.Repositories.User;
@@ -24,6 +25,7 @@ namespace Infrastructure_Layer
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IModuleRepository, ModuleRepository>();
+            services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<DatabaseSeedHelper>();
 
             return services;

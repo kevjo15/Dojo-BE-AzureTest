@@ -31,4 +31,8 @@
     <ProjectReference Include="..\Infrastructure-Layer\Infrastructure-Layer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ContentTest\UnitTest\ContentQueryTest\" />
+  </ItemGroup>
+
 </Project>

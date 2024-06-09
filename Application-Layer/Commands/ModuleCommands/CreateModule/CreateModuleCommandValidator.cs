@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application_Layer.Validators.ValidationExtensions;
+using FluentValidation;
 
 namespace Application_Layer.Commands.ModuleCommands.CreateModule
 {
@@ -8,29 +9,15 @@ namespace Application_Layer.Commands.ModuleCommands.CreateModule
         {
 
             RuleFor(x => x.ModuleDTO.ModulTitle)
-                .NotEmpty().WithMessage("Module title is required.")
-                .Length(1, 100).WithMessage("Module title must be between 1 and 100 characters.");
-
+               .MustBeValidTitle();
             RuleFor(x => x.ModuleDTO.Description)
-                .NotEmpty().WithMessage("Description is required.")
-                .Length(1, 500).WithMessage("Description must be between 1 and 500 characters.");
-
+                .MustBeValidDescription();
+            RuleFor(x => x.ModuleDTO.ResourceURL)
+                .NotEmpty().When(x => !string.IsNullOrEmpty(x.ModuleDTO.ResourceURL))
+                .MustBeValidURL().When(x => !string.IsNullOrEmpty(x.ModuleDTO.ResourceURL));
             RuleFor(x => x.ModuleDTO.OrderInCourse)
                 .GreaterThanOrEqualTo(1).WithMessage("Order in course must be greater than or equal to 1.");
-
-            RuleFor(x => x.ModuleDTO.ResourceURL)
-                .Must(BeAValidUrl).WithMessage("Resource URL is not valid.");
         }
-
-        private bool BeAValidUrl(string? url)
-        {
-            if (string.IsNullOrEmpty(url)) return true;
-            Uri uriResult;
-            return Uri.TryCreate(url, UriKind.Absolute, out uriResult)
-                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-        }
-
-
     }
 }
 
