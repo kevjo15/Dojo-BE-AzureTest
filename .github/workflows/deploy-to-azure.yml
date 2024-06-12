@@ -1,14 +1,14 @@
-name: Build and Deploy to Azure Web App 🚀
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy ASP.Net Core app to Azure Web App - dojo-BE-FE-webapp
 
 on:
   push:
     branches:
-      - production
+      - development
+  workflow_dispatch:
 
-env:
- ROOT_DIRECTORY_PATH: 'infinet-code'
- AZURE_APP_NAME: 'infinetcode-project-dojo-api'
- APP_NAME: 'dojo-be-api'
 jobs:
   build:
     runs-on: windows-latest
@@ -16,42 +16,50 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core 🛠️
+      - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '8.x'
           include-prerelease: true
 
-      - name: Build the App 🏗️
+      - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: Compile and Package the App 📦
-        run: dotnet publish -c Release -o ${{env.ROOT_DIRECTORY_PATH}}/${{env.AZURE_APP_NAME}}
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Upload artifact for deployment job ✈️
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: ${{env.APP_NAME}}
-          path: ${{env.ROOT_DIRECTORY_PATH}}/${{env.AZURE_APP_NAME}}
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-azure.outputs.webapp-url }}
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
     steps:
-      - name: Download artifact from build job 📡
+      - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: ${{env.APP_NAME}}
+          name: .net-app
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.__clientidsecretname__ }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
 
-      - name: Deploy to Azure Web App 💸
-        id: deploy-to-azure
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{env.AZURE_APP_NAME}}
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_218D5DC23A5845DA977DD8C4F2B5D69B }}
+          app-name: 'dojo-BE-FE-webapp'
+          slot-name: 'production'
           package: .
