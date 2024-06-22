@@ -95,7 +95,7 @@ namespace Application_Layer.Controllers
 
         [HttpGet]
         [Route("GetAllUsers")]
-        [Authorize(Roles = "Teacher")]
+        //[Authorize(Roles = "Teacher")]
         public async Task<IActionResult> GetAllUsers()
         {
             try
