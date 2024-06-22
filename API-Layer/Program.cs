@@ -18,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("https://happy-dune-054ab800f.5.azurestaticapps.net",
+    options.AddPolicy("AllowFrontEndDevServer",
         builder =>
         {
             builder.WithOrigins("http://localhost:5173")
