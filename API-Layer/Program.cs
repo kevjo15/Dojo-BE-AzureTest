@@ -15,16 +15,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontEndDevServer",
-        builder =>
-        {
-            builder.WithOrigins("https://happy-dune-054ab800f.5.azurestaticapps.net")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
-});
 
 builder.Services.AddSwaggerGen(c =>
 {
