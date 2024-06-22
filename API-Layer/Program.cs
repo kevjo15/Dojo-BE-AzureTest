@@ -15,6 +15,14 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policyBuilder => policyBuilder.WithOrigins("https://happy-dune-054ab800f.5.azurestaticapps.net")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+});
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -75,6 +83,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
+
+app.UseCors("AllowSpecificOrigin");
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
